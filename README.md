@@ -49,7 +49,22 @@ product page:
 	
 persistent:
 
-	cart
-		inventory added
-		checkout button
-		total
+	cart button link (need an id)
+        review page:
+		    inventory added
+                ability to remove or add additional, if qty availible
+		    total
+            checkout button
+        checkout page:
+            use user data for checkout/order information
+            confirm payment
+            submit button
+                 on complete a timestamp for pickup and thank you message:
+                    cart refreshes empty
+                    remove inventory from selected vendor or equvilant functionality
+
+
+        
+        
+
+
