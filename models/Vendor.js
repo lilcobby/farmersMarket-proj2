@@ -1,5 +1,5 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/connection");
 
 // COMMENT: Vendor model
 
@@ -24,13 +24,13 @@ Vendor.init(
           image_URL: {
                type: DataTypes.STRING,
                allowNull: false,
-          },          
+          },
           user_id: {
                type: DataTypes.INTEGER,
                allowNull: false,
                references: {
-                    model: 'user',
-                    key: 'id',
+                    model: "user",
+                    key: "id",
                },
           },
      },
@@ -39,6 +39,8 @@ Vendor.init(
           timestamps: false,
           freezeTableName: true,
           underscored: true,
-          modelName: 'vendor',
+          modelName: "vendor",
      }
 );
+
+module.exports = Vendor;
