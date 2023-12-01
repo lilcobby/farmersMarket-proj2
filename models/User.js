@@ -36,7 +36,7 @@ User.init(
              },
          },
          cart_id: {
-             type: DataTypes.STRING,
+             type: DataTypes.INTEGER,
              references: {
                  model: 'cart',
                  key: 'id',
