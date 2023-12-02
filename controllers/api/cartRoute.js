@@ -1,7 +1,6 @@
 // COMMENT: Required Dependencies
 const router = require("express").Router();
 const { Cart, CartItem, Product } = require("../../models/index.js");
-const productData = require("../../seeds/productData.js");
 
 // COMMENT: Routes for the baseURL/api/cart endpoint
 

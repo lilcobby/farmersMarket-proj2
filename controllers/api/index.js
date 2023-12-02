@@ -11,7 +11,3 @@ router.use("/products", productRoute);
 
 // COMMENT: Exports the router
 module.exports = router;
-
-// COMMENT: Required Dependencies
-const router = require("express").Router();
-const userRoute = require("./userRoute.js");
