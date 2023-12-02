@@ -130,7 +130,7 @@ dist
 .pnp.*
 
 #development files not needed in production
-/devFiles
+/devFilesNotUploaded
 
 # Workspace specific files
 .code-workspace
