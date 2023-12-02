@@ -1,8 +1,10 @@
+// COMMENT: Required Dependencies
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 
 class Product extends Model {}
 
+// COMMENT: Product Model
 Product.init(
      {
           id: {

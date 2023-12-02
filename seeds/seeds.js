@@ -9,44 +9,43 @@ const cartItemData = require("./cartItemData.js");
 
 const seedDatabase = async () => {
      try {
-       await sequelize.sync({ force: true });
-   
-       for (let i = 0; i < userData.length; i++) {
-         const newUser = await User.create(userData[i], {
-           individualHooks: true,
-           returning: true,
-         });
-         await Cart.create({ ...cartData[i], user_id: newUser.id });
-       }
-   
-       await Vendor.bulkCreate(vendorData, {
-         individualHooks: true,
-         returning: true,
-       });
-   
-       await Product.bulkCreate(productData, {
-         individualHooks: true,
-         returning: true,
-       });
-   
-       await Sale.bulkCreate(saleData, {
-         individualHooks: true,
-         returning: true,
-       });
-   
-       await CartItem.bulkCreate(cartItemData, {
-         individualHooks: true,
-         returning: true,
-       });
-   
-       console.log("Database seeded successfully.");
-   
-       process.exit(0);
+          await sequelize.sync({ force: true });
+
+          for (let i = 0; i < userData.length; i++) {
+               const newUser = await User.create(userData[i], {
+                    individualHooks: true,
+                    returning: true,
+               });
+          }
+
+          await Vendor.bulkCreate(vendorData, {
+               individualHooks: true,
+               returning: true,
+          });
+
+          await Product.bulkCreate(productData, {
+               individualHooks: true,
+               returning: true,
+          });
+
+          await Sale.bulkCreate(saleData, {
+               individualHooks: true,
+               returning: true,
+          });
+
+          await CartItem.bulkCreate(cartItemData, {
+               individualHooks: true,
+               returning: true,
+          });
+
+          console.log("Database seeded successfully.");
+
+          process.exit(0);
      } catch (err) {
-       console.log("❓ ~ file: seed.js ~ seedDatabase ~ err:", err);
-   
-       process.exit(0);
+          console.log("❌ ~ file: seed.js ~ seedDatabase ~ err:", err);
+
+          process.exit(0);
      }
-   };
-   
-   seedDatabase();
+};
+
+seedDatabase();

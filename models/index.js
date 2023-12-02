@@ -1,3 +1,4 @@
+// COMMENT: Required Dependencies
 const Cart = require("./Cart.js");
 const Product = require("./Product.js");
 const Sale = require("./Sale.js");
@@ -5,6 +6,7 @@ const User = require("./User.js");
 const Vendor = require("./Vendor.js");
 const CartItem = require("./CartItem.js");
 
+// COMMENT: Associations
 Cart.belongsTo(User, {
      foreignKey: "user_id",
 });
