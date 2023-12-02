@@ -4,6 +4,8 @@ CREATE DATABASE market_db;
 
 USE market_db;
 
+-- schema to create the tables, used in development
+
 -- CREATE TABLE user (
 --      id INT AUTO_INCREMENT PRIMARY KEY,
 --      username VARCHAR(255) NOT NULL UNIQUE,
@@ -56,3 +58,17 @@ USE market_db;
 --      FOREIGN KEY (cart_id) REFERENCES cart(id),
 --      FOREIGN KEY (product_id) REFERENCES product(id)
 -- );
+
+-- schema to grab the contents of a cart, used in development of cart route
+-- SELECT 
+--     Product.name,
+--     Product.price,
+--     Product.image_url,
+--     CartItem.quantity,
+--     CartItem.cart_id
+-- FROM 
+--     Product
+-- INNER JOIN 
+--     CartItem ON Product.id = CartItem.product_id
+-- WHERE 
+--     CartItem.cart_id = 1;
