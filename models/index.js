@@ -5,6 +5,7 @@ const Sale = require("./Sale.js");
 const User = require("./User.js");
 const Vendor = require("./Vendor.js");
 const CartItem = require("./CartItem.js");
+const SaleItem = require("./SaleItem.js");
 
 // COMMENT: Associations
 Cart.belongsTo(User, {
@@ -47,4 +48,20 @@ CartItem.belongsTo(Product, {
      foreignKey: "product_id",
 });
 
-module.exports = { Cart, Product, Sale, User, Vendor, CartItem };
+Sale.hasMany(SaleItem, {
+     foreignKey: "sale_id",
+});
+
+SaleItem.belongsTo(Sale, {
+     foreignKey: "sale_id",
+});
+
+Product.hasMany(SaleItem, {
+     foreignKey: "product_id",
+});
+
+SaleItem.belongsTo(Product, {
+     foreignKey: "product_id",
+});
+
+module.exports = { Cart, Product, Sale, User, Vendor, CartItem, SaleItem };

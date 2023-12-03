@@ -4,7 +4,16 @@ const sequelize = require("../config/connection");
 
 // COMMENT: Vendor model
 
-class Vendor extends Model {}
+class Vendor extends Model {
+     async toggleActive() {
+          if (this.isActive) {
+               this.isActive = false;
+          } else {
+               this.isActive = true;
+          }
+          await this.save();
+     }
+}
 
 Vendor.init(
      {
@@ -12,19 +21,18 @@ Vendor.init(
                type: DataTypes.INTEGER,
                allowNull: false,
                primaryKey: true,
-               autoIncrement: true,
           },
           name: {
                type: DataTypes.STRING,
-               allowNull: false,
+               allowNull: true,
           },
           description: {
                type: DataTypes.STRING,
-               allowNull: false,
+               allowNull: true,
           },
           image_URL: {
                type: DataTypes.STRING,
-               allowNull: false,
+               allowNull: true,
           },
           user_id: {
                type: DataTypes.INTEGER,
@@ -33,6 +41,11 @@ Vendor.init(
                     model: "user",
                     key: "id",
                },
+          },
+          is_active: {
+               type: DataTypes.BOOLEAN,
+               allowNull: false,
+               defaultValue: false,
           },
      },
      {

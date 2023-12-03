@@ -2,10 +2,10 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 
-class Sale extends Model {}
+class SaleItem extends Model {}
 
-// COMMENT: Sale Model
-Sale.init(
+// COMMENT: SaleItem Model
+SaleItem.init(
      {
           id: {
                type: DataTypes.INTEGER,
@@ -13,14 +13,26 @@ Sale.init(
                primaryKey: true,
                autoIncrement: true,
           },
-          vendor_id: {
+          sale_id: {
                type: DataTypes.INTEGER,
                allowNull: false,
-               onDelete: "CASCADE",
                references: {
-                    model: "vendor",
+                    model: "sale",
                     key: "id",
                },
+          },
+          product_id: {
+               type: DataTypes.INTEGER,
+               allowNull: false,
+               references: {
+                    model: "product",
+                    key: "id",
+               },
+          },
+          quantity: {
+               type: DataTypes.INTEGER,
+               allowNull: false,
+               defaultValue: 1,
           },
      },
      {
@@ -28,8 +40,8 @@ Sale.init(
           timestamps: false,
           freezeTableName: true,
           underscored: true,
-          modelName: "sale",
+          modelName: "saleItem",
      }
 );
 
-module.exports = Sale;
+module.exports = SaleItem;

@@ -135,3 +135,4 @@ dist
 # Workspace specific files
 .code-workspace
 nodemon.json
+farmersMarket-proj2.code-workspace

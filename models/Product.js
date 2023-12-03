@@ -22,9 +22,9 @@ Product.init(
                allowNull: false,
           },
           price: {
-               type: DataTypes.INTEGER,
+               type: DataTypes.DECIMAL(10, 2),
                allowNull: false,
-          },
+           },
           stock: {
                type: DataTypes.INTEGER,
                allowNull: false,
@@ -40,10 +40,16 @@ Product.init(
           vendor_id: {
                type: DataTypes.INTEGER,
                allowNull: false,
+               onDelete: "CASCADE",
                references: {
                     model: "vendor",
                     key: "id",
                },
+          },
+          isActive: {
+               type: DataTypes.BOOLEAN,
+               allowNull: false,
+               defaultValue: true,
           },
      },
      {

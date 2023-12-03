@@ -1,6 +1,7 @@
 // COMMENT: Required Dependencies
 const { Model, DataTypes } = require("sequelize");
 const Cart = require("./Cart.js");
+const Vendor = require("./Vendor.js");
 const sequelize = require("../config/connection.js");
 const bcrypt = require("bcrypt");
 
@@ -8,6 +9,18 @@ const bcrypt = require("bcrypt");
 class User extends Model {
      checkPassword(loginPw) {
           return bcrypt.compareSync(loginPw, this.password);
+     }
+     async toggleVendor() {
+          if (this.is_vendor) {
+               this.is_vendor = false;
+          } else {
+               this.is_vendor = true;
+               const vendor = await Vendor.findOne({ where: { user_id: this.id } });
+               if (!vendor) {
+                    await Vendor.create({ id: this.id, user_id: this.id });
+               }
+          }
+          await this.save();
      }
 }
 
@@ -37,6 +50,11 @@ User.init(
                     isEmail: true,
                },
           },
+          is_vendor: {
+               type: DataTypes.BOOLEAN,
+               allowNull: false,
+               defaultValue: false,
+          },
      },
      {
           hooks: {
@@ -50,6 +68,10 @@ User.init(
                },
                afterCreate: async (newUserData) => {
                     await Cart.create({ user_id: newUserData.id });
+
+                    if (newUserData.is_vendor) {
+                         await Vendor.create({ id: newUserData.id, user_id: newUserData.id });
+                    }
                },
           },
           sequelize,

@@ -7,7 +7,7 @@ const productData = [
           stock: 10,
           image_url: "http://example.com/product1.jpg",
           categories: "Category1",
-          vendor_id: 1,
+          vendor_id: 3,
      },
      {
           id: "2",
@@ -17,7 +17,7 @@ const productData = [
           stock: 20,
           image_url: "http://example.com/product2.jpg",
           categories: "Category2",
-          vendor_id: 2,
+          vendor_id: 3,
      },
      {
           id: "3",
@@ -27,7 +27,7 @@ const productData = [
           stock: 30,
           image_url: "http://example.com/product3.jpg",
           categories: "Category3",
-          vendor_id: 3,
+          vendor_id: 6,
      },
      {
           id: "4",
@@ -47,6 +47,16 @@ const productData = [
           stock: 50,
           image_url: "http://example.com/product5.jpg",
           categories: "Category5",
+          vendor_id: 4,
+     },
+     {
+          id: "6",
+          name: "Product 6",
+          description: "This is product 6",
+          price: 600,
+          stock: 60,
+          image_url: "http://example.com/product6.jpg",
+          categories: "Category6",
           vendor_id: 5,
      },
 ];
