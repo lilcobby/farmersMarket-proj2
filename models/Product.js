@@ -2,7 +2,12 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 
-class Product extends Model {}
+class Product extends Model {
+     async toggleActive() {
+          this.is_active = !this.is_active;
+          await this.save();
+     }
+}
 
 // COMMENT: Product Model
 Product.init(
@@ -22,7 +27,7 @@ Product.init(
                allowNull: false,
           },
           price: {
-               type: DataTypes.INTEGER,
+               type: DataTypes.DECIMAL(10, 2),
                allowNull: false,
           },
           stock: {
@@ -33,17 +38,28 @@ Product.init(
                type: DataTypes.STRING,
                allowNull: false,
           },
-          categories: {
-               type: DataTypes.STRING,
+          category_id: {
+               type: DataTypes.INTEGER,
                allowNull: false,
+               defaultValue: 20,
+               references: {
+                    model: "category",
+                    key: "id",
+               },
           },
           vendor_id: {
                type: DataTypes.INTEGER,
                allowNull: false,
+               onDelete: "CASCADE",
                references: {
                     model: "vendor",
                     key: "id",
                },
+          },
+          is_active: {
+               type: DataTypes.BOOLEAN,
+               allowNull: false,
+               defaultValue: true,
           },
      },
      {

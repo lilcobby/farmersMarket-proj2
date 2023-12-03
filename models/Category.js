@@ -1,11 +1,9 @@
-// COMMENT: Required Dependencies
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 
-class Sale extends Model {}
+class Category extends Model {}
 
-// COMMENT: Sale Model
-Sale.init(
+Category.init(
      {
           id: {
                type: DataTypes.INTEGER,
@@ -13,14 +11,13 @@ Sale.init(
                primaryKey: true,
                autoIncrement: true,
           },
-          vendor_id: {
-               type: DataTypes.INTEGER,
+          name: {
+               type: DataTypes.STRING,
                allowNull: false,
-               onDelete: "CASCADE",
-               references: {
-                    model: "vendor",
-                    key: "id",
-               },
+          },
+          description: {
+               type: DataTypes.STRING,
+               allowNull: false,
           },
      },
      {
@@ -28,8 +25,8 @@ Sale.init(
           timestamps: false,
           freezeTableName: true,
           underscored: true,
-          modelName: "sale",
+          modelName: "category",
      }
 );
 
-module.exports = Sale;
+module.exports = Category;

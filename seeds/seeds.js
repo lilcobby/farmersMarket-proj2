@@ -1,24 +1,29 @@
 const sequelize = require("../config/connection.js");
-const { User, Vendor, Product, Cart, Sale, CartItem } = require("../models/index.js");
+const { User, Vendor, Product, Cart, Sale, CartItem, SaleItem, Category } = require("../models/index.js");
 const userData = require("./userData.js");
 const vendorData = require("./vendorData.js");
 const productData = require("./productData.js");
-const cartData = require("./cartData.js");
 const saleData = require("./saleData.js");
 const cartItemData = require("./cartItemData.js");
+const saleItemData = require("./saleItemData.js");
+const categoryData = require("./categoryData.js");
 
 const seedDatabase = async () => {
      try {
           await sequelize.sync({ force: true });
 
           for (let i = 0; i < userData.length; i++) {
-               const newUser = await User.create(userData[i], {
-                    individualHooks: true,
-                    returning: true,
-               });
+               const newUser = await User.create(userData[i]);
           }
 
-          await Vendor.bulkCreate(vendorData, {
+          for (let i = 0; i < vendorData.length; i++) {
+               await Vendor.update(vendorData[i], {
+                    where: {
+                         id: vendorData[i].id,
+                    },
+               });
+          }
+          await Category.bulkCreate(categoryData, {
                individualHooks: true,
                returning: true,
           });
@@ -38,7 +43,12 @@ const seedDatabase = async () => {
                returning: true,
           });
 
-          console.log("Database seeded successfully.");
+          await SaleItem.bulkCreate(saleItemData, {
+               individualHooks: true,
+               returning: true,
+          });
+
+          await console.log("Database seeded successfully.");
 
           process.exit(0);
      } catch (err) {

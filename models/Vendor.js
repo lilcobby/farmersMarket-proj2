@@ -1,10 +1,24 @@
 // COMMENT: Required Dependencies
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
+const Product = require("./Product.js");
 
 // COMMENT: Vendor model
 
-class Vendor extends Model {}
+class Vendor extends Model {
+     async toggleActive() {
+          this.is_active = !this.is_active;
+          await this.save();
+
+          if (!this.is_active) {
+               const products = await Product.findAll({ where: { vendor_id: this.id } });
+               for (let product of products) {
+                    product.is_active = this.is_active;
+                    await product.save();
+               }
+          }
+     }
+}
 
 Vendor.init(
      {
@@ -12,19 +26,18 @@ Vendor.init(
                type: DataTypes.INTEGER,
                allowNull: false,
                primaryKey: true,
-               autoIncrement: true,
           },
           name: {
                type: DataTypes.STRING,
-               allowNull: false,
+               allowNull: true,
           },
           description: {
                type: DataTypes.STRING,
-               allowNull: false,
+               allowNull: true,
           },
           image_URL: {
                type: DataTypes.STRING,
-               allowNull: false,
+               allowNull: true,
           },
           user_id: {
                type: DataTypes.INTEGER,
@@ -33,6 +46,11 @@ Vendor.init(
                     model: "user",
                     key: "id",
                },
+          },
+          is_active: {
+               type: DataTypes.BOOLEAN,
+               allowNull: false,
+               defaultValue: false,
           },
      },
      {
