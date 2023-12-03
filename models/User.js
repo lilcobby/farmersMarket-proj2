@@ -11,10 +11,8 @@ class User extends Model {
           return bcrypt.compareSync(loginPw, this.password);
      }
      async toggleVendor() {
+          this.is_vendor = !this.is_vendor;
           if (this.is_vendor) {
-               this.is_vendor = false;
-          } else {
-               this.is_vendor = true;
                const vendor = await Vendor.findOne({ where: { user_id: this.id } });
                if (!vendor) {
                     await Vendor.create({ id: this.id, user_id: this.id });

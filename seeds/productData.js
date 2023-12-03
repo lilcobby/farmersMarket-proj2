@@ -58,6 +58,7 @@ const productData = [
           image_url: "http://example.com/product6.jpg",
           categories: "Category6",
           vendor_id: 5,
+          is_active: false,
      },
 ];
 

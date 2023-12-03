@@ -6,6 +6,7 @@ const tableProperties = {
           username: string,
           password: string,
           email: string,
+          is_vendor: boolean,
      },
      cart: {
           id: integer,
@@ -17,11 +18,10 @@ const tableProperties = {
           description: string,
           image_URL: string,
           user_id: integer,
+          is_active: boolean,
      },
      sale: {
           id: integer,
-          user_id: integer,
-          product_id: integer,
           vendor_id: integer,
      },
      product: {
@@ -31,8 +31,25 @@ const tableProperties = {
           price: integer,
           stock: integer,
           image_url: string,
-          categories: string,
+          category_id: integer,
           vendor_id: integer,
+     },
+     sale_item: {
+          id: integer,
+          sale_id: integer,
+          product_id: integer,
+          quantity: integer,
+     },
+     cart_item: {
+          id: integer,
+          cart_id: integer,
+          product_id: integer,
+          quantity: integer,
+     },
+     category: {
+          id: integer,
+          name: string,
+          description: string,
      },
 };
 
@@ -65,10 +82,8 @@ const UserMethods = {
           return bcrypt.compareSync(loginPw, this.password);
      },
      async toggleVendor() {
+          this.is_vendor = !this.is_vendor;
           if (this.is_vendor) {
-               this.is_vendor = false;
-          } else {
-               this.is_vendor = true;
                const vendor = await Vendor.findOne({ where: { user_id: this.id } });
                if (!vendor) {
                     await Vendor.create({ id: this.id, user_id: this.id });
@@ -80,11 +95,41 @@ const UserMethods = {
 
 const VendorMethods = {
      async toggleActive() {
-          if (this.isActive) {
-               this.isActive = false;
-          } else {
-               this.isActive = true;
+          this.is_active = !this.is_active;
+          await this.save();
+
+          if (!this.is_active) {
+               const products = await Product.findAll({ where: { vendor_id: this.id } });
+               for (let product of products) {
+                    product.is_active = this.is_active;
+                    await product.save();
+               }
           }
+     },
+};
+
+const ProductMethods = {
+     async toggleActive() {
+          this.is_active = !this.is_active;
           await this.save();
      },
 };
+
+// COMMENT: helper functions
+const withAuth = (req, res, next) => {
+     // If the user is not logged in, redirect the request to the login route
+     if (!req.session.loggedIn) {
+          res.redirect("/login");
+     } else {
+          next();
+     }
+};
+
+function isAdmin(req, res, next) {
+     if (req.session && req.session.user && req.session.user.isAdmin) {
+          next(); // If the user is an admin, proceed to the next middleware or route handler
+     } else {
+          res.status(403).json({ message: "Forbidden: You do not have the necessary permissions" });
+     }
+}
+

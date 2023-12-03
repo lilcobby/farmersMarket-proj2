@@ -1,17 +1,22 @@
 // COMMENT: Required Dependencies
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
+const Product = require("./Product.js");
 
 // COMMENT: Vendor model
 
 class Vendor extends Model {
      async toggleActive() {
-          if (this.isActive) {
-               this.isActive = false;
-          } else {
-               this.isActive = true;
-          }
+          this.is_active = !this.is_active;
           await this.save();
+
+          if (!this.is_active) {
+               const products = await Product.findAll({ where: { vendor_id: this.id } });
+               for (let product of products) {
+                    product.is_active = this.is_active;
+                    await product.save();
+               }
+          }
      }
 }
 

@@ -1,12 +1,12 @@
 const sequelize = require("../config/connection.js");
-const { User, Vendor, Product, Cart, Sale, CartItem, SaleItem } = require("../models/index.js");
+const { User, Vendor, Product, Cart, Sale, CartItem, SaleItem, Category } = require("../models/index.js");
 const userData = require("./userData.js");
 const vendorData = require("./vendorData.js");
 const productData = require("./productData.js");
-const cartData = require("./cartData.js");
 const saleData = require("./saleData.js");
 const cartItemData = require("./cartItemData.js");
 const saleItemData = require("./saleItemData.js");
+const categoryData = require("./categoryData.js");
 
 const seedDatabase = async () => {
      try {
@@ -23,6 +23,10 @@ const seedDatabase = async () => {
                     },
                });
           }
+          await Category.bulkCreate(categoryData, {
+               individualHooks: true,
+               returning: true,
+          });
 
           await Product.bulkCreate(productData, {
                individualHooks: true,
@@ -44,7 +48,7 @@ const seedDatabase = async () => {
                returning: true,
           });
 
-          console.log("Database seeded successfully.");
+          await console.log("Database seeded successfully.");
 
           process.exit(0);
      } catch (err) {

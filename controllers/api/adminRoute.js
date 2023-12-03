@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { User, Vendor, Product, Sale, Cart, CartItem, SaleItem } = require("../../models/index.js");
+const { User, Vendor, Product, Sale, Cart, CartItem, SaleItem, Category } = require("../../models/index.js");
 const { isAdmin } = require("../../utils/auth.js");
 
 // COMMENT: api/admin endpoint
@@ -185,6 +185,23 @@ router.get("/allCarts", async (req, res) => {
                return;
           }
           res.status(200).json(cartItemData);
+     } catch (err) {
+          res.status(500).json({ errMessage: err.message });
+     }
+});
+
+// COMMENt: Route to get all categories
+// [x]: Works in Insomnia
+router.get("/allCategories", async (req, res) => {
+     // TODO: add an isAdmin middleware to the route once login homepage is working or get rid of it
+     try {
+          const categoryData = await Category.findAll();
+          if (categoryData.length === 0) {
+               res.status(404).json({ errMessage: "No categories found" });
+               return;
+          }
+
+          res.status(200).json(categoryData);
      } catch (err) {
           res.status(500).json({ errMessage: err.message });
      }
