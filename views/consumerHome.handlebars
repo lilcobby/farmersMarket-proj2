@@ -1,1 +1,10 @@
-{{!-- consumer homepage, shows every vendor --}}
+{{! consumer homepage, shows every vendor }}
+{{! randomize 2 or so and render just those }}
+<div>
+  <h2>Checkout this Hot Vendor!</h2>
+
+  <p>{{randomVendor.description}}</p>
+  <p> <a href="/products/{{id}}"> {{randomVendor.name}}</a> </p>
+  <p> {{randomVendor.image_URL}}</p>
+
+</div>

@@ -1,1 +1,11 @@
-{{!-- shows products owned by specific vendor and add to cart --}}
+{{! shows products owned by specific vendor and add to cart }}
+
+<div>
+  {{#each products}}
+    <p>Description: {{description}}</p>
+    <p>Name:  {{name}}</a> </p>
+    <p>Price: {{price}} </p>
+    <p>Quantity: {{stock}} </p>
+    <button>add to cart</button>
+  {{/each}}
+</div>
