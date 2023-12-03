@@ -46,7 +46,7 @@ Product.init(
                     key: "id",
                },
           },
-          isActive: {
+          is_active: {
                type: DataTypes.BOOLEAN,
                allowNull: false,
                defaultValue: true,
