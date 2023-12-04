@@ -46,6 +46,7 @@ const userData = [
           email: "u@example.com",
           cart_id: 6,
           is_vendor: true,
+          is_admin: true,
      },
 ];
 
