@@ -13,6 +13,18 @@ const {
 
 const withAuth = require("../utils/auth");
 
+// vendor home page
+// what i need: vendor id, name, products, sales,
+
+// router.get("/profile/:id", async (req, res) => {
+//   try {
+//  const vendorHome = await fetch("/api/vendors/profile/:id") req.params.id
+
+//     res.render("vendorHome", { vendorData, name, price, stock });
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 // get request to /
 
 router.get("/", async (req, res) => {
@@ -92,6 +104,7 @@ router.get("/login", async (req, res) => {
 // reroute to products owned by vendor
 router.get("/products/:id", async (req, res) => {
   try {
+    
     const prodData = await Product.findAll({
       where: { vendor_id: req.params.id },
 
