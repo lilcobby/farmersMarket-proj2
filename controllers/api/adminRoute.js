@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { User, Vendor, Product, Sale, Cart, CartItem, SaleItem, Category } = require("../../models/index.js");
-const { isAdmin } = require("../../utils/auth.js");
+const { isAdmin, withAuth } = require("../../utils/auth.js");
 
 // COMMENT: api/admin endpoint
 
