@@ -11,6 +11,8 @@ router.get("/", async (req, res) => {
 });
 module.exports = router;
 
+
+
 /* COMMENT: 
       made a change to the product table to include a is_active column so that vendors can toggle their products on and off
       
