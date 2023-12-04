@@ -34,7 +34,7 @@ router.post("/", async (req, res) => {
           req.session.save((err) => {
                req.session.user_id = userData.id;
                req.session.logged_in = true;
-               req.sessionn.save((err) => {
+               req.session.save((err) => {
                     if (err) {
                          res.status(500).json(err);
                     } else {
