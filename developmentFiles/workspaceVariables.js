@@ -57,6 +57,7 @@ const sessionVariables = {
      sessionID: req.session.user_id,
      sessionVendorID: req.session.vendor_id,
      sessionLoggedIn: req.session.logged_in,
+     sessionIsAdmin: req.session.user.is_admin,
 };
 
 const UserHooks = {
@@ -118,7 +119,7 @@ const ProductMethods = {
 // COMMENT: helper functions
 const withAuth = (req, res, next) => {
      // If the user is not logged in, redirect the request to the login route
-     if (!req.session.loggedIn) {
+     if (!req.session.logged_in) {
           res.redirect("/login");
      } else {
           next();
