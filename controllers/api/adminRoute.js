@@ -165,7 +165,7 @@ router.get("/allSales", async (req, res) => {
 
 // COMMENT: Route to get all carts by cart items
 // [x]: Works in Insomnia
-router.get("/allCarts", async (req, res) => {
+router.get("/allCartItems", async (req, res) => {
      // TODO: add an isAdmin middleware to the route once login homepage is working or get rid of it
      try {
           const cartItemData = await CartItem.findAll({
@@ -202,6 +202,43 @@ router.get("/allCategories", async (req, res) => {
           }
 
           res.status(200).json(categoryData);
+     } catch (err) {
+          res.status(500).json({ errMessage: err.message });
+     }
+});
+
+// TODO: add a route to get all users and their carts
+router.get("/allUsersAndCarts", async (req, res) => {
+     // TODO: add an isAdmin middleware to the route once login homepage is working or get rid of it
+     try {
+          const userData = await User.findAll({
+               include: [
+                    {
+                         model: Cart,
+                         include: [
+                              {
+                                   model: CartItem,
+                                   include: [
+                                        {
+                                             model: Product,
+                                             attributes: ["name"],
+                                             include: {
+                                                  model: Vendor,
+                                                  attributes: ["name"],
+                                             },
+                                        },
+                                   ],
+                              },
+                         ],
+                    },
+               ],
+          });
+          if (userData.length === 0) {
+               res.status(404).json({ errMessage: "No users found" });
+               return;
+          }
+
+          res.status(200).json(userData);
      } catch (err) {
           res.status(500).json({ errMessage: err.message });
      }
