@@ -65,8 +65,10 @@ router.put("/isVendor", withAuth, async (req, res) => {
           await vendorData.toggleActive();
           await vendorData.reload();
           if (vendorData.is_active) {
+               req.session.is_vendor = true;
                res.status(200).json({ message: "You are now a vendor!" });
           } else {
+               req.session.is_vendor = false;
                res.status(200).json({ message: "You are no longer an active vendor!" });
           }
      } catch (err) {

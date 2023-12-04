@@ -57,7 +57,7 @@ const sessionVariables = {
      sessionID: req.session.user_id,
      sessionVendorID: req.session.vendor_id,
      sessionLoggedIn: req.session.logged_in,
-     sessionIsAdmin: req.session.user.is_admin,
+     sessionIsAdmin: req.session.is_admin,
 };
 
 const UserHooks = {
