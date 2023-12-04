@@ -15,18 +15,32 @@ router.post("/", async (req, res) => {
      // res.status(200).json({ yes: "yes" });
      try {
           const userData = await User.create(req.body);
+          if (req.body.is_vendor) {
+               req.session.save(() => {
+                    req.session.user_id = userData.id;
+                    req.session.logged_in = true;
+                    req.session.is_vendor = true;
+                    req.session.save((err) => {
+                         if (err) {
+                              res.status(500).json(err);
+                         } else {
+                              res.status(200).json(userData);
+                         }
+                    });
+                    //  res.status(200).json(userData);
+               });
+          }
 
-          req.session.save(() => {
+          req.session.save((err) => {
                req.session.user_id = userData.id;
                req.session.logged_in = true;
-               req.session.save((err) => {
+               req.sessionn.save((err) => {
                     if (err) {
                          res.status(500).json(err);
                     } else {
                          res.status(200).json(userData);
                     }
                });
-               //  res.status(200).json(userData);
           });
      } catch (err) {
           res.status(400).json(err);
@@ -63,6 +77,7 @@ router.post("/login", async (req, res) => {
                     req.session.user_id = userData.id;
                     req.session.logged_in = true;
                     req.session.is_admin = true;
+                    req.session.is_vendor = true;
                     res.status(200).json({ user: userData, message: "You are now logged in as an admin!" });
                });
                return;
@@ -71,6 +86,7 @@ router.post("/login", async (req, res) => {
           req.session.save(() => {
                req.session.user_id = userData.id;
                req.session.logged_in = true;
+               req.session.is_vendor = userData.is_vendor;
 
                res.status(200).json({ user: userData, message: "You are now logged in!" });
           });
