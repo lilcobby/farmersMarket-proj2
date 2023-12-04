@@ -9,7 +9,7 @@ const withAuth = (req, res, next) => {
 };
 
 function isAdmin(req, res, next) {
-     if (req.session.user.is_admin) {
+     if (req.session.is_admin) {
           next(); // If the user is an admin, proceed to the next middleware or route handler
      } else {
           res.status(403).json({ message: "Forbidden: You do not have the necessary permissions" });
