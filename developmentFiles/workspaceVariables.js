@@ -117,6 +117,22 @@ const ProductMethods = {
      },
 };
 
+const CartItemMethods = {
+     afterCreate: async (cartItem, options) => {
+          const product = await Product.findByPk(cartItem.product_id);
+          product.stock -= cartItem.quantity;
+          await product.save();
+     },
+     afterUpdate: async (cartItem, options) => {
+          if (cartItem.quantity !== cartItem._previousDataValues.quantity) {
+               const product = await Product.findByPk(cartItem.product_id);
+               const quantityChange = cartItem._previousDataValues.quantity - cartItem.quantity;
+               product.stock += quantityChange;
+               await product.save();
+          }
+     },
+};
+
 // COMMENT: helper functions
 const withAuth = (req, res, next) => {
      // If the user is not logged in, redirect the request to the login route
@@ -128,10 +144,9 @@ const withAuth = (req, res, next) => {
 };
 
 function isAdmin(req, res, next) {
-     if (req.session && req.session.user && req.session.user.isAdmin) {
+     if (req.session.is_admin) {
           next(); // If the user is an admin, proceed to the next middleware or route handler
      } else {
           res.status(403).json({ message: "Forbidden: You do not have the necessary permissions" });
      }
 }
-

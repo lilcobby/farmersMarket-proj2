@@ -1,6 +1,7 @@
 // COMMENT: Required Dependencies
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
+const Product = require("./Product");
 
 class CartItem extends Model {}
 
@@ -42,6 +43,22 @@ CartItem.init(
           freezeTableName: true,
           underscored: true,
           modelName: "cartItem",
+          hooks: {
+               // TODO: In future, change this to add and subtract from a field in the product table that keeps track of cart items that are in the cart so vendor knows how many items are in carts but still technically in stock
+               afterCreate: async (cartItem, options) => {
+                    const product = await Product.findByPk(cartItem.product_id);
+                    product.stock -= cartItem.quantity;
+                    await product.save();
+               },
+               afterUpdate: async (cartItem, options) => {
+                    if (cartItem.quantity !== cartItem._previousDataValues.quantity) {
+                         const product = await Product.findByPk(cartItem.product_id);
+                         const quantityChange = cartItem._previousDataValues.quantity - cartItem.quantity;
+                         product.stock += quantityChange;
+                         await product.save();
+                    }
+               },
+          },
      }
 );
 
