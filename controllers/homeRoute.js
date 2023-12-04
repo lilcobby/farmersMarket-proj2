@@ -38,12 +38,12 @@ router.get("/", async (req, res) => {
       vendorDataRd[Math.floor(Math.random() * vendorDataRd.length)];
 
     // Pass random vendor
-
+    const logged_in = req.session.logged_in;
     res.render("consumerHome", {
       // serialize
       randomVendor: randomVendor.get({ plain: true }),
 
-      logged_in: req.session.logged_in,
+      logged_in,
     });
   } catch (err) {
     res.status(500).json(err);
@@ -104,7 +104,6 @@ router.get("/login", async (req, res) => {
 // reroute to products owned by vendor
 router.get("/products/:id", async (req, res) => {
   try {
-    
     const prodData = await Product.findAll({
       where: { vendor_id: req.params.id },
 
