@@ -66,17 +66,18 @@ router.post("/:id", async (req, res) => {
                          },
                     ],
                });
-
-               const subtractFromStock = await Product.update(
-                    {
-                         stock: req.body.stock - req.body.quantity,
-                    },
-                    {
-                         where: {
-                              id: req.body.product_id,
-                         },
-                    }
-               );
+/* COMMENT: going to try and put this as a helper function in the model // TODO: do this
+      
+                     const subtractFromStock = await Product.update(
+                          {
+                               stock: req.body.stock - req.body.quantity,
+                          },
+                          {
+                               where: {
+                                    id: req.body.product_id,
+                               },
+                          }
+                     ); */
 
                res.status(200).json(
                     "The quantity of '" +
