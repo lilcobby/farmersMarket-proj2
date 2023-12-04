@@ -67,6 +67,17 @@ router.post("/:id", async (req, res) => {
                     ],
                });
 
+               const subtractFromStock = await Product.update(
+                    {
+                         stock: req.body.stock - req.body.quantity,
+                    },
+                    {
+                         where: {
+                              id: req.body.product_id,
+                         },
+                    }
+               );
+
                res.status(200).json(
                     "The quantity of '" +
                          updatedProduct.dataValues.product.name +
@@ -157,5 +168,7 @@ router.delete("/clear/:id", async (req, res) => {
           res.status(500).json({ errMessage: err.message });
      }
 });
+
+
 
 module.exports = router;
