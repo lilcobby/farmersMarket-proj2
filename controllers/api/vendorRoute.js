@@ -1,6 +1,6 @@
 // COMMENT: imports the required modules
 const router = require("express").Router();
-const { Vendor, User, Product } = require("../../models/index.js");
+const { Vendor, User, Product, Sale, SaleItem } = require("../../models/index.js");
 const { withAuth } = require("../../utils/auth.js");
 
 // COMMENT: Routes for the baseURL/api/vendors endpoint
@@ -10,10 +10,11 @@ const { withAuth } = require("../../utils/auth.js");
 router.get("/profile", withAuth, async (req, res) => {
      try {
           const vendorData = await Vendor.findOne({
-               where: { user_id: req.session.user_id },
+               where: { user_id: req.session.user_id, is_active: true },
           });
-          if (!vendorData) {
-               res.status(404).json({ message: "You are not a vendor." });
+          // TODO: if is_active is false, send a message that the vendor is not active
+          if (!vendorData.is_active) {
+               res.status(404).json({ message: "You are not an active vendor." });
                return;
           }
           res.status(200).json(vendorData);
@@ -27,7 +28,7 @@ router.get("/profile", withAuth, async (req, res) => {
 router.get("/products", withAuth, async (req, res) => {
      try {
           const vendorData = await Vendor.findOne({
-               where: { user_id: req.session.user_id },
+               where: { user_id: req.session.user_id, is_active: true },
           });
           if (!vendorData) {
                res.status(404).json({ message: "You are not a vendor." });
@@ -95,7 +96,7 @@ reqBody = {
 router.put("/profile", withAuth, async (req, res) => {
      try {
           const vendorData = await Vendor.findOne({
-               where: { id: req.session.user_id },
+               where: { id: req.session.user_id, is_active: true },
           });
           if (!vendorData) {
                res.status(404).json({ message: "No vendor found with this id!" });
@@ -140,7 +141,7 @@ router.put("/profile", withAuth, async (req, res) => {
 router.post("/addProduct", withAuth, async (req, res) => {
      try {
           const vendorData = await Vendor.findOne({
-               where: { id: req.session.user_id },
+               where: { id: req.session.user_id, is_active: true },
           });
           if (!vendorData) {
                res.status(404).json({ message: "No vendor found with this id!" });
@@ -198,7 +199,7 @@ router.put("/products/:id", withAuth, async (req, res) => {
                return;
           }
           const vendorData = await Vendor.findOne({
-               where: { id: req.session.user_id },
+               where: { id: req.session.user_id, is_active: true },
           });
 
           if (!vendorData) {
@@ -280,7 +281,7 @@ router.delete("/products/:id", withAuth, async (req, res) => {
      // COMMENT: req.params.id is the product_id
      try {
           const vendorData = await Vendor.findOne({
-               where: { id: req.session.user_id },
+               where: { id: req.session.user_id, is_active: true },
           });
 
           if (!vendorData) {
@@ -300,6 +301,40 @@ router.delete("/products/:id", withAuth, async (req, res) => {
           await existingVendorProduct.destroy();
 
           res.status(200).json({ message: "Product deleted successfully!" });
+     } catch (err) {
+          res.status(500).json({ errMessage: err.message });
+     }
+});
+
+// COMMENT: Route to get a vendor's sales
+router.get("/sales", withAuth, async (req, res) => {
+     try {
+          const vendorData = await Vendor.findOne({
+               where: { user_id: req.session.user_id, is_active: true },
+          });
+          if (!vendorData) {
+               res.status(404).json({ message: "You are not a vendor." });
+               return;
+          }
+          const saleData = await Sale.findAll({
+               where: { vendor_id: vendorData.id },
+               include: [
+                    {
+                         model: SaleItem,
+                         include: [
+                              {
+                                   model: Product,
+                                   attributes: ["name", "description", "price", "stock", "image_url"],
+                              },
+                         ],
+                    },
+               ],
+          });
+          if (saleData.length === 0) {
+               res.status(404).json({ message: "You have no sales." });
+               return;
+          }
+          res.status(200).json(saleData);
      } catch (err) {
           res.status(500).json({ errMessage: err.message });
      }

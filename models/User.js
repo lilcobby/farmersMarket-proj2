@@ -68,7 +68,11 @@ User.init(
                     await Cart.create({ user_id: newUserData.id });
 
                     if (newUserData.is_vendor) {
-                         await Vendor.create({ id: newUserData.id, user_id: newUserData.id });
+                         await Vendor.create({ id: newUserData.id, user_id: newUserData.id, is_active: true });
+                    }
+
+                    if (!newUserData.is_vendor) {
+                         await Vendor.create({ id: newUserData.id, user_id: newUserData.id, is_active: false });
                     }
                },
           },
