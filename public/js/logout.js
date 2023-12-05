@@ -2,7 +2,7 @@ const logoutButtonHandler = async () => {
   await fetch("api/users/logout", {
     method: "POST",
   });
-  window.location.reload();
+  window.location.href = "/";
 };
 
 const logoutbtn = document.querySelector("#logout");
