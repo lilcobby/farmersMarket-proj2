@@ -25,12 +25,20 @@ router.get("/profile", withAuth, async (req, res) => {
       res.status(404).json({ message: "You are not a vendor." });
       return;
     }
+    const productData = await Product.findAll({
+      where: { vendor_id: req.session.user_id },
+    });
+    const newData = productData.map((products) =>
+      products.get({ plain: true })
+    );
+    console.log(newData);
     const logged_in = req.session.logged_in;
-    res.render("vendorHome", { vendorData, logged_in });
+    res.render("vendorHome", { vendorData, logged_in, newData });
   } catch (err) {
     res.status(500).json({ errMessage: err.message });
   }
 });
+
 // get request to /
 
 router.get("/", async (req, res) => {

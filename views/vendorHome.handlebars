@@ -45,8 +45,51 @@
 
 </div>
 {{! edit product likely redirect }}
-<p>edit product form not super positive how to do this one</p>
+<div>
+  <form>
+    <div >
+      <label>edit view:</label>
+      <input class="box" id="toggleBox" type="checkbox">
+    </div>
+    
+  </form>
+ <div id="test">
+  {{#each newData}}
+    <form id="devView">
+      <div>
+        <label>Description:</label>
+        <input class="desc" value="{{description}}">
+      </div>
+       <div>
+        <label>Name:</label>
+        <input class="Nam" value="{{name}}">
+      </div>
+       <div>
+        <label>Price:</label>
+        <input class="Pric" value="{{price}}">
+      </div>
+       <div>
+        <label>Quantity:</label>
+        <input class="Quant" value="{{stock}}">
+      </div>
+      <div><button>edit</button></div>
+      
+      </form>
+  {{/each}}
+  </div>
+  <div id="normal">
+    {{#each newData}}
+    <div >
+    <p>Description: {{description}}</p>
+    <p>Name: {{name}} </p>
+    <p>Price: {{price}}</p>
+    <p>Quantity: {{stock}}</p>
+    </div>
+    {{/each}}
+    </div>
+ </div>
 
 
+<script src = "/js/editForm.js"></script>
 
 
