@@ -25,6 +25,14 @@ Sale.belongsTo(Vendor, {
      foreignKey: "vendor_id",
 });
 
+Sale.belongsTo(User, {
+     foreignKey: "user_id",
+});
+
+User.hasMany(Sale, {
+     foreignKey: "user_id",
+});
+
 Vendor.hasMany(Product, {
      foreignKey: "vendor_id",
 });
