@@ -21,6 +21,9 @@
           <button>Categories</button>
 
           {{#if logged_in}}
+            {{#if is_vendor}}
+              <a href="/profile">vendors Home</a>
+            {{/if}}
 
             <button class="button">Cart</button>
 
@@ -41,7 +44,9 @@
       <main>
 
         {{{body}}}
+
         <script src="/js/logout.js"></script>
+
       </main>
 
       <footer>

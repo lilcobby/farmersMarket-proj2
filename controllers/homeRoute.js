@@ -11,20 +11,26 @@ const {
   Category,
 } = require("../models/index.js");
 
-const withAuth = require("../utils/auth");
+const { withAuth } = require("../utils/auth.js");
 
 // vendor home page
 // what i need: vendor id, name, products, sales,
 
-// router.get("/profile/:id", async (req, res) => {
-//   try {
-//  const vendorHome = await fetch("/api/vendors/profile/:id") req.params.id
-
-//     res.render("vendorHome", { vendorData, name, price, stock });
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+router.get("/profile", withAuth, async (req, res) => {
+  try {
+    const vendorData = await Vendor.findOne({
+      where: { user_id: req.session.user_id },
+    });
+    if (!vendorData) {
+      res.status(404).json({ message: "You are not a vendor." });
+      return;
+    }
+    const logged_in = req.session.logged_in;
+    res.render("vendorHome", { vendorData, logged_in });
+  } catch (err) {
+    res.status(500).json({ errMessage: err.message });
+  }
+});
 // get request to /
 
 router.get("/", async (req, res) => {
@@ -38,12 +44,15 @@ router.get("/", async (req, res) => {
       vendorDataRd[Math.floor(Math.random() * vendorDataRd.length)];
 
     // Pass random vendor
+    const user_id = req.session.user_id;
+    const is_vendor = req.session.is_vendor;
     const logged_in = req.session.logged_in;
     res.render("consumerHome", {
       // serialize
       randomVendor: randomVendor.get({ plain: true }),
-
+      user_id,
       logged_in,
+      is_vendor,
     });
   } catch (err) {
     res.status(500).json(err);
