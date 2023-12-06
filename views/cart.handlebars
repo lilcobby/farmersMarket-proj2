@@ -1,1 +1,45 @@
-<p>cart page</p>
+<div>
+  <form>
+    <div>
+      <label>Update cart:</label>
+      <input class="box" id="toggleCart" type="checkbox" />
+    </div>
+  </form>
+</div>
+
+<div>
+  <form>
+    {{#each cart}}
+      <div>
+        <div>{{product.image_url}}</div>
+        <div>
+          <p>{{product.name}}</p>
+          <p>Price:{{product.price}}</p>
+          <div class="display">
+            <label>Quantity:</label>
+            <p>{{quantity}}</p>
+          </div>
+          <div class="hidden" data-id="{{product.id}}">
+            <label>Quantity:</label>
+            <input
+              class="quant"
+              id="newQuant{{product.id}}"
+              value="{{quantity}}"
+              type="number"
+              min="1"
+            />
+            <button
+              id="updateCart"
+              type="submit"
+              class="updateBtn"
+            >edit</button>
+            <button type="submit">delete</button>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+    <button id="checkoutBtn" type="submit">Checkout</button>
+  </form>
+</div>
+
+<script src="/js/cart.js"></script>

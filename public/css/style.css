@@ -4,3 +4,9 @@
 #normal {
   display: block;
 }
+.hidden {
+  display: none;
+}
+.display {
+  display: block;
+}
