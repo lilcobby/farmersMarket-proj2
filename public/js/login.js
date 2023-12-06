@@ -52,7 +52,7 @@ const signupFormHandler = async (event) => {
       console.log(errorData);
       return;
     }
-    console.log(response);
+    
     document.location.replace("/");
   }
 };

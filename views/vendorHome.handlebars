@@ -55,10 +55,14 @@
   </form>
  <div id="test">
   {{#each newData}}
-    <form id="devView">
+    <form id="devView" data-id="{{id}}">
+      <div >
+        <label>ID:</label>
+        <input class = "ID" value ="{{id}}" readonly>
+      </div>
       <div>
         <label>Description:</label>
-        <input class="desc" value="{{description}}">
+        <input class="Desc" value="{{description}}">
       </div>
        <div>
         <label>Name:</label>
@@ -72,7 +76,7 @@
         <label>Quantity:</label>
         <input class="Quant" value="{{stock}}">
       </div>
-      <div><button>edit</button></div>
+      <div><button >edit</button></div>
       
       </form>
   {{/each}}
@@ -80,6 +84,7 @@
   <div id="normal">
     {{#each newData}}
     <div >
+      <p>id:{{id}}</p>
     <p>Description: {{description}}</p>
     <p>Name: {{name}} </p>
     <p>Price: {{price}}</p>
