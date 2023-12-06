@@ -263,7 +263,7 @@ router.put("/products/:id", withAuth, async (req, res) => {
       req.body.image_url = "https://via.placeholder.com/150";
     }
     if (!req.body.category_id) {
-      req.body.category_id = "Uncategorized";
+      req.body.category_id = 20;
     }
 
     const oldData = {
@@ -312,7 +312,6 @@ router.put("/products/:id", withAuth, async (req, res) => {
       updatedProduct: updatedData,
     });
   } catch (err) {
-    
     res.status(500).json({ errMessage: err.message });
   }
 });
