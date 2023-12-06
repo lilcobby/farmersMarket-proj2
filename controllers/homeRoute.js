@@ -31,7 +31,7 @@ router.get("/profile", withAuth, async (req, res) => {
     const newData = productData.map((products) =>
       products.get({ plain: true })
     );
-    console.log(newData);
+   
     const logged_in = req.session.logged_in;
     res.render("vendorHome", { vendorData, logged_in, newData });
   } catch (err) {
