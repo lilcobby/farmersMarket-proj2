@@ -34,7 +34,7 @@ const formSubmitHandler = async (event) => {
   const name = form.querySelector(".Nam").value;
   const price = parseFloat(form.querySelector(".Pric").value);
   const quant = parseInt(form.querySelector(".Quant").value);
-  const category_id = 20;
+ 
 
   const response = await fetch(`/api/vendors/products/${dataId}`, {
     method: "PUT",
@@ -43,7 +43,7 @@ const formSubmitHandler = async (event) => {
       description: description,
       price: price,
       stock: quant,
-      category_id: category_id,
+     
     }),
     headers: { "Content-Type": "application/json" },
   });
