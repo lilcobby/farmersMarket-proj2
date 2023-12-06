@@ -1,22 +1,39 @@
 {{! consumer homepage, shows every vendor }}
 {{! randomize 2 or so and render just those }}
 <div id="randomVendorDisplay">
-     <h1>Checkout this Hot Vendor!</h1>
-     <div id="randomVendorCard">
-          <img src="{{randomVendor.image_url}}" alt="{{randomVendor.name}} image" />
-          <h1> <a href="/products/{{randomVendor.id}}"> {{randomVendor.name}}</a> </h1>
-          <p class="italic">{{randomVendor.description}}</p>
-     </div>
-
+  <h1>
+    Checkout this Hot Vendor!
+  </h1>
+  <div id="randomVendorCard">
+    <img src="{{randomVendor.image_url}}" alt="{{randomVendor.name}} image" />
+    <h1>
+      <a href="/products/{{randomVendor.id}}">
+        {{randomVendor.name}}
+      </a>
+    </h1>
+    <p class="h1 italic">
+      {{randomVendor.description}}
+    </p>
+  </div>
 </div>
 
 <!-- TODO: append products -->
 
 {{#each products}}
-     <div class="products">
-          <img class="imageBorder smallProductImage" src="{{this.image_url}}" alt="{{this.name}} image" />
-          <h2>{{this.name}}</h2>
-          <p class="italic">{{this.description}}</p>
-          <p>{{this.price}}</p>
-     </div>
+  <div class="products">
+    <img
+      class="imageBorder smallProductImage"
+      src="{{this.image_url}}"
+      alt="{{this.name}} image"
+    />
+    <h2>
+      {{this.name}}
+    </h2>
+    <p class="italic">
+      {{this.description}}
+    </p>
+    <p>
+      {{this.price}}
+    </p>
+  </div>
 {{/each}}
