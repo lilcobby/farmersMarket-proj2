@@ -44,4 +44,7 @@ const newAmountHandler = async (event) => {
 document.querySelectorAll(".updateBtn").forEach((button) => {
   button.addEventListener("click", newAmountHandler);
 });
+
+checkoutBtn.addEventListener("click", (window.location.href = "/checkout"));
 // delete route
+// add to cart function
