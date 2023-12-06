@@ -1,1 +1,31 @@
-<p>cart page</p>
+<div>
+  <form>
+    <div>
+      <label>Update cart:</label>
+      <input class="box" id="toggleCart" type="checkbox" />
+    </div>
+  </form>
+</div>
+
+<div>
+  <form>
+    {{#each cart}}
+      <div>
+        <div>{{product.image_url}}</div>
+        <div>
+          <p>{{product.name}}</p>
+          <p>Price:{{product.price}}</p>
+          <p class="display">{{quantity}}</p>
+          <div class="hidden">
+            <label>Quantity:</label>
+            <input class="quant" value="{{quantity}}" min="0" />
+            <button class="updateBtn">edit</button>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+    <button id="checkoutBtn" type="submit">Checkout</button>
+  </form>
+</div>
+
+<script src="/js/cart.js"></script>

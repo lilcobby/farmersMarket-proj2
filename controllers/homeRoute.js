@@ -31,7 +31,7 @@ router.get("/profile", withAuth, async (req, res) => {
     const newData = productData.map((products) =>
       products.get({ plain: true })
     );
-   
+
     const logged_in = req.session.logged_in;
     res.render("vendorHome", { vendorData, logged_in, newData });
   } catch (err) {
@@ -139,25 +139,26 @@ router.get("/products/:id", async (req, res) => {
 
 // cart page? id maybe
 
-// router.get("/cart/:id", async (req, res) => {
-//   try {
-//     const cartRaw = await Cart.findAll({
-//       where: { user_id: req.params.id },
-//       include: [
-//         { model: CartItem, attributes: ["product_id", "cart_id"] },
-//         {
-//           model: Product,
-//           attributes: ["name", "price", "id"],
-//         },
-//       ],
-//     });
+router.get("/cart", withAuth, async (req, res) => {
+  try {
+    const cartData = await CartItem.findAll({
+      where: { cart_id: req.session.user_id },
+      include: [
+        {
+          model: Product,
+          attributes: ["name", "price", "image_url", "id"],
+        },
+      ],
+      attributes: ["quantity", "cart_id"],
+    });
 
-//     const cart = cartRaw.map((prod) => prod.get({ plain: true }));
+    const cart = cartData.map((prod) => prod.get({ plain: true }));
 
-//     res.render("cart", { cart });
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+    res.render("cart", { cart, logged_in: req.session.logged_in });
+    console.log(cart[0].product.name);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 module.exports = router;
