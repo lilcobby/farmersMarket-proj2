@@ -1,12 +1,97 @@
+/* COMMENT: before bootstrap 
+      :root {
+           --Header-footer-font: "'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif";
+           --Body-font: "'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif";
+      }
+      
+      @media screen {
+           body {
+                margin: 5% 5%;
+           }
+      }
+      
+      * {
+           box-sizing: border-box;
+           padding: 0;
+           margin: 0;
+           font-size: 1em;
+      }
+      
+      body {
+           font-family: var(--Body-font);
+           display: flex;
+           flex-direction: column;
+           min-height: 100vh;
+           background-image: url(../images/background.png);
+           background-size: 120em;
+           background-color: darkslategrey;
+      } */
+
 #editForm {
-  display: none;
+     display: none;
 }
 #normal {
-  display: block;
+     display: block;
 }
 .hidden {
-  display: none;
+     display: none;
 }
 .display {
-  display: block;
+     display: block;
 }
+
+/* COMMENT: before bootstrap
+      #randomVendorDisplay {
+           display: flex;
+           flex-direction: column;
+           flex-wrap: wrap;
+           justify-content: space-around;
+           margin: 2%;
+           align-items: center;
+      }
+      
+      #randomVendorCard {
+           display: flex;
+           flex: 1 1 100%;
+           width: 100%;
+           flex-direction: row;
+           flex-wrap: wrap;
+           margin: 2%;
+      }
+      
+      #randomVendorCard img {
+           flex: 1 1 300px;
+           max-width: 300px;
+           margin: 2%;
+           z-index: 1;
+           position: relative;
+      }
+      
+      #randomVendorCard h1 {
+           position: absolute;
+           z-index: 1;
+           margin: 2%;
+           
+      }
+      
+      .products {
+           display: flex;
+           flex-wrap: wrap;
+           justify-content: space-around;
+           margin: 2%;
+           align-items: center;
+      }
+      
+      .italic {
+           font-style: italic;
+      }
+      
+      .imageBorder {
+           border: 3px solid rgba(0, 0, 0, 0.534);
+           border-radius: 5px;
+           padding: 5px;
+      }
+      
+      .smallProductImage {
+           max-width: 150px;
+      } */
