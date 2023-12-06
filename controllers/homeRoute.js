@@ -155,7 +155,6 @@ router.get("/cart", withAuth, async (req, res) => {
     const cart = cartData.map((prod) => prod.get({ plain: true }));
 
     res.render("cart", { cart, logged_in: req.session.logged_in });
-    console.log(cart[0].product.name);
   } catch (err) {
     res.status(500).json(err);
   }
