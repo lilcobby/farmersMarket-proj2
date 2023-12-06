@@ -43,9 +43,10 @@ const formSubmitHandler = async (event) => {
     }),
     headers: { "Content-Type": "application/json" },
   });
+  window.location.reload(true);
 
-  const data = await response.json();
-  console.log(data);
+  // const data = await response.json();
+  // console.log(data);
 };
 
 forms.forEach((form) => {
@@ -77,7 +78,8 @@ const newProdHandler = async (event) => {
     }),
     headers: { "Content-Type": "application/json" },
   });
-  const data = await response.json();
-  console.log(data);
+  window.location.reload(true);
+  // const data = await response.json();
+  // console.log(data);
 };
 newProdForm.addEventListener("submit", newProdHandler);
