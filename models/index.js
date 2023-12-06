@@ -83,4 +83,12 @@ Category.belongsToMany(Product, {
      foreignKey: "category_id",
 });
 
+Vendor.belongsTo(User, {
+     foreignKey: "user_id",
+});
+
+User.hasOne(Vendor, {
+     foreignKey: "user_id",
+});
+
 module.exports = { Cart, Product, Sale, User, Vendor, CartItem, SaleItem, Category };

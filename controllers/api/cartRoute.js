@@ -2,6 +2,9 @@
 const router = require("express").Router();
 const { CartItem, Product, Sale, SaleItem, User, Vendor } = require("../../models/index.js");
 const { withAuth } = require("../../utils/auth.js");
+const transporter = require("../../utils/nodemailer.js");
+const dotenv = require("dotenv");
+dotenv.config();
 
 // COMMENT: Routes for the baseURL/api/cart endpoint
 
@@ -128,11 +131,10 @@ router.post("/", withAuth, async (req, res) => {
 // COMMENT: Deletes a product from the user's cart
 // [x]:  Works in Insomnia
 router.delete("/", withAuth, async (req, res) => {
-     // FIXME: get rid of the parameter, leave it at '/' and use req.session.user_id instead below
      try {
           const existingCartItem = await CartItem.findOne({
                where: {
-                    cart_id: req.session.user_id, // FIXME: get rid of the parameter and use req.session.user_id instead
+                    cart_id: req.session.user_id,
                     product_id: req.body.product_id,
                },
           });
@@ -144,7 +146,7 @@ router.delete("/", withAuth, async (req, res) => {
 
           const deleteCartItem = await CartItem.destroy({
                where: {
-                    cart_id: req.session.user_id, // FIXME: get rid of the parameter and use req.session.user_id instead
+                    cart_id: req.session.user_id,
                     product_id: req.body.product_id,
                },
           });
@@ -180,7 +182,24 @@ router.post("/checkout", withAuth, async (req, res) => {
      try {
           const cartItems = await CartItem.findAll({
                where: { cart_id: req.session.user_id },
-               include: [{ model: Product, attributes: ["vendor_id"] }],
+               include: [
+                    {
+                         model: Product,
+                         attributes: ["vendor_id"],
+                         include: [
+                              {
+                                   model: Vendor,
+                                   attributes: ["name"],
+                                   include: [
+                                        {
+                                             model: User,
+                                             attributes: ["email"],
+                                        },
+                                   ],
+                              },
+                         ],
+                    },
+               ],
           });
           if (cartItems.length === 0) {
                res.status(404).json({ message: "Your cart is currently empty." });
@@ -203,6 +222,28 @@ router.post("/checkout", withAuth, async (req, res) => {
                     quantity: item.quantity,
                });
           }
+
+          const vendorEmails = cartItems.map((item) => item.product.vendor.user.email);
+          let baseURL;
+          if (process.env.JAWSDB_URL) {
+               baseURL = "heroku-URL"; // FIXME: Add heroku URL when we have it deployed
+          } else {
+               baseURL = "http://localhost:3001";
+          }
+          const salesLink = `${baseURL}/login`;
+
+          await Promise.all(
+               vendorEmails.map((email) => {
+                    let mailOptions = {
+                         from: process.env.e_username,
+                         to: email,
+                         subject: "New Order!",
+                         text: `You have a new order! Please login to your account to view the order details: ${salesLink}`,
+                    };
+                    console.log(mailOptions);
+                    return; // transporter.sendMail(mailOptions); // FIXME: Uncomment when we have it deployed or want to test the emails
+               })
+          );
 
           await CartItem.destroy({
                where: { cart_id: req.session.user_id },
