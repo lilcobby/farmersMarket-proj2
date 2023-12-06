@@ -7,7 +7,6 @@ const { isAdmin, withAuth } = require("../../utils/auth.js");
 // COMMENT: Route to get all users
 // [x]: Works in Insomnia
 router.get("/allUsers", isAdmin, async (req, res) => {
-     // TODO: add an isAdmin middleware to the route once login homepage is working or get rid of it
      try {
           const userData = await User.findAll();
           if (userData.length === 0) {
@@ -24,7 +23,6 @@ router.get("/allUsers", isAdmin, async (req, res) => {
 // COMMENT: Route to get all vendors
 // [x]: Works in Insomnia
 router.get("/allVendors", isAdmin, async (req, res) => {
-     // TODO: add an isAdmin middleware to the route once login homepage is working or get rid of it
      try {
           const vendorData = await Vendor.findAll();
           if (vendorData.length === 0) {
@@ -40,7 +38,6 @@ router.get("/allVendors", isAdmin, async (req, res) => {
 // COMMENT: Route to get all active vendors
 // [x]: Works in Insomnia
 router.get("/allActiveVendors", isAdmin, async (req, res) => {
-     // TODO: add an isAdmin middleware to the route once login homepage is working or get rid of it
      try {
           const vendorData = await Vendor.findAll({
                where: {
@@ -60,7 +57,6 @@ router.get("/allActiveVendors", isAdmin, async (req, res) => {
 // COMMENT: Route to get all products
 // [x]: Works in Insomnia
 router.get("/allProducts", isAdmin, async (req, res) => {
-     // TODO: add an isAdmin middleware to the route once login homepage is working or get rid of it
      try {
           const productData = await Product.findAll();
           if (productData.length === 0) {
@@ -77,7 +73,6 @@ router.get("/allProducts", isAdmin, async (req, res) => {
 // COMMENT: Route to get all active products
 // [x]: Works in Insomnia
 router.get("/allActiveProducts", isAdmin, async (req, res) => {
-     // TODO: add an isAdmin middleware to the route once login homepage is working or get rid of it
      try {
           const productData = await Product.findAll({
                where: {
@@ -97,7 +92,6 @@ router.get("/allActiveProducts", isAdmin, async (req, res) => {
 // COMMENT: Route to get all inactive products
 // [x]: Works in Insomnia
 router.get("/allInactiveProducts", isAdmin, async (req, res) => {
-     // TODO: add an isAdmin middleware to the route once login homepage is working or get rid of it
      try {
           const productData = await Product.findAll({
                where: {
@@ -118,7 +112,6 @@ router.get("/allInactiveProducts", isAdmin, async (req, res) => {
 // COMMENT: Route to get all inactive vendors
 // [x]: Works in Insomnia
 router.get("/allInactiveVendors", isAdmin, async (req, res) => {
-     // TODO: add an isAdmin middleware to the route once login homepage is working or get rid of it
      try {
           const vendorData = await Vendor.findAll({
                where: {
@@ -138,7 +131,6 @@ router.get("/allInactiveVendors", isAdmin, async (req, res) => {
 // COMMENT: Route to get all sales by sale items
 // [x]: Works in Insomnia
 router.get("/allSales", isAdmin, async (req, res) => {
-     // TODO: add an isAdmin middleware to the route once login homepage is working or get rid of it
      try {
           const saleItemData = await SaleItem.findAll({
                include: [
@@ -166,7 +158,6 @@ router.get("/allSales", isAdmin, async (req, res) => {
 // COMMENT: Route to get all carts by cart items
 // [x]: Works in Insomnia
 router.get("/allCartItems", isAdmin, async (req, res) => {
-     // TODO: add an isAdmin middleware to the route once login homepage is working or get rid of it
      try {
           const cartItemData = await CartItem.findAll({
                include: [
@@ -190,10 +181,9 @@ router.get("/allCartItems", isAdmin, async (req, res) => {
      }
 });
 
-// COMMENt: Route to get all categories
+// COMMENT: Route to get all categories
 // [x]: Works in Insomnia
 router.get("/allCategories", isAdmin, async (req, res) => {
-     // TODO: add an isAdmin middleware to the route once login homepage is working or get rid of it
      try {
           const categoryData = await Category.findAll();
           if (categoryData.length === 0) {
@@ -207,9 +197,8 @@ router.get("/allCategories", isAdmin, async (req, res) => {
      }
 });
 
-// TODO: add a route to get all users and their carts
+// COMMENT: Route to get all users and their carts
 router.get("/allUsersAndCarts", isAdmin, async (req, res) => {
-     // TODO: add an isAdmin middleware to the route once login homepage is working or get rid of it
      try {
           const userData = await User.findAll({
                include: [
@@ -244,4 +233,5 @@ router.get("/allUsersAndCarts", isAdmin, async (req, res) => {
      }
 });
 
+// COMMENT: exports router
 module.exports = router;

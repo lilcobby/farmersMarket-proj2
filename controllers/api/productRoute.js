@@ -3,15 +3,21 @@ const { Product } = require("../../models");
 
 router.get("/", async (req, res) => {
      try {
-          const productData = await Product.findAll();
+          const productData = await Product.findAll({
+               where: {
+                    is_active: true,
+               },
+          });
+          if (productData.length === 0) {
+               res.status(404).json({ errMessage: "No active products found" });
+               return;
+          }
           res.status(200).json(productData);
      } catch (err) {
-          res.status(500).json(err);
+          res.status(500).json({ errMessage: err.message });
      }
 });
 module.exports = router;
-
-
 
 /* COMMENT: 
       made a change to the product table to include a is_active column so that vendors can toggle their products on and off

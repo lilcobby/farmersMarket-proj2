@@ -1,10 +1,94 @@
 {{! consumer homepage, shows every vendor }}
 {{! randomize 2 or so and render just those }}
-<div>
-  <h2>Checkout this Hot Vendor!</h2>
-
-  <p>{{randomVendor.description}}</p>
-  <p> <a href="/products/{{randomVendor.id}}"> {{randomVendor.name}}</a> </p>
-  <p> {{randomVendor.image_URL}}</p>
- 
+<div class="container">
+     <h2>
+          Checkout this Hot Vendor!
+     </h2>
+     <div>
+          <img
+               class="imageBorder smallProductImage"
+               src="{{randomVendor.image_url}}"
+               alt="{{randomVendor.name}} image"
+          />
+          <h3>
+               <a href="/products/{{randomVendor.id}}">
+                    {{randomVendor.name}}
+               </a>
+          </h3>
+          <p class="">
+               {{randomVendor.description}}
+          </p>
+     </div>
 </div>
+
+<!-- TODO: append products -->
+<div class="container">
+     <div class="d-flex justify-content-around align-items-start align-content-between flex-wrap">
+          {{#each products}}
+               <div class="d-flex m-2 flex-column">
+                    <div
+                         class="position-relative"
+                         data-bs-toggle="collapse"
+                         data-bs-target="#collapse{{this.id}}"
+                         aria-expanded="false"
+                         aria-controls="collapse{{this.id}}"
+                    >
+                         <img
+                              class="imageBorder smallProductImage rounded-4"
+                              src="{{this.image_url}}"
+                              alt="{{this.name}} image"
+                         />
+                         <div class="position-absolute top-0 start-50 translate-middle-x mt-2">
+                              <p>${{this.price}}</p>
+                         </div>
+                         <div class="position-absolute bottom-0 start-50 translate-middle-x">
+                              <p>{{this.name}}</p>
+                         </div>
+                    </div>
+                    <div
+                         id="collapse{{this.id}}"
+                         class="accordion-collapse collapse m-3"
+                         data-bs-parent="#accordion{{this.id}}"
+                    >
+                         <div class="accordion-body d-flex justify-content-center flex-wrap flex-column">
+                              <p>{{this.description}}</p>
+                              <button
+                                   type="button"
+                                   class="btn btn-primary btn-sm"
+                                   data-bs-toggle="modal"
+                                   data-bs-target="#addToCart"
+                                   data-id="{{this.id}}"
+                                   data-product-id="{{this.id}}"
+                                   data-product-name="{{this.name}}"
+                                   data-product-price="{{this.price}}"
+                                   data-product-description="{{this.description}}"
+                              >Add to Cart</button>
+                         </div>
+                    </div>
+               </div>
+          {{/each}}
+     </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addToCart" tabindex="-1" aria-labelledby="addToCartLabel" aria-hidden="true">
+     <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+               <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addToCartLabel">Add to Cart</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               </div>
+               <div class="modal-body">
+                    <p>this is the id{{this.id}}</p>
+                    <label for="chooseQuantity" class="form-label">Quantity</label>
+                    <input id="chooseQuantity" class="form-control" />
+               </div>
+               <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Add To Cart</button>
+               </div>
+          </div>
+     </div>
+</div>
+
+<script src="/js/consumerHome.js"></script>

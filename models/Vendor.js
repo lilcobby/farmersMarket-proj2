@@ -35,7 +35,7 @@ Vendor.init(
                type: DataTypes.STRING,
                allowNull: true,
           },
-          image_URL: {
+          image_url: {
                type: DataTypes.STRING,
                allowNull: true,
           },
