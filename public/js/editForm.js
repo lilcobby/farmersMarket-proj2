@@ -1,5 +1,5 @@
 const toggleBox = document.querySelector("#toggleBox");
-const editForm = document.querySelector("#test");
+const editForm = document.querySelector("#editForm");
 const normalForm = document.querySelector("#normal");
 toggleBox.addEventListener("change", () => {
   if (toggleBox.checked) {
@@ -22,8 +22,6 @@ toggleBox.addEventListener("change", () => {
 
 // put request for product forms
 
-//TODO: category_id needs to be fixed
-
 const forms = document.querySelectorAll("#devView");
 
 const formSubmitHandler = async (event) => {
@@ -34,7 +32,6 @@ const formSubmitHandler = async (event) => {
   const name = form.querySelector(".Nam").value;
   const price = parseFloat(form.querySelector(".Pric").value);
   const quant = parseInt(form.querySelector(".Quant").value);
- 
 
   const response = await fetch(`/api/vendors/products/${dataId}`, {
     method: "PUT",
@@ -43,7 +40,6 @@ const formSubmitHandler = async (event) => {
       description: description,
       price: price,
       stock: quant,
-     
     }),
     headers: { "Content-Type": "application/json" },
   });
@@ -55,3 +51,33 @@ const formSubmitHandler = async (event) => {
 forms.forEach((form) => {
   form.addEventListener("submit", formSubmitHandler);
 });
+
+// new product form
+const newProdForm = document.querySelector("#newProdForm");
+const newProdHandler = async (event) => {
+  event.preventDefault();
+
+  const newName = document.querySelector("#newProd-name").value;
+  const newDescription = document.querySelector("#newProd-description").value;
+  const newPrice = document.querySelector("#newProd-price").value;
+  const newQuant = document.querySelector("#newProd-stock").value;
+  const newImg = document.querySelector("#newProd-image").value;
+  // maybe dropdown
+  const newCat = document.querySelector("#newProd-category").value;
+
+  const response = await fetch("/api/vendors/addProduct", {
+    method: "POST",
+    body: JSON.stringify({
+      name: newName,
+      description: newDescription,
+      price: newPrice,
+      stock: newQuant,
+      image_url: newImg,
+      category_id: newCat,
+    }),
+    headers: { "Content-Type": "application/json" },
+  });
+  const data = await response.json();
+  console.log(data);
+};
+newProdForm.addEventListener("submit", newProdHandler);
