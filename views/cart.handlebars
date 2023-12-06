@@ -15,11 +15,25 @@
         <div>
           <p>{{product.name}}</p>
           <p>Price:{{product.price}}</p>
-          <p class="display">{{quantity}}</p>
-          <div class="hidden">
+          <div class="display">
             <label>Quantity:</label>
-            <input class="quant" value="{{quantity}}" min="0" />
-            <button class="updateBtn">edit</button>
+            <p>{{quantity}}</p>
+          </div>
+          <div class="hidden" data-id="{{product.id}}">
+            <label>Quantity:</label>
+            <input
+              class="quant"
+              id="newQuant{{product.id}}"
+              value="{{quantity}}"
+              type="number"
+              min="1"
+            />
+            <button
+              id="updateCart"
+              type="submit"
+              class="updateBtn"
+            >edit</button>
+            <button type="submit">delete</button>
           </div>
         </div>
       </div>

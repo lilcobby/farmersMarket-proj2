@@ -24,3 +24,24 @@ toggleBox.addEventListener("change", () => {
 });
 
 // TODO: CHECKOUT ROUTE, CART PUT ROUTES.
+// put route
+const newAmountHandler = async (event) => {
+  event.preventDefault();
+  const button = event.currentTarget;
+  const hiddenDiv = button.closest(".hidden");
+  const productId = hiddenDiv.dataset.id;
+  const newQuant = parseInt(
+    hiddenDiv.querySelector(`#newQuant${productId}`).value
+  );
+
+  const response = await fetch("/api/cart/", {
+    method: "POST",
+    body: JSON.stringify({ product_id: productId, quantity: newQuant }),
+    headers: { "Content-Type": "application/json" },
+  });
+};
+
+document.querySelectorAll(".updateBtn").forEach((button) => {
+  button.addEventListener("click", newAmountHandler);
+});
+// delete route
