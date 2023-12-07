@@ -52,8 +52,7 @@ router.post("/", withAuth, async (req, res) => {
                     return;
                }
 
-               product.stock -= quantityChange;
-               await product.save();
+               await product.update({ stock: product.stock - Number(quantityChange) });
 
                const updateCart = await CartItem.update(
                     {
@@ -88,18 +87,18 @@ router.post("/", withAuth, async (req, res) => {
                );
                return;
           } else {
-               if (product.stock < req.body.quantity) {
+               const quantity = Number(req.body.quantity);
+               if (isNaN(quantity) || product.stock < quantity) {
                     res.status(418).json("Not enough stock to add that many to your cart");
                     return;
                }
 
-               product.stock -= req.body.quantity;
-               await product.save();
+               await product.update({ stock: product.stock - quantity });
 
                const createCartItem = await CartItem.create({
                     cart_id: req.session.user_id,
                     product_id: req.body.product_id,
-                    quantity: req.body.quantity,
+                    quantity: quantity,
                });
 
                const updatedProduct = await CartItem.findOne({

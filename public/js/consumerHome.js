@@ -47,4 +47,31 @@ modal.addEventListener("show.bs.modal", function (event) {
      });
 
      // TODO: add to cart
+     let addToCartBtn = document.getElementById("addToCartBtn");
+     addToCartBtn.addEventListener("click", async function () {
+          let quantity = quantityInput.value;
+
+          // If the entered quantity is greater than the available quantity, display an error message
+          if (quantity > productQty) {
+               errorMessageP.textContent = "The entered quantity is greater than the available quantity.";
+               return;
+          }
+          errorMessageP.textContent = "";
+
+          // COMMENT: POST request to add the product to the cart
+          try {
+               let response = await fetch("api/cart/", {
+                    method: "POST",
+                    body: JSON.stringify({ product_id: productId, quantity: quantity }),
+                    headers: { "Content-Type": "application/json" },
+               });
+               if (response.ok) {
+                    window.location.reload();
+               } else {
+                    alert("Failed to add product to cart.");
+               }
+          } catch (error) {
+               console.log(error);
+          }
+     });
 });

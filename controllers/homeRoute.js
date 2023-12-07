@@ -94,6 +94,7 @@ router.get("/", async (req, res) => {
 // all vendors
 
 router.get("/vendors", async (req, res) => {
+
   try {
     const vendorData = await Vendor.findAll({
       attributes: ["description", "name", "id", "image_URL"],
@@ -107,6 +108,8 @@ router.get("/vendors", async (req, res) => {
     res.render("vendorList", {
       vendors,
       is_vendor: req.session.is_vendor,
+
+
 
       logged_in: req.session.logged_in,
     });
