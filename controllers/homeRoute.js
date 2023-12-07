@@ -33,7 +33,7 @@ router.get("/profile", withAuth, async (req, res) => {
     );
 
     const logged_in = req.session.logged_in;
-   
+
     const { name, description, image_url } = vendorData;
     res.render("vendorHome", {
       name,
@@ -94,7 +94,6 @@ router.get("/", async (req, res) => {
 // all vendors
 
 router.get("/vendors", async (req, res) => {
-
   try {
     const vendorData = await Vendor.findAll({
       attributes: ["description", "name", "id", "image_URL"],
@@ -108,8 +107,6 @@ router.get("/vendors", async (req, res) => {
     res.render("vendorList", {
       vendors,
       is_vendor: req.session.is_vendor,
-
-
 
       logged_in: req.session.logged_in,
     });
@@ -193,5 +190,10 @@ router.get("/checkout", withAuth, async (req, res) => {
     logged_in: req.session.logged_in,
   });
 });
-
+// last screen
+router.get("/final", withAuth, async (req, res) => {
+  res.render("final", {
+    logged_in: req.session.logged_in,
+  });
+});
 module.exports = router;
