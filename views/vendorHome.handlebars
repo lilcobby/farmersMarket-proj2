@@ -7,8 +7,29 @@
 {{! sales }}
 <div>
   <h2>Sales</h2>
-  <p>render our sales using handlebars syntax</p>
+ 
 </div>
+
+
+<div>
+  <h3>Add Your Business Info:</h3>
+  <form id="updateForm">
+    <div class="form-group">
+      <label for="businessName">Business Name:</label>
+      <input class="form-input" id="businessName" name="businessName" />
+    </div>
+    <div class="form-group">
+      <label for="businessDescription">Business Description:</label>
+      <input class="form-input" id="businessDescription" name="businessDescription" />
+    </div>
+    <div class="form-group">
+      <label for="businessImage">Image to Display:</label>
+      <input class="form-input" id="businessImage" name="businessImage" />
+    </div>
+    <button id="vendorInfo" type="submit">Submit</button>
+  </form>
+</div>
+
 
 {{! new prod form }}
 <form id="newProdForm">

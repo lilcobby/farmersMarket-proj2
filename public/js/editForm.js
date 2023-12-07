@@ -82,4 +82,35 @@ const newProdHandler = async (event) => {
   // const data = await response.json();
   // console.log(data);
 };
+
 newProdForm.addEventListener("submit", newProdHandler);
+
+// submit vendor data
+const vendorForm = document.querySelector("#updateForm");
+const businessName = document.querySelector("#businessName");
+const businessDesc = document.querySelector("#businessDescription");
+const businessImg = document.querySelector("#businessImage");
+const vendorBtn = document.querySelector("#vendorInfo");
+
+// function to post
+const addVendInfo = async (event) => {
+  event.preventDefault();
+
+  const name = businessName.value;
+  const desc = businessDesc.value;
+  const img = businessImg.value;
+
+  const response = await fetch("/api/vendors/profile", {
+    method: "PUT",
+    body: JSON.stringify({
+      name: name,
+      description: desc,
+      image_url: img,
+    }),
+    headers: { "Content-Type": "application/json" },
+  });
+  const data = await response.json();
+  console.log(data);
+  // window.location.reload(true);
+};
+vendorForm.addEventListener("submit", addVendInfo);
