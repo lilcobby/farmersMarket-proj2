@@ -5,7 +5,7 @@ const userData = [
           password: "passwordAlice",
           email: "alice@example.com",
           cart_id: 1,
-          is_vendor: false,
+          is_vendor: true,
      },
      {
           id: 2,
@@ -13,7 +13,7 @@ const userData = [
           password: "passwordBob",
           email: "bob@example.com",
           cart_id: 2,
-          is_vendor: false,
+          is_vendor: true,
      },
      {
           id: 3,
