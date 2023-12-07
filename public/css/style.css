@@ -91,11 +91,18 @@
 }
 
 .smallProductImage {
+
   max-width: 150px;
 }
 
 .productMargin {
-  padding: auto;
+
+     max-height: 150px;
+}
+
+.productMargin {
+     padding: auto;
+
 }
 /* .vendorInfo {
   display: none;

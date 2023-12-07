@@ -23,35 +23,27 @@
 
 <!-- TODO: append products -->
 <div class="container">
-     <div class="d-flex justify-content-around align-items-start align-content-between flex-wrap">
+     <div class="d-flex justify-content-around align-items-start align-content-between flex-wrap flex-row col-12">
           {{#each products}}
-               <div class="d-flex m-2 flex-column">
+               <div class="d-flex m-2 flex-column col-12">
                     <div
-                         class="position-relative"
+                         class="position-relative d-flex align-items-center flex-row"
                          data-bs-toggle="collapse"
                          data-bs-target="#collapse{{this.id}}"
                          aria-expanded="false"
                          aria-controls="collapse{{this.id}}"
                     >
                          <img
-                              class="imageBorder smallProductImage rounded-4"
+                              class="imageBorder smallProductImage rounded-4 m-2"
                               src="{{this.image_url}}"
                               alt="{{this.name}} image"
                          />
-                         <div class="position-absolute top-0 start-50 translate-middle-x mt-2">
-                              <p>${{this.price}}</p>
-                         </div>
-                         <div class="position-absolute bottom-0 start-50 translate-middle-x">
-                              <p>{{this.name}}</p>
-                         </div>
-                    </div>
-                    <div
-                         id="collapse{{this.id}}"
-                         class="accordion-collapse collapse m-3"
-                         data-bs-parent="#accordion{{this.id}}"
-                    >
-                         <div class="accordion-body d-flex justify-content-center flex-wrap flex-column">
-                              <p>{{this.description}}</p>
+
+                         <p class="m-1 col-1">${{this.price}}</p>
+                         <p class="m-1 col-2">{{this.name}}</p>
+
+                         <p class="col-6">{{this.description}}</p>
+                         {{#if ../logged_in}}
                               <button
                                    type="button"
                                    class="btn btn-primary btn-sm"
@@ -62,9 +54,14 @@
                                    data-product-name="{{this.name}}"
                                    data-product-price="{{this.price}}"
                                    data-product-description="{{this.description}}"
+                                   data-product-qty="{{this.stock}}"
+                                   data-vendor-name="{{this.vendor.name}}"
+                                   data-vendor-id="{{this.vendor.id}}"
+                                   data-vendor-img="{{this.vendor.image_url}}"
                               >Add to Cart</button>
-                         </div>
+                         {{/if}}
                     </div>
+
                </div>
           {{/each}}
      </div>
@@ -75,13 +72,22 @@
      <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="addToCartLabel">Add to Cart</h1>
+                    <h1 class="modal-title fs-5" id="addToCartLabel">{{! Product Name }}</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                </div>
                <div class="modal-body">
-                    <p>this is the id{{this.id}}</p>
+                    <h3>See what else this vendor has to offer!</h3>
+                    <div id="vendorDiv" style="display: flex;">
+                         <img id="vendorImage" style="width: 150px; height: 150px;" />
+                         <h3 id="vendorName"></h3>
+                    </div>
+                    <p id="productDescription"></p>
+                    <p id="productQuantity"></p>
+                    <p id="productPrice"></p>
+                    <p id="errorMessage"></p>
                     <label for="chooseQuantity" class="form-label">Quantity</label>
-                    <input id="chooseQuantity" class="form-control" />
+                    <input id="chooseQuantity" class="form-control" type="number" step="1" min="0" max="" />
+                    <p id="totalCost"></p>
                </div>
                <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
