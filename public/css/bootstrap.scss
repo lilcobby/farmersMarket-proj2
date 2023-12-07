@@ -4,7 +4,7 @@ $bd-light-green: #32cd32;
      --bd-light-green-bg: #{$bd-light-green};
      --bd-light-green-rgb: 50, 205, 50;
 }
-// body { padding-top: 50px; } // this is a way to add custom css
+
 .btn-bd-primary {
      --bs-btn-font-weight: 600 !important;
      --bs-btn-color: var(--bs-white) !important;
@@ -17,8 +17,11 @@ $bd-light-green: #32cd32;
      --bs-btn-active-color: var(--bs-btn-hover-color) !important;
      --bs-btn-active-bg: var(--bd-light-green-bg) !important;
      --bs-btn-active-border-color: var(--bd-light-green-bg) !important;
+     --bs-btn-disabled-opacity: 0.65 !important;
+     --bs-btn-disabled-color: var(--bs-white) !important;
+     --bs-btn-disabled-bg: var(--bd-light-green-bg) !important;
+     --bs-btn-disabled-border-color: var(--bd-light-green-bg) !important;
 }
-
 .btn-bd-edit {
      --bs-btn-font-weight: 600 !important;
      --bs-btn-color: var(--bs-white) !important;

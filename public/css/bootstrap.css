@@ -16,6 +16,10 @@
   --bs-btn-active-color: var(--bs-btn-hover-color) !important;
   --bs-btn-active-bg: var(--bd-light-green-bg) !important;
   --bs-btn-active-border-color: var(--bd-light-green-bg) !important;
+  --bs-btn-disabled-opacity: 0.65 !important;
+  --bs-btn-disabled-color: var(--bs-white) !important;
+  --bs-btn-disabled-bg: var(--bd-light-green-bg) !important;
+  --bs-btn-disabled-border-color: var(--bd-light-green-bg) !important;
 }
 
 .btn-bd-edit {
