@@ -2,128 +2,139 @@
 
 {{! vendor profile/ home }}
 <div>
-  <h1>Vendor Profile</h1>
+     <h1>Vendor Profile</h1>
 </div>
 {{! sales }}
 <div>
-  
-  <h2>Sales</h2>
-  <a href ="/api/products/{{user_id}}">Sales Data</a>
-  
- 
+     <a class="btn btn-bd-primary not-toggled" href="/api/products/{{user_id}}">Sales</a>
+     <a class="btn btn-bd-primary not-toggled" id="toggleEditInfo">Edit Your Business Info</a>
+     <a class="btn btn-bd-primary not-toggled" id="addNewProduct">Add a Product</a>
 </div>
 
-
-<div>
-  <h3>Add Your Business Info:</h3>
-  <form id="updateForm">
-    <div class="form-group">
-      <label for="businessName">Business Name:</label>
-      <input class="form-input" id="businessName" name="businessName" value="{{name}}"/>
-    </div>
-    <div class="form-group">
-      <label for="businessDescription">Business Description:</label>
-      <input class="form-input" id="businessDescription" name="businessDescription"  value="{{description}}"/>
-    </div>
-    <div class="form-group">
-      <label for="businessImage">Image to Display:</label>
-      <input class="form-input" id="businessImage" name="businessImage"  value="{{image_url}}" />
-    </div>
-    <button id="vendorInfo" type="submit">Submit</button>
-  </form>
+<div class="d-flex" style="width:75%; margin:20%">
+     <div class="container d-flex flex-wrap">
+          <div class="row align-items-start">
+               <!-- Update Business Info Form -->
+               <div class="col d-none">
+                    <form id="updateForm" class="row g-3">
+                         <div class="col-md-12">
+                              <label for="businessName" class="form-label">Business Name:</label>
+                              <input class="form-control" id="businessName" name="businessName" value="{{name}}" />
+                         </div>
+                         <div class="col-md-12">
+                              <label for="businessDescription" class="form-label">Business Description:</label>
+                              <input
+                                   class="form-control"
+                                   id="businessDescription"
+                                   name="businessDescription"
+                                   value="{{description}}"
+                              />
+                         </div>
+                         <div class="col-md-12">
+                              <label for="businessImage" class="form-label">Image to Display:</label>
+                              <input
+                                   class="form-control"
+                                   id="businessImage"
+                                   name="businessImage"
+                                   value="{{image_url}}"
+                              />
+                         </div>
+                         <div class="col-12">
+                              <button id="vendorInfo" class="btn btn-primary" type="submit">Submit</button>
+                         </div>
+                    </form>
+               </div>
+               <!-- New Product Entry Form -->
+               <div class="col d-none">
+                    <form id="newProdForm" class="row g-3">
+                         <div class="col-md-12">
+                              <label for="newProd-name" class="form-label">Name:</label>
+                              <input class="form-control" type="text" id="newProd-name" />
+                         </div>
+                         <div class="col-md-12">
+                              <label for="newProd-description" class="form-label">Description:</label>
+                              <input class="form-control" type="text" id="newProd-description" />
+                         </div>
+                         <div class="col-md-12">
+                              <label for="newProd-price" class="form-label">Price:</label>
+                              <input class="form-control" type="text" id="newProd-price" />
+                         </div>
+                         <div class="col-md-12">
+                              <label for="newProd-stock" class="form-label">Quantity:</label>
+                              <input class="form-control" type="number" id="newProd-stock" min="0" />
+                         </div>
+                         <div class="col-md-12">
+                              <label for="newProd-image" class="form-label">Image URL:</label>
+                              <input class="form-control" type="text" id="newProd-image" />
+                         </div>
+                         <div class="col-md-12">
+                              <label for="newProd-category" class="form-label">Category ID:</label>
+                              <input class="form-control" type="number" id="newProd-category" min="1" max="19" />
+                         </div>
+                         <div class="col-12">
+                              <button class="btn btn-primary" type="submit">New Product Create</button>
+                         </div>
+                    </form>
+               </div>
+          </div>
+     </div>
 </div>
-
-
-{{! new prod form }}
-<form id="newProdForm">
-  <h3>New Product Entry</h3>
-  <div>
-    <label for="newProd-name">Name:</label>
-    <input class="form-input" type="text" id="newProd-name"  />
-  </div>
-  <div>
-    <label for="newProd-desciprion">Description:</label>
-    <input class="form-input" type="text" id="newProd-description" />
-  </div>
-  <div>
-    <label for="newProd-price">Price:</label>
-    <input class="form-input" type="text" id="newProd-price" />
-  </div>
-  <div>
-    <label for="newProd-stock">Quantity:</label>
-    <input class="form-input" type="number" id="newProd-stock" min ="0">
-  </div>
-  <div>
-    <label for="newProd-image">Image URL:</label>
-    <input class="form-input" type="text" id="newProd-image" />
-  </div>
-  <div>
-   
-    <label for="newProd-category">Category ID:</label>
-    <input class="form-input" type="number" id="newProd-category" min="1" max="19" />
-  </div>
-  <div>
-    <button class="btn" type="submit">New Product Create</button>
-  </div>
-</form>
 {{! all prod }}
 <div>
-  <h2>All Products</h2>
-  <div>
-
+     <h2>All Products</h2>
+     <div>
+     </div>
 </div>
+
 {{! edit product likely redirect }}
 <div>
-  <form>
-    <div >
-      <label>edit view:</label>
-      <input class="box" id="toggleBox" type="checkbox">
-    </div>
-    
-  </form>
- <div id="editForm">
-  {{#each newData}}
-    <form id="devView" data-id="{{id}}">
-      <div >
-        <label>ID:</label>
-        <input class = "ID" value ="{{id}}" readonly>
-      </div>
-    
-       <div>
-        <label>Name:</label>
-        <input class="Nam" value="{{name}}">
-      </div>
-        <div>
-        <label>Description:</label>
-        <input class="Desc" value="{{description}}">
-      </div>
-       <div>
-        <label>Price:</label>
-        <input class="Pric" value="{{price}}">
-      </div>
-       <div>
-        <label>Quantity:</label>
-        <input class="Quant" value="{{stock}}" type="number" min="0">
-      </div>
-      <div><button >edit</button></div>
-      
-      </form>
-  {{/each}}
-  </div>
-  <div id="normal">
-    {{#each newData}}
-      <div >
-        <p>id:{{id}}</p>
-        <p>Name: {{name}} </p>
-        <p>Description: {{description}}</p>
-        <p>Price: {{price}}</p>
-        <p>Quantity: {{stock}}</p>
-      </div>
-    {{/each}}
-    </div>
- </div>
+     <form>
+          <div>
+               <label>edit view:</label>
+               <input class="box" id="toggleBox" type="checkbox" />
+          </div>
+     </form>
 
+     <div id="editForm">
+          {{#each newData}}
+               <form id="devView" data-id="{{id}}">
+                    <div>
+                         <label>ID:</label>
+                         <input class="ID" value="{{id}}" readonly />
+                    </div>
+                    <div>
+                         <label>Name:</label>
+                         <input class="Nam" value="{{name}}" />
+                    </div>
+                    <div>
+                         <label>Description:</label>
+                         <input class="Desc" value="{{description}}" />
+                    </div>
+                    <div>
 
-<script src = "/js/editForm.js"></script>
+                         <label>Price:</label>
+                         <input class="Pric" value="{{price}}" />
+                    </div>
+                    <div>
+                         <label>Quantity:</label>
+                         <input class="Quant" value="{{stock}}" type="number" min="0" />
+                    </div>
+                    <div><button>edit</button></div>
 
+               </form>
+          {{/each}}
+     </div>
+     <div id="normal">
+          {{#each newData}}
+               <div>
+                    <p>id:{{id}}</p>
+                    <p>Name: {{name}} </p>
+                    <p>Description: {{description}}</p>
+                    <p>Price: {{price}}</p>
+                    <p>Quantity: {{stock}}</p>
+               </div>
+          {{/each}}
+     </div>
+</div>
 
+<script src="/js/editForm.js"></script>
