@@ -4,4 +4,5 @@
      - delete button on cart page
      -add button to become a vendor
      -add button to disable a product
+     -add button to delete a product
       */
