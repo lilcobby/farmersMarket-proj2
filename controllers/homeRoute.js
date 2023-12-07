@@ -77,10 +77,9 @@ router.get("/vendors", async (req, res) => {
                attributes: ["description", "name", "id", "image_URL"],
                where: { is_active: true },
           });
+          
+          
 
-
-    const vendors = vendorData.map((vendor) => vendor.get({ plain: true }));
-    
     console.log("vendor data", vendors);
 
           const vendors = vendorData.map((vendor) => vendor.get({ plain: true }));
@@ -173,7 +172,3 @@ router.get("/checkout", withAuth, async (req, res) => {
 });
 
 module.exports = router;
-
-router.get("/checkout", withAuth, async (req, res) => {
-     res.render("checkout", { logged_in: req.session.logged_in });
-});
