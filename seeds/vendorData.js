@@ -16,11 +16,11 @@ const vendorData = [
           is_active: true,
      },
      {
-          name: "Vendor 5",
-          description: "This is vendor 5",
+          name: "Vendor 1",
+          description: "This is vendor 1",
           image_url: "https://via.placeholder.com/500",
-          user_id: 5,
-          id: 5,
+          user_id: 1,
+          id: 1,
           is_active: true,
      },
      {
