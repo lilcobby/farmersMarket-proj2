@@ -23,7 +23,8 @@ router.get("/", withAuth, async (req, res) => {
                attributes: ["quantity", "cart_id"],
           });
           if (cartData.length === 0) {
-               res.status(404).json({ message: "Your cart is currently empty." });
+               // Change this to return a 200 status code with a specific message or an empty array
+               res.status(200).json({ message: "Your cart is currently empty." });
                return;
           }
           res.status(200).json(cartData);
@@ -320,7 +321,8 @@ router.get("/:id", withAuth, async (req, res) => {
                attributes: ["quantity", "cart_id"],
           });
           if (!cartItemData) {
-               res.status(404).json({ message: "No product found with this id in your cart." });
+               // Change this to return a 200 status code with a specific message
+               res.status(200).json({ message: "No product found with this id in your cart." });
                return;
           }
           res.status(200).json(cartItemData);
@@ -328,5 +330,4 @@ router.get("/:id", withAuth, async (req, res) => {
           res.status(500).json({ errMessage: err.message });
      }
 });
-
 module.exports = router;

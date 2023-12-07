@@ -1,5 +1,27 @@
-{{! shows products owned by specific vendor and add to cart }}
+{{! consumer homepage, shows every vendor }}
+{{! randomize 2 or so and render just those }}
+<div class="container">
+     <h2>
+          Checkout this Hot Vendor!
+     </h2>
+     <div>
+          <img
+               class="imageBorder smallProductImage"
+               src="{{randomVendor.image_url}}"
+               alt="{{randomVendor.name}} image"
+          />
+          <h3>
+               <a href="/products/{{randomVendor.id}}">
+                    {{randomVendor.name}}
+               </a>
+          </h3>
+          <p class="">
+               {{randomVendor.description}}
+          </p>
+     </div>
+</div>
 
+<!-- TODO: append products -->
 <div class="container">
      <div class="d-flex justify-content-around align-items-start align-content-between flex-wrap flex-row col-12">
           {{#each products}}
@@ -11,7 +33,7 @@
                          aria-expanded="false"
                          aria-controls="collapse{{this.id}}"
                     >
-                         <img
+                         <img href=""
                               class="imageBorder smallProductImage rounded-4 m-2"
                               src="{{this.image_url}}"
                               alt="{{this.name}} image"
@@ -60,11 +82,11 @@
                          <h3 id="vendorName"></h3>
                     </div>
                     <p id="productDescription"></p>
-                    <p id="productQuantity"></p>
+                    <div id="productQuantity"></div>
                     <p id="productPrice"></p>
-                    <p id="errorMessage"></p>
                     <label for="chooseQuantity" class="form-label">Total Quantity of Products You Want to Purchase</label>
                     <input id="chooseQuantity" class="form-control" type="number" step="1" min="0" max="" />
+                    <p class="text-danger" id="errorMessage"></p>
                     <p id="totalCost"></p>
                </div>
                <div class="modal-footer">
@@ -76,3 +98,4 @@
 </div>
 
 <script src="/js/consumerProd.js"></script>
+

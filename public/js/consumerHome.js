@@ -23,21 +23,20 @@ modal.addEventListener("show.bs.modal", async function (event) {
 
      addToCartLabel.textContent = "Add " + productName + " to cart?";
      vendorImage.src = vendorImg;
-     vendorNameDiv.innerHTML = `<a href="/products/${vendorId}">${vendorName} <i class="fa fa-text-height" aria-hidden="true"></i></a>`;
+     vendorNameDiv.innerHTML = `<a href="/products/${vendorId}" target="_blank">${vendorName} <i class="fa fa-text-height" aria-hidden="true"></i></a>`;
      productDescriptionP.textContent = productDescription;
      productPriceP.textContent = "$" + productPrice;
 
      // COMMENT: GET request to get the quantity of the product in the cart
      let quantityInCart = 0;
 
-     
      try {
           const response = await fetch("api/cart/" + productId);
-          if (response.ok) {
-               const data = await response.json();
-               quantityInCart = data.quantity;
-          } else {
+          const data = await response.json();
+          if (data.message === "No product found with this id in your cart.") {
                quantityInCart = 0;
+          } else {
+               quantityInCart = data.quantity;
           }
      } catch (error) {
           console.log(error);
@@ -64,8 +63,10 @@ modal.addEventListener("show.bs.modal", async function (event) {
           // If the entered quantity is greater than the available quantity, display an error message
           if (quantity > productQty) {
                errorMessageP.textContent = "The entered quantity is greater than the available quantity.";
+               quantityInput.classList.add("is-invalid"); // Add 'is-invalid' class
           } else {
                errorMessageP.textContent = "";
+               quantityInput.classList.remove("is-invalid"); // Remove 'is-invalid' class
           }
      });
 
@@ -77,9 +78,11 @@ modal.addEventListener("show.bs.modal", async function (event) {
           // If the entered quantity is greater than the available quantity, display an error message
           if (quantity > productQty) {
                errorMessageP.textContent = "The entered quantity is greater than the available quantity.";
+               quantityInput.classList.add("is-invalid"); // Add 'is-invalid' class
                return;
           }
           errorMessageP.textContent = "";
+          quantityInput.classList.remove("is-invalid"); // Remove 'is-invalid' class
 
           // COMMENT: POST request to add the product to the cart
           try {
@@ -97,4 +100,11 @@ modal.addEventListener("show.bs.modal", async function (event) {
                console.log(error);
           }
      });
+});
+
+let quantityInput = document.getElementById("chooseQuantity");
+quantityInput.addEventListener("keydown", function (e) {
+     if (["e", "E", "+", "-", "."].includes(e.key)) {
+          e.preventDefault();
+     }
 });
