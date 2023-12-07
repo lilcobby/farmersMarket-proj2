@@ -47,6 +47,9 @@ router.post("/", withAuth, async (req, res) => {
 
           if (existingCartItem) {
                if (Number(req.body.quantity) === 0) {
+                    // Update the product's stock before destroying the cart item
+                    await product.update({ stock: product.stock + existingCartItem.quantity });
+
                     const deleteCartItem = await CartItem.destroy({
                          where: {
                               cart_id: req.session.user_id,
@@ -55,55 +58,55 @@ router.post("/", withAuth, async (req, res) => {
                     });
                     res.status(200).json("Product removed from cart");
                     return;
-               }
+               } else {
+                    const quantityChange = req.body.quantity - existingCartItem.quantity;
+                    if (product.stock < quantityChange) {
+                         res.status(418).json("Not enough stock to add that many to your cart");
+                         return;
+                    }
 
-               const quantityChange = req.body.quantity - existingCartItem.quantity;
-               if (product.stock < quantityChange) {
-                    res.status(418).json("Not enough stock to add that many to your cart");
-                    return;
-               }
-               
-               await product.update({ stock: product.stock - Number(quantityChange) });
+                    await product.update({ stock: product.stock - Number(quantityChange) });
 
-               const updateCart = await CartItem.update(
-                    {
-                         quantity: req.body.quantity,
-                    },
-                    {
+                    const updateCart = await CartItem.update(
+                         {
+                              quantity: req.body.quantity,
+                         },
+                         {
+                              where: {
+                                   cart_id: req.session.user_id,
+                                   product_id: req.body.product_id,
+                              },
+                         }
+                    );
+
+                    const updatedProduct = await CartItem.findOne({
                          where: {
                               cart_id: req.session.user_id,
                               product_id: req.body.product_id,
                          },
-                    }
-               );
+                         include: [
+                              {
+                                   model: Product,
+                                   attributes: ["name"],
+                              },
+                         ],
+                    });
 
-               const updatedProduct = await CartItem.findOne({
-                    where: {
-                         cart_id: req.session.user_id,
-                         product_id: req.body.product_id,
-                    },
-                    include: [
-                         {
-                              model: Product,
-                              attributes: ["name"],
-                         },
-                    ],
-               });
-
-               res.status(200).json(
-                    "The quantity of '" +
-                         updatedProduct.dataValues.product.name +
-                         "' in your cart is now " +
-                         updatedProduct.quantity
-               );
-               return;
+                    res.status(200).json(
+                         "The quantity of '" +
+                              updatedProduct.dataValues.product.name +
+                              "' in your cart is now " +
+                              updatedProduct.quantity
+                    );
+                    return;
+               }
           } else {
                const quantity = Number(req.body.quantity);
                if (isNaN(quantity) || product.stock < quantity) {
                     res.status(418).json("Not enough stock to add that many to your cart");
                     return;
                }
-               console.log(quantity)
+               console.log(quantity);
                await product.update({ stock: product.stock - quantity });
 
                const createCartItem = await CartItem.create({
