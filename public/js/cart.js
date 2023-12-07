@@ -38,4 +38,9 @@ window.onload = function () {
                link.classList.add("active");
           }
      });
+     
+     checkoutBtn.addEventListener("click", (event) => {
+          event.stopPropagation();
+          window.location.href = "/checkout";
+     });
 };
