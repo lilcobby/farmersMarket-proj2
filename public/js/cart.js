@@ -43,6 +43,7 @@ const newAmountHandler = async (event) => {
 document.querySelectorAll(".updateBtn").forEach((button) => {
   button.addEventListener("click", newAmountHandler);
 });
+
 newButton.addEventListener("click", function (event) {
   event.preventDefault();
   window.location.href = "/checkout";

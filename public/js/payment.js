@@ -3,7 +3,7 @@ const isNum1 = document.querySelector("#num1 input");
 const isNum2 = document.querySelector("#num2 input");
 const completePaymentButton = document.getElementById("completePayment");
 
-const completeCheckout = (event) => {
+const completeCheckout = async (event) => {
   event.preventDefault();
   if (
     inputBox.value === "" ||
@@ -13,7 +13,10 @@ const completeCheckout = (event) => {
     console.log("There is an error somewhere. Please try again.");
     return;
   } else {
-    console.log("You did it!");
+    const response = await fetch("/api/cart/checkout", {
+      method: "POST",
+    });
+    window.location.href = "/final";
   }
 };
 
