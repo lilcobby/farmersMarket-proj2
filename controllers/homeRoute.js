@@ -33,7 +33,15 @@ router.get("/profile", withAuth, async (req, res) => {
     );
 
     const logged_in = req.session.logged_in;
-    res.render("vendorHome", { vendorData, logged_in, newData });
+   
+    const { name, description, image_url } = vendorData;
+    res.render("vendorHome", {
+      name,
+      description,
+      image_url,
+      logged_in,
+      newData,
+    });
   } catch (err) {
     res.status(500).json({ errMessage: err.message });
   }
