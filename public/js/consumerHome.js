@@ -30,6 +30,7 @@ modal.addEventListener("show.bs.modal", async function (event) {
      // COMMENT: GET request to get the quantity of the product in the cart
      let quantityInCart = 0;
 
+     
      try {
           const response = await fetch("api/cart/" + productId);
           if (response.ok) {
@@ -47,11 +48,12 @@ modal.addEventListener("show.bs.modal", async function (event) {
      } else {
           quantityInput.value = 0;
      }
+     let initialTotalCost = quantityInput.value * productPrice;
+     totalCostP.textContent = "Total Cost: $" + initialTotalCost;
 
      productQtyDiv.innerHTML = `<p>Quantity Available: ${productQty}</p><p>Items Currently in Cart: ${quantityInput.value}</p>`;
 
      quantityInput.setAttribute("max", productQty); // Set the max attribute to productQty
-     totalCostP.textContent = "Total Cost: $" + 0; // Reset the total cost
      errorMessageP.textContent = ""; // Reset the error message
 
      quantityInput.addEventListener("input", function () {
