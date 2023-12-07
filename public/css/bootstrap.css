@@ -5,17 +5,17 @@
 }
 
 .btn-bd-primary {
-  --bs-btn-font-weight: 600;
-  --bs-btn-color: var(--bs-white);
-  --bs-btn-bg: var(--bd-light-green-bg);
-  --bs-btn-border-color: var(--bd-light-green-bg);
-  --bs-btn-hover-color: var(--bs-white);
-  --bs-btn-hover-bg: var(--bd-light-green-bg);
-  --bs-btn-hover-border-color: var(--bd-light-green-bg);
-  --bs-btn-focus-shadow-rgb: var(--bd-light-green-rgb);
-  --bs-btn-active-color: var(--bs-btn-hover-color);
-  --bs-btn-active-bg: var(--bd-light-green-bg);
-  --bs-btn-active-border-color: var(--bd-light-green-bg);
+  --bs-btn-font-weight: 600 !important;
+  --bs-btn-color: var(--bs-white) !important;
+  --bs-btn-bg: var(--bd-light-green-bg) !important;
+  --bs-btn-border-color: var(--bd-light-green-bg) !important;
+  --bs-btn-hover-color: var(--bs-white) !important;
+  --bs-btn-hover-bg: var(--bd-light-green-bg) !important;
+  --bs-btn-hover-border-color: var(--bd-light-green-bg) !important;
+  --bs-btn-focus-shadow-rgb: var(--bd-light-green-rgb) !important;
+  --bs-btn-active-color: var(--bs-btn-hover-color) !important;
+  --bs-btn-active-bg: var(--bd-light-green-bg) !important;
+  --bs-btn-active-border-color: var(--bd-light-green-bg) !important;
 }
 
 .btn-bd-edit {

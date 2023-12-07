@@ -19,7 +19,6 @@ $bd-light-green: #32cd32;
      --bs-btn-active-border-color: var(--bd-light-green-bg) !important;
 }
 
-
 .btn-bd-edit {
      --bs-btn-font-weight: 600 !important;
      --bs-btn-color: var(--bs-white) !important;
@@ -31,6 +30,7 @@ $bd-light-green: #32cd32;
      --bs-btn-active-color: var(--bs-white) !important;
      --bs-btn-active-bg: #{darken($bd-light-green, 20%)} !important;
      --bs-btn-active-border-color: #{darken($bd-light-green, 20%)} !important;
+}
 
 .btn-bd-delete {
      --bs-btn-font-weight: 600 !important;
