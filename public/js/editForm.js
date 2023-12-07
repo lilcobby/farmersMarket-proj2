@@ -87,6 +87,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
           const data = await response.json();
           console.log("data", data);
+
+          // Toggle off the divs
+          const newProdForm = document.querySelector("#newProdFormFill");
+          newProdForm.classList.toggle("d-none");
+
+          const businessForm = document.querySelector("#businessForm");
+          const formsContainer = document.querySelector("#formsContainer");
+          if (businessForm.classList.contains("d-none") && newProdForm.classList.contains("d-none")) {
+               formsContainer.classList.add("d-none");
+          } else {
+               formsContainer.classList.remove("d-none");
+          }
+
+          // Reload the page
+          window.location.reload(true);
      };
 
      newProdFormEntry.addEventListener("submit", newProdFormEntryHandler);

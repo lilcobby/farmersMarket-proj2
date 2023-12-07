@@ -60,7 +60,7 @@ const productData = [
           image_url: "https://via.placeholder.com/200",
           categories: "Category6",
           vendor_id: 5,
-          is_active: false,
+          is_active: true,
      },
      {
           id: "7",
@@ -142,7 +142,7 @@ const productData = [
           image_url: "https://via.placeholder.com/200",
           categories: "Category14",
           vendor_id: 4,
-          is_active: false,
+          is_active: true,
      },
      {
           id: "15",
@@ -164,7 +164,7 @@ const productData = [
           image_url: "https://via.placeholder.com/200",
           categories: "Category16",
           vendor_id: 4,
-          is_active: false,
+          is_active: true,
      },
 ];
 

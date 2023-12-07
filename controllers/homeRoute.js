@@ -41,12 +41,12 @@ router.get("/", fetchCart, async (req, res) => {
      try {
           const vendorDataRd = await Vendor.findAll({
                attributes: ["description", "name", "id", "image_url"],
-               where: { is_active: true },
+               // where: { is_active: true },
           });
           const productData = await Product.findAll({
-               where: {
-                    is_active: true,
-               },
+               // where: {
+               //      is_active: true,
+               // },
                include: [
                     {
                          model: Vendor,
@@ -82,7 +82,7 @@ router.get("/vendors", fetchCart, async (req, res) => {
      try {
           const vendorData = await Vendor.findAll({
                attributes: ["description", "name", "id", "image_URL"],
-               where: { is_active: true },
+               // where: { is_active: true },
           });
 
           const vendors = vendorData.map((vendor) => vendor.get({ plain: true }));
@@ -133,7 +133,7 @@ router.get("/products/:id", fetchCart, async (req, res) => {
      try {
           const productData = await Product.findAll({
                where: {
-                    is_active: true,
+                    // is_active: true,
                     vendor_id: req.params.id,
                },
                include: [
