@@ -31,7 +31,7 @@ modal.addEventListener("show.bs.modal", async function (event) {
      let quantityInCart = 0;
 
      try {
-          const response = await fetch("api/cart/" + productId);
+          const response = await fetch("/api/cart/" + productId);
           const data = await response.json();
           if (data.message === "No product found with this id in your cart.") {
                quantityInCart = 0;
@@ -86,7 +86,7 @@ modal.addEventListener("show.bs.modal", async function (event) {
 
           // COMMENT: POST request to add the product to the cart
           try {
-               let response = await fetch("api/cart/", {
+               let response = await fetch("/api/cart/", {
                     method: "POST",
                     body: JSON.stringify({ product_id: productId, quantity: quantity }),
                     headers: { "Content-Type": "application/json" },

@@ -1,27 +1,3 @@
-{{! consumer homepage, shows every vendor }}
-{{! randomize 2 or so and render just those }}
-<div class="container">
-     <h2>
-          Checkout this Hot Vendor!
-     </h2>
-     <div>
-          <img
-               class="imageBorder smallProductImage"
-               src="{{randomVendor.image_url}}"
-               alt="{{randomVendor.name}} image"
-          />
-          <h3>
-               <a href="/products/{{randomVendor.id}}">
-                    {{randomVendor.name}}
-               </a>
-          </h3>
-          <p class="">
-               {{randomVendor.description}}
-          </p>
-     </div>
-</div>
-
-<!-- TODO: append products -->
 <div class="container">
      <div class="d-flex justify-content-around align-items-start align-content-between flex-wrap flex-row col-12">
           {{#each products}}

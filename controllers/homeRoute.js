@@ -59,7 +59,6 @@ router.get("/", async (req, res) => {
 
           const products = productData.map((products) => products.get({ plain: true }));
 
-          console.log("products", products);
           // Get a random vendor
           const randomVendor = vendorDataRd[Math.floor(Math.random() * vendorDataRd.length)];
           const user_id = req.session.user_id;
@@ -68,10 +67,10 @@ router.get("/", async (req, res) => {
           res.render("consumerHome", {
                // serialize
                randomVendor: randomVendor.get({ plain: true }), // Pass random vendor
+               products,
                user_id,
                logged_in,
                is_vendor,
-               products,
           });
      } catch (err) {
           res.status(500).json(err);
@@ -135,17 +134,29 @@ router.get("/login", async (req, res) => {
 // FIXME: change this route to vendor/:vendorName/products or at least vendor/:vendorId/products
 router.get("/products/:id", async (req, res) => {
      try {
-          const prodData = await Product.findAll({
-               where: { vendor_id: req.params.id, is_active: true },
-               attributes: ["name", "description", "price", "stock"],
-               include: [{ model: Vendor, attributes: ["name", "id", "image_url"] }],
+          const productData = await Product.findAll({
+               where: {
+                    is_active: true, vendor_id: req.params.id,
+               },
+               include: [
+                    {
+                         model: Vendor,
+                         attributes: ["name", "id", "image_url"],
+                    },
+               ],
           });
 
-          const products = prodData.map((prod) => prod.get({ plain: true }));
+          const products = productData.map((products) => products.get({ plain: true }));
 
-          console.log(products);
-
-          res.render("consumerProd", { products, logged_in: req.session.logged_in, user_id: req.session.user_id });
+          const user_id = req.session.user_id;
+          const is_vendor = req.session.is_vendor;
+          const logged_in = req.session.logged_in;
+          res.render("consumerProd", {
+               products,
+               user_id,
+               logged_in,
+               is_vendor,
+          });
      } catch (err) {
           res.status(500).json(err);
      }
