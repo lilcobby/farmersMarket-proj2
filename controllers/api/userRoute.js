@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { User } = require("../../models");
 const { withAuth, isAdmin } = require("../../utils/auth");
+const { Op } = require("sequelize");
 
 router.get("/", isAdmin, async (req, res) => {
      try {
@@ -27,7 +28,7 @@ router.post("/", async (req, res) => {
                }
           });
      } catch (err) {
-          res.status(400).json(err);
+          res.status(400).json({ errMessage: err.message });
      }
 });
 
@@ -45,14 +46,14 @@ router.post("/login", async (req, res) => {
           }
 
           if (!userData) {
-               res.status(418).json({ message: "Incorrect email or password, please try again" });
+               res.status(401).json({ message: "Incorrect email or password, please try again" });
                return;
           }
 
           const validPassword = await userData.checkPassword(req.body.password);
 
           if (!validPassword) {
-               res.status(418).json({ message: "Incorrect email or password, please try again" });
+               res.status(401).json({ message: "Incorrect email or password, please try again" });
                return;
           }
 
@@ -88,6 +89,24 @@ router.post("/logout", (req, res) => {
           });
      } else {
           res.status(404).json({ message: "You were not logged in." }).end();
+     }
+});
+
+router.get("/check/:username/:email", async (req, res) => {
+     try {
+          const userData = await User.findOne({
+               where: {
+                    [Op.or]: [{ username: req.params.username }, { email: req.params.email }],
+               },
+          });
+
+          if (userData) {
+               res.json({ exists: true });
+          } else {
+               res.json({ exists: false });
+          }
+     } catch (err) {
+          res.status(500).json(err);
      }
 });
 

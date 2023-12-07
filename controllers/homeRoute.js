@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { User, Vendor, Product, Sale, Cart, CartItem, SaleItem, Category } = require("../models/index.js");
-const { withAuth, isVendor } = require("../utils/auth.js");
+const { withAuth, isVendor, fetchCart } = require("../utils/auth.js");
 
 router.get("/profile", withAuth, isVendor, async (req, res) => {
      try {
@@ -34,7 +34,8 @@ router.get("/profile", withAuth, isVendor, async (req, res) => {
 
 // get request to /
 
-router.get("/", async (req, res) => {
+router.get("/", fetchCart, async (req, res) => {
+     console.log("req.cart:", req.cart);
      try {
           const vendorDataRd = await Vendor.findAll({
                attributes: ["description", "name", "id", "image_url"],
@@ -66,6 +67,7 @@ router.get("/", async (req, res) => {
                user_id,
                logged_in,
                is_vendor,
+               cart: req.cart, // Pass cart items
           });
      } catch (err) {
           res.status(500).json(err);
