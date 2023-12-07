@@ -1,32 +1,32 @@
-{{!-- cart with payment form--}}
+{{! cart with payment form}}
 
-<div>
-  <h2>Payment form:</h2>
+<div class="container">
+     <h2 class="mb-3">Payment form:</h2>
 
-  <section  id="num1">
-    <label>Card number</label>
-    <input>
-  </section>
+     <form>
+          <div class="mb-3" id="num1">
+               <label for="cardNumber" class="form-label">Card number</label>
+               <input type="text" class="form-control" id="cardNumber" />
+          </div>
 
-  <section>
-    <label>Name on card</label>
-    <input>
-  </section>
+          <div class="mb-3">
+               <label for="cardName" class="form-label">Name on card</label>
+               <input type="text" class="form-control" id="cardName" />
+          </div>
 
-  <section  id="num2">
-    <div>
-      <label>Expiration date</label>
-      <input>
-    </div>
-    <div>
-      <label>Security code</label>
-      <input  >
-     
-    </div>
-  </section>
+          <div class="row" id="num2">
+               <div class="col-md-6 mb-3">
+                    <label for="expirationDate" class="form-label">Expiration date</label>
+                    <input type="text" class="form-control" id="expirationDate" />
+               </div>
+               <div class="col-md-6 mb-3">
+                    <label for="securityCode" class="form-label">Security code</label>
+                    <input type="text" class="form-control" id="securityCode" />
+               </div>
+          </div>
 
-  <button id="completePayment">Complete payment</button>
+          <button type="submit" class="btn btn-primary" id="completePayment">Complete payment</button>
+     </form>
 
-</form>
-
-<script src = "/js/payment.js"></script>
+     <script src="/js/payment.js"></script>
+</div>

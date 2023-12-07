@@ -52,38 +52,48 @@ const formSubmitHandler = async (event) => {
 forms.forEach((form) => {
      form.addEventListener("submit", formSubmitHandler);
 });
+document.addEventListener("DOMContentLoaded", (event) => {
+     // new product form
+     const newProdFormEntry = document.querySelector("#newProdFormEntry");
 
-// new product form
-const newProdForm = document.querySelector("#newProdForm");
-const newProdHandler = async (event) => {
-     event.preventDefault();
+     const newProdFormEntryHandler = async (event) => {
+          event.preventDefault();
 
-     const newName = document.querySelector("#newProd-name").value;
-     const newDescription = document.querySelector("#newProd-description").value;
-     const newPrice = document.querySelector("#newProd-price").value;
-     const newQuant = document.querySelector("#newProd-stock").value;
-     const newImg = document.querySelector("#newProd-image").value;
-     // maybe dropdown
-     const newCat = document.querySelector("#newProd-category").value;
+          const newName = document.querySelector("#newProd-name").value;
+          const newDescription = document.querySelector("#newProd-description").value;
+          const newPrice = document.querySelector("#newProd-price").value;
+          const newQuant = document.querySelector("#newProd-stock").value;
+          const newImg = document.querySelector("#newProd-image").value;
+          const newCat = document.querySelector("#newProd-category").value;
 
-     const response = await fetch("/api/vendors/addProduct", {
-          method: "POST",
-          body: JSON.stringify({
-               name: newName,
-               description: newDescription,
-               price: newPrice,
-               stock: newQuant,
-               image_url: newImg,
-               category_id: newCat,
-          }),
-          headers: { "Content-Type": "application/json" },
-     });
-     window.location.reload(true);
-     // const data = await response.json();
-     // console.log(data);
-};
+          const response = await fetch("/api/vendors/addProduct", {
+               method: "POST",
+               body: JSON.stringify({
+                    name: newName,
+                    description: newDescription,
+                    price: newPrice,
+                    stock: newQuant,
+                    image_url: newImg,
+                    category_id: newCat,
+               }),
+               headers: { "Content-Type": "application/json" },
+          });
 
-newProdForm.addEventListener("submit", newProdHandler);
+          if (!response.ok) {
+               const errorData = await response.json();
+               console.error(errorData.errMessage);
+               return;
+          }
+
+          const data = await response.json();
+          console.log("data", data);
+     };
+
+     newProdFormEntry.addEventListener("submit", newProdFormEntryHandler);
+});
+
+/* FIXME: broke this since i change ids or something
+      newProdForm.addEventListener("submit", newProdHandler); */
 
 // submit vendor data
 const vendorForm = document.querySelector("#updateForm");
@@ -110,7 +120,27 @@ const addVendInfo = async (event) => {
           headers: { "Content-Type": "application/json" },
      });
      const data = await response.json();
-     console.log(data);
+     const businessForm = document.querySelector("#businessForm");
+     businessForm.classList.toggle("d-none");
+
      // window.location.reload(true);
 };
 vendorForm.addEventListener("submit", addVendInfo);
+
+const toggleEditInfo = document.querySelector("#toggleEditInfo");
+toggleEditInfo.addEventListener("click", () => {
+     const businessForm = document.querySelector("#businessForm");
+     businessForm.classList.toggle("d-none");
+
+     const formsContainer = document.querySelector("#formsContainer");
+     formsContainer.classList.toggle("d-none");
+});
+
+const toggleNewProduct = document.querySelector("#addNewProduct");
+toggleNewProduct.addEventListener("click", () => {
+     const newProdForm = document.querySelector("#newProdFormFill");
+     newProdForm.classList.toggle("d-none");
+
+     const formsContainer = document.querySelector("#formsContainer");
+     formsContainer.classList.toggle("d-none");
+});

@@ -1,139 +1,156 @@
 {{! shows vendor home page, stock , sales (redirect), add product form(hidden), update product form (hidden) }}
 
 {{! vendor profile/ home }}
-<div>
-     <h1>Vendor Profile</h1>
-</div>
-{{! sales }}
-<div>
-     <a class="btn btn-bd-primary not-toggled" href="/api/products/{{user_id}}">Sales</a>
-     <a class="btn btn-bd-primary not-toggled" id="toggleEditInfo">Edit Your Business Info</a>
-     <a class="btn btn-bd-primary not-toggled" id="addNewProduct">Add a Product</a>
-</div>
-
-<div class="d-flex" style="width:75%; margin:20%">
-     <div class="container d-flex flex-wrap">
-          <div class="row align-items-start">
-               <!-- Update Business Info Form -->
-               <div class="col d-none">
-                    <form id="updateForm" class="row g-3">
-                         <div class="col-md-12">
-                              <label for="businessName" class="form-label">Business Name:</label>
-                              <input class="form-control" id="businessName" name="businessName" value="{{name}}" />
-                         </div>
-                         <div class="col-md-12">
-                              <label for="businessDescription" class="form-label">Business Description:</label>
-                              <input
-                                   class="form-control"
-                                   id="businessDescription"
-                                   name="businessDescription"
-                                   value="{{description}}"
-                              />
-                         </div>
-                         <div class="col-md-12">
-                              <label for="businessImage" class="form-label">Image to Display:</label>
-                              <input
-                                   class="form-control"
-                                   id="businessImage"
-                                   name="businessImage"
-                                   value="{{image_url}}"
-                              />
-                         </div>
-                         <div class="col-12">
-                              <button id="vendorInfo" class="btn btn-primary" type="submit">Submit</button>
-                         </div>
-                    </form>
-               </div>
-               <!-- New Product Entry Form -->
-               <div class="col d-none">
-                    <form id="newProdForm" class="row g-3">
-                         <div class="col-md-12">
-                              <label for="newProd-name" class="form-label">Name:</label>
-                              <input class="form-control" type="text" id="newProd-name" />
-                         </div>
-                         <div class="col-md-12">
-                              <label for="newProd-description" class="form-label">Description:</label>
-                              <input class="form-control" type="text" id="newProd-description" />
-                         </div>
-                         <div class="col-md-12">
-                              <label for="newProd-price" class="form-label">Price:</label>
-                              <input class="form-control" type="text" id="newProd-price" />
-                         </div>
-                         <div class="col-md-12">
-                              <label for="newProd-stock" class="form-label">Quantity:</label>
-                              <input class="form-control" type="number" id="newProd-stock" min="0" />
-                         </div>
-                         <div class="col-md-12">
-                              <label for="newProd-image" class="form-label">Image URL:</label>
-                              <input class="form-control" type="text" id="newProd-image" />
-                         </div>
-                         <div class="col-md-12">
-                              <label for="newProd-category" class="form-label">Category ID:</label>
-                              <input class="form-control" type="number" id="newProd-category" min="1" max="19" />
-                         </div>
-                         <div class="col-12">
-                              <button class="btn btn-primary" type="submit">New Product Create</button>
-                         </div>
-                    </form>
-               </div>
-          </div>
-     </div>
-</div>
-{{! all prod }}
-<div>
-     <h2>All Products</h2>
+<div class="d-flex flex-column align-items-center">
      <div>
+          <h1>Vendor Profile</h1>
      </div>
-</div>
-
-{{! edit product likely redirect }}
-<div>
-     <form>
-          <div>
-               <label>edit view:</label>
-               <input class="box" id="toggleBox" type="checkbox" />
-          </div>
-     </form>
-
-     <div id="editForm">
-          {{#each newData}}
-               <form id="devView" data-id="{{id}}">
-                    <div>
-                         <label>ID:</label>
-                         <input class="ID" value="{{id}}" readonly />
-                    </div>
-                    <div>
-                         <label>Name:</label>
-                         <input class="Nam" value="{{name}}" />
-                    </div>
-                    <div>
-                         <label>Description:</label>
-                         <input class="Desc" value="{{description}}" />
-                    </div>
-                    <div>
-
-                         <label>Price:</label>
-                         <input class="Pric" value="{{price}}" />
-                    </div>
-                    <div>
-                         <label>Quantity:</label>
-                         <input class="Quant" value="{{stock}}" type="number" min="0" />
-                    </div>
-                    <div><button>edit</button></div>
-
-               </form>
-          {{/each}}
+     {{! sales }}
+     <div>
+          <a class="btn btn-bd-primary not-toggled" href="/api/products/{{user_id}}">Sales</a>
+          <a class="btn btn-bd-primary not-toggled" id="toggleEditInfo">Edit Your Business Info</a>
+          <a class="btn btn-bd-primary not-toggled" id="addNewProduct">Add a Product</a>
      </div>
-     <div id="normal">
-          {{#each newData}}
-               <div>
-                    <p>id:{{id}}</p>
-                    <p>Name: {{name}} </p>
-                    <p>Description: {{description}}</p>
-                    <p>Price: {{price}}</p>
-                    <p>Quantity: {{stock}}</p>
+
+     <div class="d-flex d-none" id="formsContainer" style="width:75%; margin:20%">
+          <div class="container d-flex flex-wrap">
+               <div class="row align-items-start">
+                    <!-- Update Business Info Form -->
+                    <div class="col d-none" id="businessForm">
+                         <form id="updateForm" class="row g-3">
+                              <div class="col-md-12">
+                                   <label for="businessName" class="form-label">Business Name:</label>
+                                   <input class="form-control" id="businessName" name="businessName" value="{{name}}" />
+                              </div>
+                              <div class="col-md-12">
+                                   <label for="businessDescription" class="form-label">Business Description:</label>
+                                   <input
+                                        class="form-control"
+                                        id="businessDescription"
+                                        name="businessDescription"
+                                        value="{{description}}"
+                                   />
+                              </div>
+                              <div class="col-md-12">
+                                   <label for="businessImage" class="form-label">Image to Display:</label>
+                                   <input
+                                        class="form-control"
+                                        id="businessImage"
+                                        name="businessImage"
+                                        value="{{image_url}}"
+                                   />
+                              </div>
+                              <div class="col-12">
+                                   <button
+                                        id="vendorInfo"
+                                        class="btn btn-bd-primary not-toggled"
+                                        type="submit"
+                                   >Submit</button>
+                              </div>
+                         </form>
+                    </div>
+                    <!-- New Product Entry Form -->
+                    <div class="col d-none" id="newProdFormFill">
+                         <form class="row g-3" id="newProdFormEntry">
+                              <div class="col-md-12">
+                                   <label for="newProd-name" class="form-label">Name:</label>
+                                   <input class="form-control" type="text" id="newProd-name" />
+                              </div>
+                              <div class="col-md-12">
+                                   <label for="newProd-description" class="form-label">Description:</label>
+                                   <input class="form-control" type="text" id="newProd-description" />
+                              </div>
+                              <div class="col-md-12">
+                                   <label for="newProd-price" class="form-label">Price:</label>
+                                   <input class="form-control" type="text" id="newProd-price" />
+                              </div>
+                              <div class="col-md-12">
+                                   <label for="newProd-stock" class="form-label">Quantity:</label>
+                                   <input class="form-control" type="number" id="newProd-stock" min="0" />
+                              </div>
+                              <div class="col-md-12">
+                                   <label for="newProd-image" class="form-label">Image URL:</label>
+                                   <input class="form-control" type="text" id="newProd-image" />
+                              </div>
+                              <div class="col-md-12">
+                                   <label for="newProd-category" class="form-label">Category ID:</label>
+                                   <input class="form-control" type="number" id="newProd-category" min="1" max="19" />
+                              </div>
+                              <div class="col-12">
+                                   <button class="btn btn-bd-primary not-toggled" type="submit">Create New Product</button>
+                              </div>
+                         </form>
+                    </div>
                </div>
-          {{/each}}
+          </div>
+     </div>
+     {{! all prod }}
+     <div>
+          <h2>All Products</h2>
+          <div>
+          </div>
+     </div>
+
+     {{! edit product likely redirect }}
+     <div>
+          <form>
+               <div>
+                    <label>edit view:</label>
+                    <input class="box" id="toggleBox" type="checkbox" />
+               </div>
+          </form>
+
+          <div id="editForm">
+               {{#each newData}}
+                    <form id="devView" data-id="{{id}}">
+                         <div>
+                              <label>ID:</label>
+                              <input class="ID" value="{{id}}" readonly />
+                         </div>
+                         <div>
+                              <label>Name:</label>
+                              <input class="Nam" value="{{name}}" />
+                         </div>
+                         <div>
+                              <label>Description:</label>
+                              <input class="Desc" value="{{description}}" />
+                         </div>
+                         <div>
+
+                              <label>Price:</label>
+                              <input class="Pric" value="{{price}}" />
+                         </div>
+                         <div>
+                              <label>Quantity:</label>
+                              <input class="Quant" value="{{stock}}" type="number" min="0" />
+                         </div>
+                         <div><button>edit</button></div>
+
+                    </form>
+               {{/each}}
+          </div>
+          <div id="normal" class="container row">
+               <!-- Added Bootstrap classes -->
+               {{#each newData}}
+                    <div class="d-flex m-2 flex-column col-12">
+                         <div class="position-relative d-flex align-items-center  flex-row">
+                              <img
+                                   href=""
+                                   class="imageBorder smallProductImage rounded-4 m-2 col-2"
+                                   src="{{image_url}}"
+                                   alt="{{name}} image"
+                              />
+
+                              <p class="m-1 col-1 m-1">${{price}}</p>
+                              <p class="m-1 col-3 m-4">{{name}}</p>
+
+                              <p class="col-5">{{description}}</p>
+                              <p class="m-1 col-2"><small class="text-muted">Qty: {{stock}}</small></p>
+                         </div>
+                    </div>
+               {{/each}}
+          </div>
+
      </div>
 </div>
 

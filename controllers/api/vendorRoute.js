@@ -168,7 +168,7 @@ router.post("/addProduct", withAuth, async (req, res) => {
                req.body.image_url = "https://via.placeholder.com/100";
           }
           if (!req.body.category_id) {
-               req.body.category_id = "Uncategorized";
+               req.body.category_id = "20";
           }
 
           await Product.create({

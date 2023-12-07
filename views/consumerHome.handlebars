@@ -1,24 +1,24 @@
 {{! consumer homepage, shows every vendor }}
 {{! randomize 2 or so and render just those }}
-<div class="container">
-     <h2>
-          Checkout this Hot Vendor!
-     </h2>
-     <div>
-          <img
-               class="imageBorder smallProductImage"
-               src="{{randomVendor.image_url}}"
-               alt="{{randomVendor.name}} image"
-          />
-          <h3>
-               <a href="/products/{{randomVendor.id}}">
-                    {{randomVendor.name}}
-               </a>
-          </h3>
-          <p class="">
-               {{randomVendor.description}}
-          </p>
-     </div>
+<div class="container d-flex flex-column justify-content-center align-items-center mt-5">
+    <h2 class="border-danger">
+        Checkout this Hot Vendor!
+    </h2>
+    <div class="text-center">
+        <img
+            class="imageBorder smallProductImage m-5"
+            src="{{randomVendor.image_url}}"
+            alt="{{randomVendor.name}} image"
+        />
+        <h3>
+            <a href="/products/{{randomVendor.id}}">
+                {{randomVendor.name}}
+            </a>
+        </h3>
+        <p class="">
+            {{randomVendor.description}}
+        </p>
+    </div>
 </div>
 
 <!-- TODO: append products -->
@@ -46,7 +46,7 @@
                          {{#if ../logged_in}}
                               <button
                                    type="button"
-                                   class="btn btn-primary btn-sm"
+                                   class="btn btn-bd-edit btn-sm"
                                    data-bs-toggle="modal"
                                    data-bs-target="#addToCart"
                                    data-id="{{this.id}}"
@@ -77,7 +77,7 @@
                </div>
                <div class="modal-body">
                     <h3>See what else this vendor has to offer!</h3>
-                    <div id="vendorDiv" style="display: flex;">
+                    <div id="vendorDiv" class="d-flex justify-content-center align-items-center m-3">
                          <img id="vendorImage" style="width: 150px; height: 150px;" />
                          <h3 id="vendorName"></h3>
                     </div>
