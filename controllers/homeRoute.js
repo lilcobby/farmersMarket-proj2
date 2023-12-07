@@ -2,7 +2,7 @@ const router = require("express").Router();
 const { User, Vendor, Product, Sale, Cart, CartItem, SaleItem, Category } = require("../models/index.js");
 const { withAuth, isVendor, fetchCart } = require("../utils/auth.js");
 
-router.get("/profile", withAuth, isVendor, async (req, res) => {
+router.get("/profile", withAuth, isVendor, fetchCart, async (req, res) => {
      try {
           const vendorData = await Vendor.findOne({
                where: { user_id: req.session.user_id },
@@ -17,7 +17,7 @@ router.get("/profile", withAuth, isVendor, async (req, res) => {
           const newData = productData.map((products) => products.get({ plain: true }));
 
           const logged_in = req.session.logged_in;
-
+          const is_vendor = req.session.is_vendor;
           const { name, description, image_url, user_id } = vendorData;
           res.render("vendorHome", {
                user_id,
@@ -26,6 +26,8 @@ router.get("/profile", withAuth, isVendor, async (req, res) => {
                image_url,
                logged_in,
                newData,
+               is_vendor,
+               cart: req.cart,
           });
      } catch (err) {
           res.status(500).json({ errMessage: err.message });
@@ -76,7 +78,7 @@ router.get("/", fetchCart, async (req, res) => {
 
 // all vendors
 
-router.get("/vendors", async (req, res) => {
+router.get("/vendors", fetchCart, async (req, res) => {
      try {
           const vendorData = await Vendor.findAll({
                attributes: ["description", "name", "id", "image_URL"],
@@ -88,8 +90,8 @@ router.get("/vendors", async (req, res) => {
           res.render("vendorList", {
                vendors,
                is_vendor: req.session.is_vendor,
-
                logged_in: req.session.logged_in,
+               cart: req.cart,
           });
      } catch (err) {
           res.status(500).json(err);
@@ -98,14 +100,14 @@ router.get("/vendors", async (req, res) => {
 
 // login
 
-router.get("/login", async (req, res) => {
+router.get("/login", fetchCart, async (req, res) => {
      if (req.session.logged_in) {
           res.redirect("/");
 
           return;
      }
 
-     res.render("login", { logged_in: req.session.logged_in });
+     res.render("login", { logged_in: req.session.logged_in, cart: req.cart });
 });
 
 // if we want an all products page
@@ -127,7 +129,7 @@ router.get("/login", async (req, res) => {
 
 // reroute to products owned by vendor
 // FIXME: change this route to vendor/:vendorName/products or at least vendor/:vendorId/products
-router.get("/products/:id", async (req, res) => {
+router.get("/products/:id", fetchCart, async (req, res) => {
      try {
           const productData = await Product.findAll({
                where: {
@@ -152,6 +154,7 @@ router.get("/products/:id", async (req, res) => {
                user_id,
                logged_in,
                is_vendor,
+               cart: req.cart,
           });
      } catch (err) {
           res.status(500).json(err);
@@ -184,15 +187,17 @@ router.get("/cart", withAuth, async (req, res) => {
           res.status(500).json(err);
      }
 });
-router.get("/checkout", withAuth, async (req, res) => {
+router.get("/checkout", withAuth, fetchCart, async (req, res) => {
      res.render("checkout", {
           logged_in: req.session.logged_in,
+          cart: req.cart,
      });
 });
 // last screen
-router.get("/final", withAuth, async (req, res) => {
+router.get("/final", withAuth, fetchCart, async (req, res) => {
      res.render("final", {
           logged_in: req.session.logged_in,
+          cart: req.cart,
      });
 });
 module.exports = router;

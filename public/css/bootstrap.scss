@@ -1,5 +1,48 @@
 // $primary: red; // this is a way to override bootstrap variables
-
+$bd-light-green: #32cd32;
+:root {
+     --bd-light-green-bg: #{$bd-light-green};
+     --bd-light-green-rgb: 50, 205, 50;
+}
 // body { padding-top: 50px; } // this is a way to add custom css
+.btn-bd-primary {
+     --bs-btn-font-weight: 600 !important;
+     --bs-btn-color: var(--bs-white) !important;
+     --bs-btn-bg: var(--bd-light-green-bg) !important;
+     --bs-btn-border-color: var(--bd-light-green-bg) !important;
+     --bs-btn-hover-color: var(--bs-white) !important;
+     --bs-btn-hover-bg: var(--bd-light-green-bg) !important;
+     --bs-btn-hover-border-color: var(--bd-light-green-bg) !important;
+     --bs-btn-focus-shadow-rgb: var(--bd-light-green-rgb) !important;
+     --bs-btn-active-color: var(--bs-btn-hover-color) !important;
+     --bs-btn-active-bg: var(--bd-light-green-bg) !important;
+     --bs-btn-active-border-color: var(--bd-light-green-bg) !important;
+}
+
+
+.btn-bd-edit {
+     --bs-btn-font-weight: 600 !important;
+     --bs-btn-color: var(--bs-white) !important;
+     --bs-btn-bg: #{darken($bd-light-green, 10%)} !important;
+     --bs-btn-border-color: #{darken($bd-light-green, 10%)} !important;
+     --bs-btn-hover-color: var(--bs-white) !important;
+     --bs-btn-hover-bg: #{darken($bd-light-green, 20%)} !important;
+     --bs-btn-hover-border-color: #{darken($bd-light-green, 20%)} !important;
+     --bs-btn-active-color: var(--bs-white) !important;
+     --bs-btn-active-bg: #{darken($bd-light-green, 20%)} !important;
+     --bs-btn-active-border-color: #{darken($bd-light-green, 20%)} !important;
+
+.btn-bd-delete {
+     --bs-btn-font-weight: 600 !important;
+     --bs-btn-color: var(--bs-white) !important;
+     --bs-btn-bg: #{darken($bd-light-green, 30%)} !important;
+     --bs-btn-border-color: #{darken($bd-light-green, 30%)} !important;
+     --bs-btn-hover-color: var(--bs-white) !important;
+     --bs-btn-hover-bg: #{darken($bd-light-green, 40%)} !important;
+     --bs-btn-hover-border-color: #{darken($bd-light-green, 40%)} !important;
+     --bs-btn-active-color: var(--bs-white) !important;
+     --bs-btn-active-bg: #{darken($bd-light-green, 40%)} !important;
+     --bs-btn-active-border-color: #{darken($bd-light-green, 40%)} !important;
+}
 
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";

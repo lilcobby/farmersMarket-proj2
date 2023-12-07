@@ -12,16 +12,16 @@
                     <h1>The Farmer's E-Market</h1>
 
                     <nav>
-                         <a class="btn btn-primary" href="/">Home</a>
-                         <a class="btn btn-primary" href="/vendors/">Vendors</a>
+                         <a class="btn btn-bd-primary not-toggled" href="/">Home</a>
+                         <a class="btn btn-bd-primary not-toggled" href="/vendors/">Vendors</a>
 
                          {{#if logged_in}}
                               {{#if is_vendor}}
-                                   <a class="btn btn-primary" href="/profile">Vendor Home</a>
+                                   <a class="btn btn-bd-primary not-toggled" href="/profile">Vendor Home</a>
                               {{/if}}
 
                                                             <button
-                                   class="btn btn-primary"
+                                   class="btn btn-bd-primary not-toggled"
                                    type="button"
                                    data-bs-toggle="offcanvas"
                                    data-bs-target="#offcanvasDarkNavbar"
@@ -31,20 +31,18 @@
                                    Cart
                               </button>
 
-                              <button class="no-button btn btn-primary" id="logout">Logout</button>
+                              <button class="no-button btn btn-bd-primary not-toggled" id="logout">Logout</button>
 
                          {{else}}
 
-                              <a class="btn btn-primary" href="/login">Login</a>
+                              <a class="btn btn-bd-primary not-toggled" href="/login">Login</a>
 
                          {{/if}}
                     </nav>
                </header>
                <main class="container">
                     {{{body}}}
-                    {{#if logged_in}}
                     {{> cartOffCanvas}}
-                    {{/if}}
                </main>
                               <footer>
                     <h6 class="d-flex justify-content-center">Locally Sourced! Cage Free Eggs Here!</h6>

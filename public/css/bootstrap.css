@@ -1,4 +1,49 @@
 @charset "UTF-8";
+:root {
+  --bd-light-green-bg: #32cd32;
+  --bd-light-green-rgb: 50, 205, 50;
+}
+
+.btn-bd-primary {
+  --bs-btn-font-weight: 600;
+  --bs-btn-color: var(--bs-white);
+  --bs-btn-bg: var(--bd-light-green-bg);
+  --bs-btn-border-color: var(--bd-light-green-bg);
+  --bs-btn-hover-color: var(--bs-white);
+  --bs-btn-hover-bg: var(--bd-light-green-bg);
+  --bs-btn-hover-border-color: var(--bd-light-green-bg);
+  --bs-btn-focus-shadow-rgb: var(--bd-light-green-rgb);
+  --bs-btn-active-color: var(--bs-btn-hover-color);
+  --bs-btn-active-bg: var(--bd-light-green-bg);
+  --bs-btn-active-border-color: var(--bd-light-green-bg);
+}
+
+.btn-bd-edit {
+  --bs-btn-font-weight: 600 !important;
+  --bs-btn-color: var(--bs-white) !important;
+  --bs-btn-bg: #28a428 !important;
+  --bs-btn-border-color: #28a428 !important;
+  --bs-btn-hover-color: var(--bs-white) !important;
+  --bs-btn-hover-bg: #1e7b1e !important;
+  --bs-btn-hover-border-color: #1e7b1e !important;
+  --bs-btn-active-color: var(--bs-white) !important;
+  --bs-btn-active-bg: #1e7b1e !important;
+  --bs-btn-active-border-color: #1e7b1e !important;
+}
+
+.btn-bd-delete {
+  --bs-btn-font-weight: 600 !important;
+  --bs-btn-color: var(--bs-white) !important;
+  --bs-btn-bg: #145214 !important;
+  --bs-btn-border-color: #145214 !important;
+  --bs-btn-hover-color: var(--bs-white) !important;
+  --bs-btn-hover-bg: #0a290a !important;
+  --bs-btn-hover-border-color: #0a290a !important;
+  --bs-btn-active-color: var(--bs-white) !important;
+  --bs-btn-active-bg: #0a290a !important;
+  --bs-btn-active-border-color: #0a290a !important;
+}
+
 /*!
  * Bootstrap  v5.3.2 (https://getbootstrap.com/)
  * Copyright 2011-2023 The Bootstrap Authors

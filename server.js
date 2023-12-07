@@ -11,6 +11,10 @@ const PORT = process.env.PORT || 3001;
 
 const hbs = exphbs.create({});
 
+hbs.handlebars.registerHelper("multiply", function (a, b) {
+     return a * b;
+ });
+
 const sess = {
      secret: "Super secret secret",
      cookie: {},
