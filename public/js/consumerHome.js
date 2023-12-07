@@ -45,6 +45,7 @@ modal.addEventListener("show.bs.modal", function (event) {
                errorMessageP.textContent = "";
           }
      });
-
+     
      // TODO: add to cart
+     let addToCartBtn = document.getElementById("addToCartBtn");
 });
