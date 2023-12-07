@@ -29,7 +29,7 @@ const vendorData = [
           image_url: "https://i.pinimg.com/originals/fe/1b/b0/fe1bb084481b4444a44302efa80fd176.jpg",
           user_id: 6,
           id: 6,
-          is_active: false,
+          is_active: true,
      },
 ];
 

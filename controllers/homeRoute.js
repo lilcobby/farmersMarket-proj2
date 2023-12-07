@@ -200,4 +200,45 @@ router.get("/final", withAuth, fetchCart, async (req, res) => {
           cart: req.cart,
      });
 });
+
+// TODO: render sales page
+router.get("/vendors/sales", withAuth, fetchCart, async (req, res) => {
+     try {
+          const vendorData = await Vendor.findOne({
+               where: { user_id: req.session.user_id },
+          });
+          if (!vendorData) {
+               res.status(404).json({ message: "You are not a vendor." });
+               return;
+          }
+          const saleData = await Sale.findAll({
+               where: { vendor_id: vendorData.id },
+               include: [
+                    {
+                         model: SaleItem,
+                         include: [
+                              {
+                                   model: Product,
+                                   attributes: ["name", "description", "price", "stock", "image_url"],
+                              },
+                         ],
+                    },
+               ],
+          });
+          if (saleData.length === 0) {
+               res.status(404).json({ message: "You have no sales." });
+               return;
+          }
+          const sales = saleData.map((sale) => sale.get({ plain: true }));
+          res.render("sales", {
+               sales,
+               logged_in: req.session.logged_in,
+               is_vendor: (req.session.is_vendor = true),
+               cart: req.cart,
+          });
+     } catch (err) {
+          res.status(500).json({ errMessage: err.message });
+     }
+});
+
 module.exports = router;

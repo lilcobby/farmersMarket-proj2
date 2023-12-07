@@ -1,0 +1,29 @@
+{{! shows sales report?? }}
+
+<div class="container mt-5">
+     <h1 class="mb-4">Sales</h1>
+     {{#each sales}}
+          <div class="card mb-3">
+               <div class="card-body">
+                    <h5 class="card-title">Sale ID: {{this.id}}</h5>
+                    {{#each this.saleItems}}
+                         <div class="card mt-3">
+                              <div class="card-body">
+                                   <h6 class="card-subtitle mb-2 text-muted">Product ID: {{this.product_id}}</h6>
+                                   <h6 class="card-subtitle mb-2 text-muted">Quantity: {{this.quantity}}</h6>
+                                   <h5 class="card-title">{{this.product.name}}</h5>
+                                   <p class="card-text">{{this.product.description}}</p>
+                                   <p class="card-text">Price: ${{this.product.price}}</p>
+                                   <p class="card-text">Stock: {{this.product.stock}}</p>
+                                   <img
+                                        src="{{this.product.image_url}}"
+                                        alt="{{this.product.name}}"
+                                        class="imageBorder smallProductImage rounded-4 m-2"
+                                   />
+                              </div>
+                         </div>
+                    {{/each}}
+               </div>
+          </div>
+     {{/each}}
+</div>

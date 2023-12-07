@@ -199,7 +199,7 @@ router.put("/products/:id", withAuth, async (req, res) => {
                return;
           }
           const vendorData = await Vendor.findOne({
-               where: { id: req.session.user_id, is_active: true },
+               where: { id: req.session.user_id },
           });
 
           if (!vendorData) {

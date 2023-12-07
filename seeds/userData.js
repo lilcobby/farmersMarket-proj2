@@ -1,11 +1,12 @@
 const userData = [
      {
           id: 1,
-          username: "Alice",
-          password: "passwordAlice",
-          email: "alice@example.com",
+          username: "u",
+          password: "u",
+          email: "drgstriker@aol.com",
           cart_id: 1,
           is_vendor: true,
+          is_admin: true,
      },
      {
           id: 2,
@@ -41,12 +42,11 @@ const userData = [
      },
      {
           id: 6,
-          username: "u",
-          password: "u",
-          email: "u@example.com",
+          username: "Alice",
+          password: "passwordAlice",
+          email: "alice@example.com",
           cart_id: 6,
           is_vendor: true,
-          is_admin: true,
      },
 ];
 

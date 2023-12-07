@@ -24,6 +24,7 @@ const loginFormHandler = async (event) => {
           }
 
           document.location.replace("/");
+          window.location.reload();
      }
 };
 
@@ -68,6 +69,7 @@ const signupFormHandler = async (event) => {
           }
 
           document.location.replace("/");
+          window.location.reload();
      }
 };
 

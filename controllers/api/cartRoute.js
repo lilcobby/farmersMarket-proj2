@@ -239,7 +239,7 @@ router.post("/checkout", withAuth, async (req, res) => {
           const vendorEmails = cartItems.map((item) => item.product.vendor.user.email);
           let baseURL;
           if (process.env.JAWSDB_URL) {
-               baseURL = "heroku-URL"; // FIXME: Add heroku URL when we have it deployed
+               baseURL = "https://farmersmarket-6a75e85eecc8.herokuapp.com/"; // FIXME: Add heroku URL when we have it deployed
           } else {
                baseURL = "http://localhost:3001";
           }
@@ -253,7 +253,7 @@ router.post("/checkout", withAuth, async (req, res) => {
                          subject: "New Order!",
                          text: `You have a new order! Please login to your account to view the order details: ${salesLink}`,
                     };
-                    return; // transporter.sendMail(mailOptions); // FIXME: Uncomment when we have it deployed or want to test the emails
+                    return transporter.sendMail(mailOptions); // FIXME: Uncomment when we have it deployed or want to test the emails
                })
           );
 
