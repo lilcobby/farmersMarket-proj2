@@ -3,6 +3,10 @@
 
     <p>Name: <a href="/products/{{id}}"> {{name}}</a> </p>
     <p>Description: {{description}}</p>
-    <p>Image: {{image_URL}}</p>
+    <img
+      src="{{image_URL}}"
+      alt="Vendor Image"
+      class="imageBorder smallProductImage"
+    />
   {{/each}}
 </div>

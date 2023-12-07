@@ -80,6 +80,7 @@ router.get("/", async (req, res) => {
 // all vendors
 
 router.get("/vendors", async (req, res) => {
+
      try {
           const vendorData = await Vendor.findAll({
                attributes: ["description", "name", "id", "image_URL"],
@@ -177,5 +178,10 @@ router.get("/checkout", withAuth, async (req, res) => {
           logged_in: req.session.logged_in,
      });
 });
-
+// last screen
+router.get("/final", withAuth, async (req, res) => {
+  res.render("final", {
+    logged_in: req.session.logged_in,
+  });
+});
 module.exports = router;

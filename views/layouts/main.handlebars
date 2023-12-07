@@ -1,45 +1,46 @@
 <html lang="en" data-bs-theme="dark">
-     <head>
-          <meta charset="UTF-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <title>Farmers Market</title>
-          <link rel="stylesheet" href="/css/normalize.css" />
-          <link rel="stylesheet" href="/css/bootstrap.css" />
-          <link rel="stylesheet" href="/css/style.css" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Farmers Market</title>
+    <link rel="stylesheet" href="/css/normalize.css" />
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/style.css" />
 
-          <body>
-               <header class="text-center row container-fluid sticky-top">
-                    <h1>The Farmer's E-Market</h1>
+    <body>
+      <header class="text-center row container-fluid sticky-top">
+        <h1>The Farmer's E-Market</h1>
 
-                    <nav>
-                         <a class="btn btn-primary" href="/">Home</a>
-                         <a class="btn btn-primary" href="/vendors/">Vendors</a>
-
-                         <button class="btn btn-primary">Categories</button>
-
-                         {{#if logged_in}}
-                              {{#if is_vendor}}
-                                   <a class="btn btn-primary" href="/profile">Vendor Home</a>
-                              {{/if}}
-
-                              <a class="btn btn-primary" href="/cart">Cart</a>
-
-                              <button class="no-button btn btn-primary" id="logout">Logout</button>
-
-                         {{else}}
-
-                              <a class="btn btn-primary" href="/login">Login</a>
-
-                         {{/if}}
-                    </nav>
-               </header>
-               <main class="container">{{{body}}}</main>
-               <footer>FOOTER add same navbar links here but smaller</footer>
-          </body>
+        <nav>
+          <a class="btn btn-primary" href="/">Home</a>
+          <a class="btn btn-primary" href="/vendors/">Vendors</a>
 
           {{#if logged_in}}
-               <script src="/js/logout.js"></script>
+            {{#if is_vendor}}
+              <a class="btn btn-primary" href="/profile">Vendor Home</a>
+            {{/if}}
+
+            <a class="btn btn-primary" href="/cart">Cart</a>
+
+            <button
+              class="no-button btn btn-primary"
+              id="logout"
+            >Logout</button>
+
+          {{else}}
+
+            <a class="btn btn-primary" href="/login">Login</a>
+
           {{/if}}
-          <script src="/js/bootstrap.bundle.min.js"></script>
-     </head>
+        </nav>
+      </header>
+      <main class="container">{{{body}}}</main>
+      <footer>FOOTER add same navbar links here but smaller</footer>
+    </body>
+
+    {{#if logged_in}}
+      <script src="/js/logout.js"></script>
+    {{/if}}
+    <script src="/js/bootstrap.bundle.min.js"></script>
+  </head>
 </html>
