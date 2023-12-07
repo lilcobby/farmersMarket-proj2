@@ -1,5 +1,5 @@
 /* TODO: 
-     - get cart to display
-     - work on form to update product
-     - npm to email vendor 
+     - Sales page
+     - complete payment button on checkout page
+     - delete button on cart page
       */
