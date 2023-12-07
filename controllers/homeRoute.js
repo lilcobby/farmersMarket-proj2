@@ -40,10 +40,17 @@ router.get("/", async (req, res) => {
                where: {
                     is_active: true,
                },
+               include: [
+                    {
+                         model: Vendor,
+                         attributes: ["name", "id", "image_url"],
+                    },
+               ],
           });
 
           const products = productData.map((products) => products.get({ plain: true }));
 
+          console.log("products", products);
           // Get a random vendor
           const randomVendor = vendorDataRd[Math.floor(Math.random() * vendorDataRd.length)];
           const user_id = req.session.user_id;
@@ -123,8 +130,6 @@ router.get("/products/:id", async (req, res) => {
           });
 
           const products = prodData.map((prod) => prod.get({ plain: true }));
-
-          console.log(products);
 
           res.render("consumerProd", { products });
      } catch (err) {
