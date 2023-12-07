@@ -34,7 +34,7 @@ const productData = [
      {
           id: "4",
           name: "Organic Purple Carrots",
-          description: "Purple carrots are a colorful twist on a classic vegetable. They are sweet and earthy in flavor, often with a peppery taste. Although their exterior is purple the inside is orange, just like a traditional carrot. These carrots are great to eat raw, as cruudites, or can be used to make spicy carrot pickles",
+          description: "Purple carrots are a colorful twist on a classic vegetable. They are sweet and earthy in flavor, often with a peppery taste. These carrots are great to eat raw, as cruudites, or can be used to make spicy carrot pickles",
           price: 3.5,
           stock: 25,
           image_url: "https://media.istockphoto.com/photos/purple-carrots-isolated-picture-id484817111?k=6&m=484817111&s=612x612&w=0&h=MB8bpiVvPvrn0-DeLCjyJxx1dYtppqSr8VmEogDjviI=",
@@ -44,7 +44,7 @@ const productData = [
      {
           id: "5",
           name: "Beefsteak Tomatoes",
-          description: "The Beefsteak Tomato is a large, red, heirloom tomato cultivar generally considered to be the classic slicing variety of tomato. The Beefsteak Tomato variety is also the namesake cultivar for an entire category of tomatoes known as beefsteak-type tomatoes. They are known for their huge size, firm texture, and old-fashioned characteristic tomato taste and aroma.",
+          description: "The Beefsteak Tomato is a large, red, heirloom tomato cultivar generally considered to be the classic slicing variety of tomato. They are known for their huge size, firm texture, and old-fashioned characteristic tomato taste and aroma.",
           price: 3.5,
           stock: 44,
           image_url: "https://cdn.shopify.com/s/files/1/1698/1675/products/Tomato_Beefsteak.jpg?v=1555102096",
@@ -85,7 +85,7 @@ const productData = [
      {
           id: "9",
           name: "Ghost Peppers",
-          description: "Ghost peppers are renowned for their exceptional spiciness, registering significantly higher on the Scoville scale than other well-known chili varieties like jalapeños or habaneros. However, despite their remarkable heat, ghost peppers exhibit a distinctly fruity and mildly sweet taste.",
+          description: "Ghost peppers are renowned for their exceptional spiciness, registering significantly higher on the Scoville scale than other well-known chili varieties like jalapeños or habaneros. Ghost peppers exhibit a distinctly fruity and mildly sweet taste.",
           price: 2.0,
           stock: 60,
           image_url: "https://spicytrio.com/wp-content/uploads/2021/06/Ghost-Pepper-1.jpg",
@@ -105,7 +105,7 @@ const productData = [
      {
           id: "11",
           name: "Napa Cabbage",
-          description: "Napa cabbage is a type of Chinese cabbage that is very popular in East Asian cuisine. It is a large, leafy vegetable that is used in a variety of dishes, including stir-fries, soups, and slaws. It is also a common ingredient in kimchi, a traditional Korean dish made from fermented cabbage.",
+          description: "Napa cabbage is a type of Chinese cabbage. It is a large, leafy vegetable that is used in a variety of dishes, including stir-fries, soups, kimchi, and slaws.",
           price: 2.75,
           stock: 24,
           image_url: "https://www.specialtyproduce.com/sppics/65721.png",
@@ -115,7 +115,7 @@ const productData = [
      {
           id: "12",
           name: "Savoy Cabbage",
-          description: "Savoy cabbage is a type of cabbage that has crinkled, lacy leaves that are more loosely packed than regular green cabbage. It has a mild flavor and is tender and crisp when cooked. Savoy cabbage is a versatile vegetable that can be used in a variety of dishes, including soups, stews, stir-fries, and salads.",
+          description: "Savoy cabbage is a type of cabbage that has crinkled, lacy leaves that are more loosely packed than regular green cabbage. It has a mild flavor and is tender and crisp when cooked.",
           price: 3.0,
           stock: 22,
           image_url: "https://step-by-step-cook.co.uk/images/vegetables/savoy/savoy.jpg",
@@ -125,7 +125,7 @@ const productData = [
      {
           id: "13",
           name: "Red Cabbage",
-          description: "Red cabbage is a type of cabbage that has a deep purple color. It is a popular vegetable in Europe and Asia, where it is used in a variety of dishes, including salads, soups, and stir-fries. Red cabbage is also a common ingredient in sauerkraut, a traditional German dish made from fermented cabbage.",
+          description: "Red cabbage is a type of cabbage that has a deep purple color. It is a popular vegetable in Europe and Asia, where it is used in a variety of dishes, including salads, soups, saurkrut, and stir-fries.",
           price: 2.0,
           stock: 51,
           image_url: "https://seedlefarms.com/wp-content/uploads/2021/04/Red-Cabbage-600x450.jpg",
