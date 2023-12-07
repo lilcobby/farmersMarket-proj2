@@ -1,5 +1,5 @@
 let modal = document.getElementById("addToCart");
-modal.addEventListener("show.bs.modal", async function (event) {
+modal.addEventListener("show.bs.modal", function (event) {
      // COMMENT: grabbing the data from the button to pass to the modal
      let button = event.relatedTarget;
      let productId = button.getAttribute("data-product-id");
@@ -16,7 +16,7 @@ modal.addEventListener("show.bs.modal", async function (event) {
      let vendorNameDiv = document.getElementById("vendorName");
      let productPriceP = document.getElementById("productPrice");
      let productDescriptionP = document.getElementById("productDescription");
-     let productQtyDiv = document.getElementById("productQuantity");
+     let productQtyP = document.getElementById("productQuantity");
      let quantityInput = document.getElementById("chooseQuantity");
      let totalCostP = document.getElementById("totalCost");
      let errorMessageP = document.getElementById("errorMessage");
@@ -25,31 +25,10 @@ modal.addEventListener("show.bs.modal", async function (event) {
      vendorImage.src = vendorImg;
      vendorNameDiv.innerHTML = `<a href="/products/${vendorId}">${vendorName} <i class="fa fa-text-height" aria-hidden="true"></i></a>`;
      productDescriptionP.textContent = productDescription;
+     productQtyP.textContent = "Quantity Available: " + productQty;
      productPriceP.textContent = "$" + productPrice;
 
-     // COMMENT: GET request to get the quantity of the product in the cart
-     let quantityInCart = 0;
-
-     try {
-          const response = await fetch("api/cart/" + productId);
-          if (response.ok) {
-               const data = await response.json();
-               quantityInCart = data.quantity;
-          } else {
-               quantityInCart = 0;
-          }
-     } catch (error) {
-          console.log(error);
-     }
-
-     if (quantityInCart > 0) {
-          quantityInput.value = quantityInCart;
-     } else {
-          quantityInput.value = 0;
-     }
-
-     productQtyDiv.innerHTML = `<p>Quantity Available: ${productQty}</p><p>Items Currently in Cart: ${quantityInput.value}</p>`;
-
+     quantityInput.value = 0; // Reset the quantity input field
      quantityInput.setAttribute("max", productQty); // Set the max attribute to productQty
      totalCostP.textContent = "Total Cost: $" + 0; // Reset the total cost
      errorMessageP.textContent = ""; // Reset the error message
@@ -81,7 +60,7 @@ modal.addEventListener("show.bs.modal", async function (event) {
 
           // COMMENT: POST request to add the product to the cart
           try {
-               let response = await fetch("api/cart/", {
+               let response = await fetch("/api/cart/", {
                     method: "POST",
                     body: JSON.stringify({ product_id: productId, quantity: quantity }),
                     headers: { "Content-Type": "application/json" },
