@@ -1,13 +1,8 @@
 const router = require("express").Router();
-
 const { User, Vendor, Product, Sale, Cart, CartItem, SaleItem, Category } = require("../models/index.js");
+const { withAuth, isVendor } = require("../utils/auth.js");
 
-const { withAuth } = require("../utils/auth.js");
-
-// vendor home page
-// what i need: vendor id, name, products, sales,
-
-router.get("/profile", withAuth, async (req, res) => {
+router.get("/profile", withAuth, isVendor, async (req, res) => {
      try {
           const vendorData = await Vendor.findOne({
                where: { user_id: req.session.user_id },
@@ -88,8 +83,6 @@ router.get("/vendors", async (req, res) => {
 
           const vendors = vendorData.map((vendor) => vendor.get({ plain: true }));
 
-          console.log("vendor data", vendors);
-
           res.render("vendorList", {
                vendors,
                is_vendor: req.session.is_vendor,
@@ -136,7 +129,8 @@ router.get("/products/:id", async (req, res) => {
      try {
           const productData = await Product.findAll({
                where: {
-                    is_active: true, vendor_id: req.params.id,
+                    is_active: true,
+                    vendor_id: req.params.id,
                },
                include: [
                     {

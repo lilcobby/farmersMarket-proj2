@@ -16,15 +16,15 @@ function isAdmin(req, res, next) {
      }
 }
 
-// TODO: add middleware to check if the user is the vendor for the product
-function isSameVendor(req, res, next) {
-     if (req.session && req.session.user && req.session.user.id === req.params.id) {
-          // FIXME: req.params.id is not the vendor id, will need to change this, will figure out later
-          next();
+function isVendor(req, res, next) {
+     console.log("isVendor check:", req.session.is_vendor);
+     console.log("session:", req.session.is_Vendor)
+     if (req.session.is_vendor) {
+          next(); // If the user is a vendor, proceed to the next middleware or route handler
      } else {
-          res.status(403).json({ message: "Forbidden: You do not have the necessary permissions" });
+          res.redirect("/");
      }
 }
 
 // COMMENT: export the function
-module.exports = { withAuth, isAdmin };
+module.exports = { withAuth, isAdmin, isVendor };
