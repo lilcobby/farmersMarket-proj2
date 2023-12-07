@@ -26,6 +26,84 @@
            background-size: 120em;
            background-color: darkslategrey;
       } */
+body {
+     font-family: var(--Body-font);
+     display: flex;
+     flex-direction:column;
+     min-height: 100vh;
+     background-size: 100% 100%;
+     background-color: rgb(47, 79, 51);
+}
+
+.bg {
+     background-image: url(./field.jpg);
+     display:table;
+     width: 100%;
+     height: 100%;
+     padding: 350px 0 330px;
+position: relative;
+background-size:cover;
+
+}
+nav {
+     display: flex;
+     flex-direction: bottom;
+     justify-content: space-between;
+     align-items: center;
+     background-color: rgba(9, 65, 29, 0.534);
+     height: 10vh;
+     width: 100%;
+     padding: 1%;
+     margin: 1%;
+     border-radius: 5px;
+     box-shadow: 1px 3px 5px rgb(0, 0, 0);
+}
+
+.navigation {
+     font-family:'Times New Roman', Times, serif;
+     font-size: 1em;
+     padding: 5px;
+     margin: 1%;
+     color:rgb(0, 0, 0)
+
+}
+.navigation:hover {
+     background-color: rgba(9, 65, 29, 0.534);
+     border:rgba(9, 65, 29, 0.534) 2px solid;
+     color:rgba(255, 255, 255, 0.258);
+}
+
+.login-card {
+     display: inline-block;
+     flex-direction: row;
+     justify-content: space-around;
+     padding: 1%;
+     margin: 1%;
+     border: 1px solid black;
+     border-radius: 3px;
+     box-shadow: 1px 3px 5px rgb(0, 0, 0);
+}
+
+.btn {
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     margin: 1%;
+     border: 1px solid black;
+     border-radius: 3px;
+     background-color: rgb(47, 79, 51);
+     box-shadow: 1px 3px 5px rgb(0, 0, 0);
+}
+
+.btn:hover {
+     background-color: rgba(9, 65, 29, 0.534);
+     border:rgba(9, 65, 29, 0.534) 2px solid;
+     color:rgba(255, 255, 255, 0.258);
+}
+.signup-form {
+     display: none;
+}
 
 #editForm {
      display: none;
