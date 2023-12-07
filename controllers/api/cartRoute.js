@@ -47,56 +47,44 @@ router.post("/", withAuth, async (req, res) => {
 
           if (existingCartItem) {
                const quantityChange = req.body.quantity - existingCartItem.quantity;
-               if (Number(req.body.quantity) === 0) {
-                    const deleteCartItem = await CartItem.destroy({
-                         where: {
-                              cart_id: req.session.user_id,
-                              product_id: req.body.product_id,
-                         },
-                    });
-                    await product.update({ stock: product.stock + existingCartItem.quantity });
-                    res.status(200).json("Product removed from cart");
+               if (product.stock < quantityChange) {
+                    res.status(418).json("Not enough stock to add that many to your cart");
                     return;
-               } else {
-                    if (product.stock < quantityChange) {
-                         res.status(418).json("Not enough stock to add that many to your cart");
-                         return;
-                    }
+               }
+               
+               await product.update({ stock: product.stock - Number(quantityChange) });
 
-                    await product.update({ stock: product.stock - quantityChange });
-
-                    const updateCart = await CartItem.update(
-                         {
-                              quantity: req.body.quantity,
-                         },
-                         {
-                              where: {
-                                   cart_id: req.session.user_id,
-                                   product_id: req.body.product_id,
-                              },
-                         }
-                    );
-
-                    const updatedProduct = await CartItem.findOne({
+               const updateCart = await CartItem.update(
+                    {
+                         quantity: req.body.quantity,
+                    },
+                    {
                          where: {
                               cart_id: req.session.user_id,
                               product_id: req.body.product_id,
                          },
-                         include: [
-                              {
-                                   model: Product,
-                                   attributes: ["name"],
-                              },
-                         ],
-                    });
+                    }
+               );
 
-                    res.status(200).json(
-                         "The quantity of '" +
-                              updatedProduct.dataValues.product.name +
-                              "' in your cart is now " +
-                              updatedProduct.quantity
-                    );
-               }
+               const updatedProduct = await CartItem.findOne({
+                    where: {
+                         cart_id: req.session.user_id,
+                         product_id: req.body.product_id,
+                    },
+                    include: [
+                         {
+                              model: Product,
+                              attributes: ["name"],
+                         },
+                    ],
+               });
+
+               res.status(200).json(
+                    "The quantity of '" +
+                         updatedProduct.dataValues.product.name +
+                         "' in your cart is now " +
+                         updatedProduct.quantity
+               );
                return;
           } else {
                const quantity = Number(req.body.quantity);
@@ -104,7 +92,7 @@ router.post("/", withAuth, async (req, res) => {
                     res.status(418).json("Not enough stock to add that many to your cart");
                     return;
                }
-
+               console.log(quantity)
                await product.update({ stock: product.stock - quantity });
 
                const createCartItem = await CartItem.create({
@@ -299,29 +287,6 @@ router.get("/purchases", withAuth, async (req, res) => {
                return;
           }
           res.status(200).json(purchaseData);
-     } catch (err) {
-          res.status(500).json({ errMessage: err.message });
-     }
-});
-
-// COMMENT: route to get a single product from the session's user's cart
-router.get("/:id", withAuth, async (req, res) => {
-     try {
-          const cartItemData = await CartItem.findOne({
-               where: { cart_id: req.session.user_id, product_id: req.params.id },
-               include: [
-                    {
-                         model: Product,
-                         attributes: ["name", "price", "image_url", "id"],
-                    },
-               ],
-               attributes: ["quantity", "cart_id"],
-          });
-          if (!cartItemData) {
-               res.status(404).json({ message: "No product found with this id in your cart." });
-               return;
-          }
-          res.status(200).json(cartItemData);
      } catch (err) {
           res.status(500).json({ errMessage: err.message });
      }
