@@ -94,7 +94,7 @@ modal.addEventListener("show.bs.modal", async function (event) {
                if (response.ok) {
                     window.location.reload();
                } else {
-                    alert("Failed to add product to cart.");
+                    console.log("Failed to add product to cart.");
                }
           } catch (error) {
                console.log(error);

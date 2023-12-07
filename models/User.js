@@ -51,7 +51,7 @@ User.init(
           is_vendor: {
                type: DataTypes.BOOLEAN,
                allowNull: false,
-               defaultValue: false,
+               defaultValue: true,
           },
      },
      {
@@ -72,7 +72,7 @@ User.init(
                     }
 
                     if (!newUserData.is_vendor) {
-                         await Vendor.create({ id: newUserData.id, user_id: newUserData.id, is_active: false });
+                         await Vendor.create({ id: newUserData.id, user_id: newUserData.id, is_active: true });
                     }
                },
           },

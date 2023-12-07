@@ -19,6 +19,7 @@ router.post("/", async (req, res) => {
           req.session.user_id = userData.id;
           req.session.logged_in = true;
           req.session.is_vendor = req.body.is_vendor || false;
+          req.session.is_active = true; // TODO: change this to userData.is_active when implemented
 
           req.session.save((err) => {
                if (err) {
@@ -63,6 +64,7 @@ router.post("/login", async (req, res) => {
                     req.session.logged_in = true;
                     req.session.is_admin = true;
                     req.session.is_vendor = true;
+                    req.session.is_active = true; // TODO: change this to userData.is_active when implemented
                     res.status(200).json({
                          user: userData,
                          message: "You are now logged in as an admin!",
@@ -75,6 +77,7 @@ router.post("/login", async (req, res) => {
                req.session.user_id = userData.id;
                req.session.logged_in = true;
                req.session.is_vendor = userData.is_vendor;
+               req.session.is_active = true; // TODO: change this to userData.is_active when implemented
                res.status(200).json({ user: userData, message: "You are now logged in!" });
           });
      } catch (err) {

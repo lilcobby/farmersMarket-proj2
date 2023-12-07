@@ -60,7 +60,7 @@ const productData = [
           image_url: "https://cdn.shopify.com/s/files/1/1698/1675/products/Tomato_Cherokee_Purple.jpg?v=1537064909",
           categories: "Category6",
           vendor_id: 5,
-          is_active: false,
+          is_active: true,
      },
      {
           id: "7",
@@ -142,7 +142,7 @@ const productData = [
           image_url: "https://thumbs.dreamstime.com/b/red-raspberries-plate-close-up-berries-consumption-red-raspberries-plate-close-up-berries-consumption-140732638.jpg",
           categories: "Category14",
           vendor_id: 4,
-          is_active: false,
+          is_active: true,
      },
      {
           id: "15",
@@ -164,7 +164,7 @@ const productData = [
           image_url: "https://marylandgrows.files.wordpress.com/2021/07/hgic_fruits_pawpaw_gettystock.jpg",
           categories: "Category16",
           vendor_id: 4,
-          is_active: false,
+          is_active: true,
      },
 ];
 

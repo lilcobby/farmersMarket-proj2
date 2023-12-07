@@ -23,7 +23,8 @@ modal.addEventListener("show.bs.modal", async function (event) {
 
      addToCartLabel.textContent = "Add " + productName + " to cart?";
      vendorImage.src = vendorImg;
-     vendorNameDiv.innerHTML = `<a href="/products/${vendorId}" target="_blank">${vendorName} <i class="fa fa-text-height" aria-hidden="true"></i></a>`;
+     vendorImage.classList.add("imageBorder", "smallProductImage", "rounded-4", "m-2");
+     vendorNameDiv.innerHTML = `<a href="/products/${vendorId}" target="_blank">${vendorName}</a>`;
      productDescriptionP.textContent = productDescription;
      productPriceP.textContent = "$" + productPrice;
 
@@ -47,7 +48,7 @@ modal.addEventListener("show.bs.modal", async function (event) {
      } else {
           quantityInput.value = 0;
      }
-     let initialTotalCost = quantityInput.value * productPrice;
+     let initialTotalCost = (quantityInput.value * productPrice).toFixed(2);
      totalCostP.textContent = "Total Cost: $" + initialTotalCost;
 
      productQtyDiv.innerHTML = `<p>Quantity Available: ${productQty}</p><p>Items Currently in Cart: ${quantityInput.value}</p>`;
@@ -57,7 +58,7 @@ modal.addEventListener("show.bs.modal", async function (event) {
 
      quantityInput.addEventListener("input", function () {
           let quantity = quantityInput.value;
-          let totalCost = quantity * productPrice;
+          let totalCost = (quantity * productPrice).toFixed(2);
           totalCostP.textContent = "Total Cost: $" + totalCost;
 
           // If the entered quantity is greater than the available quantity, display an error message
@@ -94,7 +95,7 @@ modal.addEventListener("show.bs.modal", async function (event) {
                if (response.ok) {
                     window.location.reload();
                } else {
-                    alert("Failed to add product to cart.");
+                    console.log("Failed to add product to cart.");
                }
           } catch (error) {
                console.log(error);

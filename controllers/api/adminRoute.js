@@ -40,9 +40,9 @@ router.get("/allVendors", isAdmin, async (req, res) => {
 router.get("/allActiveVendors", isAdmin, async (req, res) => {
      try {
           const vendorData = await Vendor.findAll({
-               where: {
-                    is_active: true,
-               },
+               // where: {
+               //      is_active: true,
+               // },
           });
           if (vendorData.length === 0) {
                res.status(404).json({ errMessage: "No active vendors found" });
@@ -75,9 +75,9 @@ router.get("/allProducts", isAdmin, async (req, res) => {
 router.get("/allActiveProducts", isAdmin, async (req, res) => {
      try {
           const productData = await Product.findAll({
-               where: {
-                    is_active: true,
-               },
+               // where: {
+               //      is_active: true,
+               // },
           });
           if (productData.length === 0) {
                res.status(404).json({ errMessage: "No active products found" });
@@ -94,9 +94,9 @@ router.get("/allActiveProducts", isAdmin, async (req, res) => {
 router.get("/allInactiveProducts", isAdmin, async (req, res) => {
      try {
           const productData = await Product.findAll({
-               where: {
-                    is_active: false,
-               },
+               // where: {
+               //      is_active: false,
+               // },
           });
           if (productData.length === 0) {
                res.status(404).json({ errMessage: "No inactive products found" });

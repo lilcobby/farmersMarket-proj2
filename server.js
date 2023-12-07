@@ -11,6 +11,10 @@ const PORT = process.env.PORT || 3001;
 
 const hbs = exphbs.create({});
 
+hbs.handlebars.registerHelper("multiply", function (a, b) {
+     return a * b;
+});
+
 const sess = {
      secret: "Super secret secret",
      cookie: {},
@@ -35,6 +39,7 @@ app.set("view engine", "handlebars");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.use(routes);
 

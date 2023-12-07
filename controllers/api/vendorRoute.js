@@ -10,7 +10,7 @@ const { withAuth } = require("../../utils/auth.js");
 router.get("/profile", withAuth, async (req, res) => {
      try {
           const vendorData = await Vendor.findOne({
-               where: { user_id: req.session.user_id, is_active: true },
+               where: { user_id: req.session.user_id },
           });
 
           if (!vendorData.is_active) {
@@ -28,7 +28,7 @@ router.get("/profile", withAuth, async (req, res) => {
 router.get("/products", withAuth, async (req, res) => {
      try {
           const vendorData = await Vendor.findOne({
-               where: { user_id: req.session.user_id, is_active: true },
+               where: { user_id: req.session.user_id },
           });
           if (!vendorData) {
                res.status(404).json({ message: "You are not a vendor." });
@@ -46,8 +46,6 @@ router.get("/products", withAuth, async (req, res) => {
           res.status(500).json({ errMessage: err.message });
      }
 });
-
-
 
 // COMMENT: Route to make a user a vendor or to toggle a vendor's active status
 // [x]: Works in Insomnia
@@ -98,7 +96,7 @@ reqBody = {
 router.put("/profile", withAuth, async (req, res) => {
      try {
           const vendorData = await Vendor.findOne({
-               where: { id: req.session.user_id, is_active: true },
+               where: { id: req.session.user_id },
           });
           if (!vendorData) {
                res.status(404).json({ message: "No vendor found with this id!" });
@@ -143,7 +141,7 @@ router.put("/profile", withAuth, async (req, res) => {
 router.post("/addProduct", withAuth, async (req, res) => {
      try {
           const vendorData = await Vendor.findOne({
-               where: { id: req.session.user_id, is_active: true },
+               where: { id: req.session.user_id },
           });
           if (!vendorData) {
                res.status(404).json({ message: "No vendor found with this id!" });
@@ -168,7 +166,7 @@ router.post("/addProduct", withAuth, async (req, res) => {
                req.body.image_url = "https://via.placeholder.com/100";
           }
           if (!req.body.category_id) {
-               req.body.category_id = "Uncategorized";
+               req.body.category_id = "20";
           }
 
           await Product.create({
@@ -283,7 +281,7 @@ router.delete("/products/:id", withAuth, async (req, res) => {
      // COMMENT: req.params.id is the product_id
      try {
           const vendorData = await Vendor.findOne({
-               where: { id: req.session.user_id, is_active: true },
+               where: { id: req.session.user_id },
           });
 
           if (!vendorData) {

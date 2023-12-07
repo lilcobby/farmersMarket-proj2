@@ -50,7 +50,7 @@ Vendor.init(
           is_active: {
                type: DataTypes.BOOLEAN,
                allowNull: false,
-               defaultValue: false,
+               defaultValue: true,
           },
      },
      {

@@ -4,9 +4,9 @@ const { Product, Sale, SaleItem } = require("../../models");
 router.get("/", async (req, res) => {
   try {
     const productData = await Product.findAll({
-      where: {
-        is_active: true,
-      },
+     //  where: {
+     //    is_active: true,
+     //  },
     });
     if (productData.length === 0) {
       res.status(404).json({ errMessage: "No active products found" });
