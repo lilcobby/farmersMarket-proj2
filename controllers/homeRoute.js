@@ -77,15 +77,8 @@ router.get("/vendors", async (req, res) => {
                attributes: ["description", "name", "id", "image_URL"],
                where: { is_active: true },
           });
-          
-          
-
-    console.log("vendor data", vendors);
 
           const vendors = vendorData.map((vendor) => vendor.get({ plain: true }));
-
-          console.log("vendor data", vendors);
-
 
           res.render("vendorList", {
                vendors,
