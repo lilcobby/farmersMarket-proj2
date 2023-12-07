@@ -1,11 +1,78 @@
 {{! shows products owned by specific vendor and add to cart }}
 
-<div>
-  {{#each products}}
-    <p>Description: {{description}}</p>
-    <p>Name:  {{name}}</a> </p>
-    <p>Price: {{price}} </p>
-    <p>Quantity: {{stock}} </p>
-    <button>add to cart</button>
-  {{/each}}
+<div class="container">
+     <div class="d-flex justify-content-around align-items-start align-content-between flex-wrap flex-row col-12">
+          {{#each products}}
+               <div class="d-flex m-2 flex-column col-12">
+                    <div
+                         class="position-relative d-flex align-items-center flex-row"
+                         data-bs-toggle="collapse"
+                         data-bs-target="#collapse{{this.id}}"
+                         aria-expanded="false"
+                         aria-controls="collapse{{this.id}}"
+                    >
+                         <img
+                              class="imageBorder smallProductImage rounded-4 m-2"
+                              src="{{this.image_url}}"
+                              alt="{{this.name}} image"
+                         />
+
+                         <p class="m-1 col-1">${{this.price}}</p>
+                         <p class="m-1 col-2">{{this.name}}</p>
+
+                         <p class="col-6">{{this.description}}</p>
+                         {{#if ../logged_in}}
+                              <button
+                                   type="button"
+                                   class="btn btn-primary btn-sm"
+                                   data-bs-toggle="modal"
+                                   data-bs-target="#addToCart"
+                                   data-id="{{this.id}}"
+                                   data-product-id="{{this.id}}"
+                                   data-product-name="{{this.name}}"
+                                   data-product-price="{{this.price}}"
+                                   data-product-description="{{this.description}}"
+                                   data-product-qty="{{this.stock}}"
+                                   data-vendor-name="{{this.vendor.name}}"
+                                   data-vendor-id="{{this.vendor.id}}"
+                                   data-vendor-img="{{this.vendor.image_url}}"
+                              >Add to Cart</button>
+                         {{/if}}
+                    </div>
+
+               </div>
+          {{/each}}
+     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="addToCart" tabindex="-1" aria-labelledby="addToCartLabel" aria-hidden="true">
+     <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+               <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addToCartLabel">{{! Product Name }}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               </div>
+               <div class="modal-body">
+                    <h3>See what else this vendor has to offer!</h3>
+                    <div id="vendorDiv" style="display: flex;">
+                         <img id="vendorImage" style="width: 150px; height: 150px;" />
+                         <h3 id="vendorName"></h3>
+                    </div>
+                    <p id="productDescription"></p>
+                    <p id="productQuantity"></p>
+                    <p id="productPrice"></p>
+                    <p id="errorMessage"></p>
+                    <label for="chooseQuantity" class="form-label">Total Quantity of Products You Want to Purchase</label>
+                    <input id="chooseQuantity" class="form-control" type="number" step="1" min="0" max="" />
+                    <p id="totalCost"></p>
+               </div>
+               <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="addToCartBtn">Add To Cart</button>
+               </div>
+          </div>
+     </div>
+</div>
+
+<script src="/js/consumerProd.js"></script>
