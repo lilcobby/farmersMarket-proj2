@@ -30,6 +30,7 @@ modal.addEventListener("show.bs.modal", async function (event) {
      // COMMENT: GET request to get the quantity of the product in the cart
      let quantityInCart = 0;
 
+     
      try {
           const response = await fetch("api/cart/" + productId);
           if (response.ok) {
