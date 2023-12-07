@@ -132,8 +132,13 @@ toggleEditInfo.addEventListener("click", () => {
      const businessForm = document.querySelector("#businessForm");
      businessForm.classList.toggle("d-none");
 
+     const newProdForm = document.querySelector("#newProdFormFill");
      const formsContainer = document.querySelector("#formsContainer");
-     formsContainer.classList.toggle("d-none");
+     if (businessForm.classList.contains("d-none") && newProdForm.classList.contains("d-none")) {
+          formsContainer.classList.add("d-none");
+     } else {
+          formsContainer.classList.remove("d-none");
+     }
 });
 
 const toggleNewProduct = document.querySelector("#addNewProduct");
@@ -141,6 +146,11 @@ toggleNewProduct.addEventListener("click", () => {
      const newProdForm = document.querySelector("#newProdFormFill");
      newProdForm.classList.toggle("d-none");
 
+     const businessForm = document.querySelector("#businessForm");
      const formsContainer = document.querySelector("#formsContainer");
-     formsContainer.classList.toggle("d-none");
+     if (businessForm.classList.contains("d-none") && newProdForm.classList.contains("d-none")) {
+          formsContainer.classList.add("d-none");
+     } else {
+          formsContainer.classList.remove("d-none");
+     }
 });

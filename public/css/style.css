@@ -113,7 +113,6 @@
   display: none;
 } */
 
-
 #editForm {
      display: none;
 }
@@ -204,3 +203,8 @@
 /* .vendorInfo {
        display: none;
      } */
+
+header {
+     background: linear-gradient(to right, rgba(36, 102, 5, 0.233), #0e4603);
+     padding: 2%;
+}
