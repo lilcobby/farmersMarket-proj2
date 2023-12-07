@@ -47,6 +47,8 @@ router.get("/products", withAuth, async (req, res) => {
      }
 });
 
+
+
 // COMMENT: Route to make a user a vendor or to toggle a vendor's active status
 // [x]: Works in Insomnia
 router.put("/isVendor", withAuth, async (req, res) => {
@@ -126,7 +128,7 @@ router.put("/profile", withAuth, async (req, res) => {
                               : "A placeholder image will be used because no image URL was provided"
                          : "No changes to image_url",
           };
-
+          console.log(vendorData);
           res.status(200).json({
                message: "The following changes have been made:",
                updatedVendor: updatedData,
@@ -335,6 +337,23 @@ router.get("/sales", withAuth, async (req, res) => {
                return;
           }
           res.status(200).json(saleData);
+     } catch (err) {
+          res.status(500).json({ errMessage: err.message });
+     }
+});
+
+// COMMENT: Route to get vendor product by id
+// [x]: Works in Insomnia
+router.get("/products/:id", withAuth, async (req, res) => {
+     try {
+          const productData = await Product.findOne({
+               where: { id: req.params.id },
+          });
+          if (!productData) {
+               res.status(404).json({ message: "No product found with this id!" });
+               return;
+          }
+          res.status(200).json(productData);
      } catch (err) {
           res.status(500).json({ errMessage: err.message });
      }

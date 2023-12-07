@@ -1,9 +1,9 @@
 const toggleBox = document.querySelector("#toggleCart");
-
+const newButton = document.querySelector("#checkoutBtn");
 toggleBox.addEventListener("change", () => {
   const hiddenElements = document.querySelectorAll(".hidden");
   const shownElements = document.querySelectorAll(".display");
-  const checkoutBtn = document.querySelector("#checkoutBtn");
+  const checkoutBtn = newButton;
   if (toggleBox.checked) {
     checkoutBtn.style.display = "none";
     hiddenElements.forEach((element) => {
@@ -33,18 +33,18 @@ const newAmountHandler = async (event) => {
   const newQuant = parseInt(
     hiddenDiv.querySelector(`#newQuant${productId}`).value
   );
-
   const response = await fetch("/api/cart/", {
     method: "POST",
     body: JSON.stringify({ product_id: productId, quantity: newQuant }),
     headers: { "Content-Type": "application/json" },
   });
+  window.location.reload(true);
 };
-
 document.querySelectorAll(".updateBtn").forEach((button) => {
   button.addEventListener("click", newAmountHandler);
 });
 
-checkoutBtn.addEventListener("click", (window.location.href = "/checkout"));
-// delete route
-// add to cart function
+newButton.addEventListener("click", function (event) {
+  event.preventDefault();
+  window.location.href = "/checkout";
+});

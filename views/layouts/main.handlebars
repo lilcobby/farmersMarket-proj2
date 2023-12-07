@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
      <head>
           <meta charset="UTF-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,21 +8,28 @@
           <link rel="stylesheet" href="/css/style.css" />
 
           <body>
-               <header class="text-center row container-fluid sticky-top">
+               <header class="d-flex text-center row container-fluid sticky-top">
                     <h1>The Farmer's E-Market</h1>
 
                     <nav>
                          <a class="btn btn-primary" href="/">Home</a>
                          <a class="btn btn-primary" href="/vendors/">Vendors</a>
 
-                         <button class="btn btn-primary">Categories</button>
-
                          {{#if logged_in}}
                               {{#if is_vendor}}
                                    <a class="btn btn-primary" href="/profile">Vendor Home</a>
                               {{/if}}
 
-                              <a class="btn btn-primary" href="/cart">Cart</a>
+                                                            <button
+                                   class="btn btn-primary"
+                                   type="button"
+                                   data-bs-toggle="offcanvas"
+                                   data-bs-target="#offcanvasDarkNavbar"
+                                   aria-controls="offcanvasDarkNavbar"
+                                   aria-label="Toggle navigation"
+                              >
+                                   Cart
+                              </button>
 
                               <button class="no-button btn btn-primary" id="logout">Logout</button>
 
@@ -33,8 +40,38 @@
                          {{/if}}
                     </nav>
                </header>
-               <main class="container">{{{body}}}</main>
-               <footer>FOOTER add same navbar links here but smaller</footer>
+               <main class="container">
+                    {{{body}}}
+                    {{#if logged_in}}
+                    {{> cartOffCanvas}}
+                    {{/if}}
+               </main>
+                              <footer>
+                    <h6 class="d-flex justify-content-center">Locally Sourced! Cage Free Eggs Here!</h6>
+                    {{! not sure what to put here just yet, can be anything? maybe weather bar in the future? }}
+                    {{!-- <nav>
+          <a class="btn btn-primary" href="/">Home</a>
+          <a class="btn btn-primary" href="/vendors/">Vendors</a>
+
+          {{#if logged_in}}
+            {{#if is_vendor}}
+              <a class="btn btn-primary" href="/profile">Vendor Home</a>
+            {{/if}}
+
+            <a class="btn btn-primary" href="/cart">Cart</a>
+
+            <button
+              class="no-button btn btn-primary"
+              id="logout"
+            >Logout</button>
+
+          {{else}}
+
+            <a class="btn btn-primary" href="/login">Login</a>
+
+          {{/if}}
+        </nav> --}}
+               </footer>
           </body>
 
           {{#if logged_in}}

@@ -23,7 +23,8 @@ router.get("/", withAuth, async (req, res) => {
                attributes: ["quantity", "cart_id"],
           });
           if (cartData.length === 0) {
-               res.status(404).json({ message: "Your cart is currently empty." });
+               // Change this to return a 200 status code with a specific message or an empty array
+               res.status(200).json({ message: "Your cart is currently empty." });
                return;
           }
           res.status(200).json(cartData);
@@ -46,60 +47,72 @@ router.post("/", withAuth, async (req, res) => {
           const product = await Product.findByPk(req.body.product_id);
 
           if (existingCartItem) {
-               const quantityChange = req.body.quantity - existingCartItem.quantity;
-               if (product.stock < quantityChange) {
-                    res.status(418).json("Not enough stock to add that many to your cart");
-                    return;
-               }
+               if (Number(req.body.quantity) === 0) {
+                    // Update the product's stock before destroying the cart item
+                    await product.update({ stock: product.stock + existingCartItem.quantity });
 
-               product.stock -= quantityChange;
-               await product.save();
-
-               const updateCart = await CartItem.update(
-                    {
-                         quantity: req.body.quantity,
-                    },
-                    {
+                    const deleteCartItem = await CartItem.destroy({
                          where: {
                               cart_id: req.session.user_id,
                               product_id: req.body.product_id,
                          },
+                    });
+                    res.status(200).json("Product removed from cart");
+                    return;
+               } else {
+                    const quantityChange = req.body.quantity - existingCartItem.quantity;
+                    if (product.stock < quantityChange) {
+                         res.status(418).json("Not enough stock to add that many to your cart");
+                         return;
                     }
-               );
 
-               const updatedProduct = await CartItem.findOne({
-                    where: {
-                         cart_id: req.session.user_id,
-                         product_id: req.body.product_id,
-                    },
-                    include: [
+                    await product.update({ stock: product.stock - Number(quantityChange) });
+
+                    const updateCart = await CartItem.update(
                          {
-                              model: Product,
-                              attributes: ["name"],
+                              quantity: req.body.quantity,
                          },
-                    ],
-               });
+                         {
+                              where: {
+                                   cart_id: req.session.user_id,
+                                   product_id: req.body.product_id,
+                              },
+                         }
+                    );
 
-               res.status(200).json(
-                    "The quantity of '" +
-                         updatedProduct.dataValues.product.name +
-                         "' in your cart is now " +
-                         updatedProduct.quantity
-               );
-               return;
+                    const updatedProduct = await CartItem.findOne({
+                         where: {
+                              cart_id: req.session.user_id,
+                              product_id: req.body.product_id,
+                         },
+                         include: [
+                              {
+                                   model: Product,
+                                   attributes: ["name"],
+                              },
+                         ],
+                    });
+
+                    res.status(200).json(
+                         "The quantity of '" +
+                              updatedProduct.dataValues.product.name +
+                              "' in your cart is now " +
+                              updatedProduct.quantity
+                    );
+                    return;
+               }
           } else {
-               if (product.stock < req.body.quantity) {
+               const quantity = Number(req.body.quantity);
+               if (isNaN(quantity) || product.stock < quantity) {
                     res.status(418).json("Not enough stock to add that many to your cart");
                     return;
                }
-
-               product.stock -= req.body.quantity;
-               await product.save();
+               await product.update({ stock: product.stock - quantity });
 
                const createCartItem = await CartItem.create({
                     cart_id: req.session.user_id,
                     product_id: req.body.product_id,
-                    quantity: req.body.quantity,
+                    quantity: quantity,
                });
 
                const updatedProduct = await CartItem.findOne({
@@ -240,7 +253,6 @@ router.post("/checkout", withAuth, async (req, res) => {
                          subject: "New Order!",
                          text: `You have a new order! Please login to your account to view the order details: ${salesLink}`,
                     };
-                    console.log(mailOptions);
                     return; // transporter.sendMail(mailOptions); // FIXME: Uncomment when we have it deployed or want to test the emails
                })
           );
@@ -293,4 +305,27 @@ router.get("/purchases", withAuth, async (req, res) => {
      }
 });
 
+// COMMENT: route to get a single product from the session's user's cart
+router.get("/:id", withAuth, async (req, res) => {
+     try {
+          const cartItemData = await CartItem.findOne({
+               where: { cart_id: req.session.user_id, product_id: req.params.id },
+               include: [
+                    {
+                         model: Product,
+                         attributes: ["name", "price", "image_url", "id"],
+                    },
+               ],
+               attributes: ["quantity", "cart_id"],
+          });
+          if (!cartItemData) {
+               // Change this to return a 200 status code with a specific message
+               res.status(200).json({ message: "No product found with this id in your cart." });
+               return;
+          }
+          res.status(200).json(cartItemData);
+     } catch (err) {
+          res.status(500).json({ errMessage: err.message });
+     }
+});
 module.exports = router;
