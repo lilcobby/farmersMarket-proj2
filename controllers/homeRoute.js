@@ -78,9 +78,15 @@ router.get("/vendors", async (req, res) => {
                where: { is_active: true },
           });
 
+
+    const vendors = vendorData.map((vendor) => vendor.get({ plain: true }));
+    
+    console.log("vendor data", vendors);
+
           const vendors = vendorData.map((vendor) => vendor.get({ plain: true }));
 
           console.log("vendor data", vendors);
+
 
           res.render("vendorList", {
                vendors,
