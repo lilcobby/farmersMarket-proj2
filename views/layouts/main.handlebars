@@ -1,44 +1,55 @@
 <html lang="en" data-bs-theme="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Farmers Market</title>
-    <link rel="stylesheet" href="/css/normalize.css" />
-    <link rel="stylesheet" href="/css/bootstrap.css" />
-    <link rel="stylesheet" href="/css/style.css" />
+     <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>Farmers Market</title>
+          <link rel="stylesheet" href="/css/normalize.css" />
+          <link rel="stylesheet" href="/css/bootstrap.css" />
+          <link rel="stylesheet" href="/css/style.css" />
 
-    <body>
-      <header class="text-center row container-fluid sticky-top">
-        <h1>The Farmer's E-Market</h1>
+          <body>
+               <header class="d-flex text-center row container-fluid sticky-top">
+                    <h1>The Farmer's E-Market</h1>
 
-        <nav>
-          <a class="btn btn-primary" href="/">Home</a>
-          <a class="btn btn-primary" href="/vendors/">Vendors</a>
+                    <nav>
+                         <a class="btn btn-primary" href="/">Home</a>
+                         <a class="btn btn-primary" href="/vendors/">Vendors</a>
 
-          {{#if logged_in}}
-            {{#if is_vendor}}
-              <a class="btn btn-primary" href="/profile">Vendor Home</a>
-            {{/if}}
+                         {{#if logged_in}}
+                              {{#if is_vendor}}
+                                   <a class="btn btn-primary" href="/profile">Vendor Home</a>
+                              {{/if}}
 
-            <a class="btn btn-primary" href="/cart">Cart</a>
+                                                            <button
+                                   class="btn btn-primary"
+                                   type="button"
+                                   data-bs-toggle="offcanvas"
+                                   data-bs-target="#offcanvasDarkNavbar"
+                                   aria-controls="offcanvasDarkNavbar"
+                                   aria-label="Toggle navigation"
+                              >
+                                   Cart
+                              </button>
 
-            <button
-              class="no-button btn btn-primary"
-              id="logout"
-            >Logout</button>
+                              <button class="no-button btn btn-primary" id="logout">Logout</button>
 
-          {{else}}
+                         {{else}}
 
-            <a class="btn btn-primary" href="/login">Login</a>
+                              <a class="btn btn-primary" href="/login">Login</a>
 
-          {{/if}}
-        </nav>
-      </header>
-      <main class="container">{{{body}}}</main>
-      <footer>
-        <h6>Locally Sourced! Cage Free Eggs Here!</h6>
-        {{! not sure what to put here just yet, can be anything? maybe weather bar in the future? }}
-        {{!-- <nav>
+                         {{/if}}
+                    </nav>
+               </header>
+               <main class="container">
+                    {{{body}}}
+                    {{#if logged_in}}
+                    {{> cartOffCanvas}}
+                    {{/if}}
+               </main>
+                              <footer>
+                    <h6 class="d-flex justify-content-center">Locally Sourced! Cage Free Eggs Here!</h6>
+                    {{! not sure what to put here just yet, can be anything? maybe weather bar in the future? }}
+                    {{!-- <nav>
           <a class="btn btn-primary" href="/">Home</a>
           <a class="btn btn-primary" href="/vendors/">Vendors</a>
 
@@ -60,12 +71,12 @@
 
           {{/if}}
         </nav> --}}
-      </footer>
-    </body>
+               </footer>
+          </body>
 
-    {{#if logged_in}}
-      <script src="/js/logout.js"></script>
-    {{/if}}
-    <script src="/js/bootstrap.bundle.min.js"></script>
-  </head>
+          {{#if logged_in}}
+               <script src="/js/logout.js"></script>
+          {{/if}}
+          <script src="/js/bootstrap.bundle.min.js"></script>
+     </head>
 </html>

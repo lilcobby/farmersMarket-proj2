@@ -1,0 +1,76 @@
+
+     <div class="container-fluid">
+          <a class="navbar-brand" href="#"></a>
+          <button
+               class="navbar-toggler"
+               type="button"
+               data-bs-toggle="offcanvas"
+               data-bs-target="#offcanvasDarkNavbar"
+               aria-controls="offcanvasDarkNavbar"
+               aria-label="Toggle navigation"
+          >
+               <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+               class="offcanvas offcanvas-end bg-dark text-white"
+               tabindex="-1"
+               id="offcanvasDarkNavbar"
+               aria-labelledby="offcanvasDarkNavbarLabel"
+               data-bs-scroll="true"
+               data-bs-backdrop="true"
+          >
+               <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>
+                    <button
+                         type="button"
+                         class="btn-close text-white"
+                         data-bs-dismiss="offcanvas"
+                         aria-label="Close"
+                    ></button>
+               </div>
+               <div class="offcanvas-body">
+                    <!-- Cart form starts here -->
+                    <div>
+                         <form>
+                              <div>
+                                   <label>Update cart:</label>
+                                   <input class="box" id="toggleCart" type="checkbox" />
+                              </div>
+                         </form>
+                    </div>
+
+                    <div>
+                         <form>
+                              {{#each cart}}
+                                   <div>
+                                        <div>{{product.image_url}}</div>
+                                        <div>
+                                             <p>{{product.name}}</p>
+                                             <p>Price:{{product.price}}</p>
+                                             <div class="display">
+                                                  <label>Quantity:</label>
+                                                  <p>{{quantity}}</p>
+                                             </div>
+                                             <div class="hidden" data-id="{{product.id}}">
+                                                  <label>Quantity:</label>
+                                                  <input
+                                                       class="quant"
+                                                       id="newQuant{{product.id}}"
+                                                       value="{{quantity}}"
+                                                       type="number"
+                                                       min="1"
+                                                  />
+                                                  <button id="updateCart" type="submit" class="updateBtn">edit</button>
+                                                  <button type="submit">delete</button>
+                                             </div>
+                                        </div>
+                                   </div>
+                              {{/each}}
+                              <button id="checkoutBtn" type="submit">Checkout</button>
+                         </form>
+                    </div>
+                    <!-- Cart form ends here -->
+                    <script src="/js/cart.js"></script>
+               </div>
+          </div>
+     </div>

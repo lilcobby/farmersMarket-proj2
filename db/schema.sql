@@ -71,4 +71,4 @@ USE market_db;
 -- INNER JOIN 
 --     CartItem ON Product.id = CartItem.product_id
 -- WHERE 
---     CartItem.cart_id = 1;
+--     CartItem.cart_id = 7;

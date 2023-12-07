@@ -1,13 +1,8 @@
 const router = require("express").Router();
-
 const { User, Vendor, Product, Sale, Cart, CartItem, SaleItem, Category } = require("../models/index.js");
+const { withAuth, isVendor, fetchCart } = require("../utils/auth.js");
 
-const { withAuth } = require("../utils/auth.js");
-
-// vendor home page
-// what i need: vendor id, name, products, sales,
-
-router.get("/profile", withAuth, async (req, res) => {
+router.get("/profile", withAuth, isVendor, async (req, res) => {
      try {
           const vendorData = await Vendor.findOne({
                where: { user_id: req.session.user_id },
@@ -39,7 +34,8 @@ router.get("/profile", withAuth, async (req, res) => {
 
 // get request to /
 
-router.get("/", async (req, res) => {
+router.get("/", fetchCart, async (req, res) => {
+     console.log("req.cart:", req.cart);
      try {
           const vendorDataRd = await Vendor.findAll({
                attributes: ["description", "name", "id", "image_url"],
@@ -59,7 +55,6 @@ router.get("/", async (req, res) => {
 
           const products = productData.map((products) => products.get({ plain: true }));
 
-          console.log("products", products);
           // Get a random vendor
           const randomVendor = vendorDataRd[Math.floor(Math.random() * vendorDataRd.length)];
           const user_id = req.session.user_id;
@@ -68,10 +63,11 @@ router.get("/", async (req, res) => {
           res.render("consumerHome", {
                // serialize
                randomVendor: randomVendor.get({ plain: true }), // Pass random vendor
+               products,
                user_id,
                logged_in,
                is_vendor,
-               products,
+               cart: req.cart, // Pass cart items
           });
      } catch (err) {
           res.status(500).json(err);
@@ -88,8 +84,6 @@ router.get("/vendors", async (req, res) => {
           });
 
           const vendors = vendorData.map((vendor) => vendor.get({ plain: true }));
-
-          console.log("vendor data", vendors);
 
           res.render("vendorList", {
                vendors,
@@ -135,17 +129,30 @@ router.get("/login", async (req, res) => {
 // FIXME: change this route to vendor/:vendorName/products or at least vendor/:vendorId/products
 router.get("/products/:id", async (req, res) => {
      try {
-          const prodData = await Product.findAll({
-               where: { vendor_id: req.params.id, is_active: true },
-               attributes: ["name", "description", "price", "stock"],
-               include: [{ model: Vendor, attributes: ["name", "id", "image_url"] }],
+          const productData = await Product.findAll({
+               where: {
+                    is_active: true,
+                    vendor_id: req.params.id,
+               },
+               include: [
+                    {
+                         model: Vendor,
+                         attributes: ["name", "id", "image_url"],
+                    },
+               ],
           });
 
-          const products = prodData.map((prod) => prod.get({ plain: true }));
+          const products = productData.map((products) => products.get({ plain: true }));
 
-          console.log(products);
-
-          res.render("consumerProd", { products, logged_in: req.session.logged_in, user_id: req.session.user_id });
+          const user_id = req.session.user_id;
+          const is_vendor = req.session.is_vendor;
+          const logged_in = req.session.logged_in;
+          res.render("consumerProd", {
+               products,
+               user_id,
+               logged_in,
+               is_vendor,
+          });
      } catch (err) {
           res.status(500).json(err);
      }

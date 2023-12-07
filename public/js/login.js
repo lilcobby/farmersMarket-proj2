@@ -1,68 +1,76 @@
 const isCheckbox = document.getElementById("checkbox-signup");
 
 const loginFormHandler = async (event) => {
-  event.preventDefault();
+     event.preventDefault();
 
-  // Collect values from the login form
-  const username = document.querySelector("#username-login").value.trim();
-  const password = document.querySelector("#password-login").value.trim();
+     const usernameInput = document.querySelector("#username-login");
+     const passwordInput = document.querySelector("#password-login");
 
-  if (username && password) {
-    // Send a POST request to the API endpoint
-    const response = await fetch("/api/users/login", {
-      method: "POST",
-      body: JSON.stringify({ username, password }),
-      headers: { "Content-Type": "application/json" },
-    });
+     const username = usernameInput.value.trim();
+     const password = passwordInput.value.trim();
 
-    if (!response.ok) {
-      // If successful, redirect the browser to the profile page
-      console.log("error");
+     if (username && password) {
+          const response = await fetch("/api/users/login", {
+               method: "POST",
+               body: JSON.stringify({ username, password }),
+               headers: { "Content-Type": "application/json" },
+          });
 
-      return;
-    }
-    console.log(response);
+          if (!response.ok) {
+               usernameInput.classList.add("is-invalid");
+               passwordInput.classList.add("is-invalid");
+               document.querySelector("#password-login-feedback").textContent = "Invalid username or password.";
+               return;
+          }
 
-    setTimeout(() => {
-      window.location.href = "/";
-    }, 100);
-  }
+          document.location.replace("/");
+     }
 };
 
 const signupFormHandler = async (event) => {
-  event.preventDefault();
-  const checkBox = isCheckbox.checked;
+     event.preventDefault();
+     const checkBox = isCheckbox.checked;
 
-  const username = document.querySelector("#name-signup").value.trim();
-  const email = document.querySelector("#email-signup").value.trim();
-  const password = document.querySelector("#password-signup").value.trim();
+     const usernameInput = document.querySelector("#name-signup");
+     const emailInput = document.querySelector("#email-signup");
+     const passwordInput = document.querySelector("#password-signup");
 
-  if (username && email && password) {
-    const response = await fetch("/api/users", {
-      method: "POST",
-      body: JSON.stringify({
-        username,
-        email,
-        password,
-        is_vendor: checkBox,
-      }),
-      headers: { "Content-Type": "application/json" },
-    });
+     const username = usernameInput.value.trim();
+     const email = emailInput.value.trim();
+     const password = passwordInput.value.trim();
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.log(errorData);
-      return;
-    }
+     if (username && email && password) {
+          const checkResponse = await fetch(`/api/users/check/${username}/${email}`);
+          const checkData = await checkResponse.json();
 
-    document.location.replace("/");
-  }
+          if (checkData.exists) {
+               // Display error message
+               usernameInput.classList.add("is-invalid");
+               emailInput.classList.add("is-invalid");
+               return;
+          }
+
+          const response = await fetch("/api/users", {
+               method: "POST",
+               body: JSON.stringify({
+                    username,
+                    email,
+                    password,
+                    is_vendor: checkBox,
+               }),
+               headers: { "Content-Type": "application/json" },
+          });
+
+          if (!response.ok) {
+               const errorData = await response.json();
+               console.log(errorData);
+               return;
+          }
+
+          document.location.replace("/");
+     }
 };
 
-document
-  .querySelector(".login-form")
-  .addEventListener("submit", loginFormHandler);
+document.getElementById("login-form").addEventListener("submit", loginFormHandler);
 
-document
-  .querySelector(".signup-form")
-  .addEventListener("submit", signupFormHandler);
+document.getElementById("signup-form").addEventListener("submit", signupFormHandler);
