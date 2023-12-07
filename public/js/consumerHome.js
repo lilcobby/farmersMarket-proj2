@@ -47,11 +47,12 @@ modal.addEventListener("show.bs.modal", async function (event) {
      } else {
           quantityInput.value = 0;
      }
+     let initialTotalCost = quantityInput.value * productPrice;
+     totalCostP.textContent = "Total Cost: $" + initialTotalCost;
 
      productQtyDiv.innerHTML = `<p>Quantity Available: ${productQty}</p><p>Items Currently in Cart: ${quantityInput.value}</p>`;
 
      quantityInput.setAttribute("max", productQty); // Set the max attribute to productQty
-     totalCostP.textContent = "Total Cost: $" + 0; // Reset the total cost
      errorMessageP.textContent = ""; // Reset the error message
 
      quantityInput.addEventListener("input", function () {
