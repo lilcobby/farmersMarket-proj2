@@ -33,7 +33,6 @@ const newAmountHandler = async (event) => {
   const newQuant = parseInt(
     hiddenDiv.querySelector(`#newQuant${productId}`).value
   );
-
   const response = await fetch("/api/cart/", {
     method: "POST",
     body: JSON.stringify({ product_id: productId, quantity: newQuant }),
@@ -41,11 +40,9 @@ const newAmountHandler = async (event) => {
   });
   window.location.reload(true);
 };
-
 document.querySelectorAll(".updateBtn").forEach((button) => {
   button.addEventListener("click", newAmountHandler);
 });
-
 newButton.addEventListener("click", function (event) {
   event.preventDefault();
   window.location.href = "/checkout";
