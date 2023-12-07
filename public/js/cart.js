@@ -39,14 +39,14 @@ const newAmountHandler = async (event) => {
     body: JSON.stringify({ product_id: productId, quantity: newQuant }),
     headers: { "Content-Type": "application/json" },
   });
-
-  document.querySelectorAll(".updateBtn").forEach((button) => {
-    button.addEventListener("click", newAmountHandler);
-  });
+  window.location.reload(true);
 };
+
+document.querySelectorAll(".updateBtn").forEach((button) => {
+  button.addEventListener("click", newAmountHandler);
+});
+
 newButton.addEventListener("click", function (event) {
   event.preventDefault();
   window.location.href = "/checkout";
 });
-// delete route
-// add to cart function
