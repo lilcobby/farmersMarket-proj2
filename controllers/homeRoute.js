@@ -75,6 +75,7 @@ router.get("/vendors", async (req, res) => {
      try {
           const vendorData = await Vendor.findAll({
                attributes: ["description", "name", "id", "image_URL"],
+               where: { is_active: true },
           });
 
           const vendors = vendorData.map((vendor) => vendor.get({ plain: true }));
@@ -131,7 +132,10 @@ router.get("/products/:id", async (req, res) => {
 
           const products = prodData.map((prod) => prod.get({ plain: true }));
 
+          console.log(products);
+
           res.render("consumerProd", { products });
+          res.render("consumerProd", { products, logged_in: req.session.logged_in });
      } catch (err) {
           res.status(500).json(err);
      }
@@ -158,6 +162,9 @@ router.get("/cart", withAuth, async (req, res) => {
      } catch (err) {
           res.status(500).json(err);
      }
+});
+router.get("/checkout", withAuth, async (req, res) => {
+     res.render("checkout", { logged_in: req.session.logged_in });
 });
 
 module.exports = router;
