@@ -11,7 +11,7 @@
                data-bs-backdrop="true"
           >
                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Cart</h5>
+                    <h5 class="offcanvas-title not-toggled" id="offcanvasDarkNavbarLabel">Cart</h5>
                     <button
                          type="button"
                          class="btn-close text-white"
@@ -30,6 +30,7 @@
                                         id="toggleCart"
                                         data-bs-toggle="button"
                                    >EDIT CART</a>
+                              <button id="checkoutBtn" type="submit">Checkout</button>
                               </div>
                          </form>
                     </div>
@@ -82,7 +83,6 @@
                                         </div>
                                    </div>
                               {{/each}}
-                              <button id="checkoutBtn" type="submit">Checkout</button>
                          </form>
                     </div>
                     <!-- Cart form ends here -->
