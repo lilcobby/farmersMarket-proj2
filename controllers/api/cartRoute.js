@@ -51,7 +51,7 @@ router.post("/", withAuth, async (req, res) => {
                     res.status(418).json("Not enough stock to add that many to your cart");
                     return;
                }
-
+               
                await product.update({ stock: product.stock - Number(quantityChange) });
 
                const updateCart = await CartItem.update(
@@ -92,7 +92,7 @@ router.post("/", withAuth, async (req, res) => {
                     res.status(418).json("Not enough stock to add that many to your cart");
                     return;
                }
-
+               console.log(quantity)
                await product.update({ stock: product.stock - quantity });
 
                const createCartItem = await CartItem.create({
