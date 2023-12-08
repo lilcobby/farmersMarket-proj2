@@ -56,3 +56,5 @@ https://github.com/lilcobby/farmersMarket-proj2
 ## Heroku link
 
 https://farmersmarket-6a75e85eecc8.herokuapp.com/
+
+<img src="./screenshots/intro_shop.png">
