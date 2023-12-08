@@ -1,70 +1,58 @@
-Home page:
+# Title: farmersMarket-proj2
 
-	auto generated highlighted vendor:
-		Company picture
-		brief description of company
-		link to their products page
-	signup/signin button:
-	navigation bar:
-        home navigation button
-		search
-		vendor pages:
-			if not logged in send to login screen
-		
-		drop down:
-			most common products
+# Table of Contents:
 
-Signup/Signin:
-	
-	login screen:
-		username (input) pull from database?
-		password
-		forgot password* (potential future development)
-		sign up button:
-			link to form: (store information gathered in database)
-				name 
-				username?
-				password
-				"would you like to be a vendor": (checked adds to vendor database)
-					company name
-					company picture*
-					brief description*
-Vendor page
-	
-	Image:*
-		edit option*
-	company name displayed
-	description:
-		edit option
-	add products:
-		choose from drop down
-		other* 
+- [Description](#description)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributions](#contributions)
+- [Questions](#questions)
 
-product page:
-	
-	product image placeholder
-	vender name
-	quantity
-	cost
-	
-persistent:
+## Description
 
-	cart button link (need an id)
-        review page:
-		    inventory added
-                ability to remove or add additional, if qty availible
-		    total
-            checkout button
-        checkout page:
-            use user data for checkout/order information
-            confirm payment
-            submit button
-                 on complete a timestamp for pickup and thank you message:
-                    cart refreshes empty
-                    remove inventory from selected vendor or equvilant functionality
+-Market website where vendors can sell their products, and buyers can purchase those products.
+-NOT SECURE PAYMENT METHOD (sends emails reciept to user and vendor)
+-Create Users, Vendors, Products, and checkout from a cart.
 
+## Installation
 
-        
-        
+Install mysql.
+Install node js.
+Copy the code from github.
+open server file in terminal.
+run npm i make sure you have all the packages you need. listed in the package.json file.
+create a .env file with appropriate values - DB_NAME = ""
+-DB_USER = ""
+-DB_PASSWORD=""
+-SESSION_SECRET=
+-e_username=''
+-e_password=
+-oauth_client_id=
+-oauth_client_secret=
+-oauth_redirect_uri=
+-refresh_token =
 
+## Usage
 
+-Create a user or vendor.
+-Add Items to a cart.
+-Edit items in your cart
+-Checkout.
+-if vendor
+-create products
+-view sales data
+-update business info
+
+## Contributions
+
+Class assignments, bing ai to help with understanding some concepts (mainly what bootsrap CAN do)
+
+Authors: Rob, Tiffany, Jacob
+
+## Questions
+
+https://github.com/lilcobby/farmersMarket-proj2
+
+## Heroku link
+
+https://farmersmarket-6a75e85eecc8.herokuapp.com/
